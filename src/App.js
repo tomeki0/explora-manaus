@@ -5,6 +5,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+//teste add comentario push
+
 function BasicExample() {
   return (
     <Navbar expand="lg" className="custom-navbar">
