@@ -11,6 +11,7 @@ function App() {
         </p>
         <h1>TESTE 123</h1>
         <button>clica aqui</button>
+        <p>Teste de modificação de terceiros.</p>
         <a
           className="App-link"
           href="https://reactjs.org"
