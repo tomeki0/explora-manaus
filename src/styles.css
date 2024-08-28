@@ -1,16 +1,39 @@
 .home-page {
-    display: block;
+    display: flex;
     visibility: visible;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f8f9fa;
+    background: linear-gradient(#78c267, #50965a);
+    text-align: center;
   }
   
   .home-page h1 {
-    margin-bottom: 20px;
-    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 3rem;
     color: #343a40;
+    font-weight: bold;
+  }
+
+  .home-page .container{
+    padding: 2rem;
+    background: none;
+    border-radius: 10px;
+  }
+
+  .home-page .btn{
+    font-size: 1.25rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .custom-button{
+    background-color: #7BA395;
+    color: #ffffff;
+    border: none;
+  }
+
+  .custom-button:hover{
+    background-color: #2e5853;
+    color: #ffffffff;
   }
   
