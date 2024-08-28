@@ -4,8 +4,6 @@ import HomePage from './components/HomePage';
 import MainPage from './components/MainPage';
 
 function App() {
-
-function BasicExample() {
   return (
     <Router>
       <Routes>
@@ -15,5 +13,5 @@ function BasicExample() {
     </Router>
   );
 }
-}
+
 export default App;
