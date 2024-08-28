@@ -15,5 +15,5 @@ function BasicExample() {
     </Router>
   );
 }
-
+}
 export default App;
