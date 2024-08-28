@@ -31,6 +31,7 @@
   user-select: none;
 }
 
+/*comentario 2*/
 .custom-navbar {
   background-color: none;
   position: absolute;
@@ -38,6 +39,7 @@
   left: 20px;
 }
 
+/*comentario*/
 .custom-navbar .navbar-toggler {
   background-color: #FBFFE9;
   border: none;
