@@ -8,7 +8,7 @@ import '../styles.css';
 
 function MainPage() {
   return (
-
+    //comentario
     <div className='main-page'>
       <Navbar className="custom-navbar" expand="false">
         <Container>
