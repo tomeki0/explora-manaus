@@ -13,28 +13,3 @@
     font-size: 2.5rem;
     color: #343a40;
   }
-
-  .about-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(#d4e1e5, #b0c5b0);
-    text-align: center;
-    visibility: visible;
-  }
-  
-  .about-page h1 {
-    margin-bottom: 1.5rem;
-    font-size: 3rem;
-    color: #343a40;
-  }
-  
-  .about-page .container {
-    padding: 2rem;
-    background: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  
