@@ -8,8 +8,9 @@ import '../styles.css';
 
 function MainPage() {
   return (
+    //comentario
     <div className='main-page'>
-      <Navbar expand="lg" className="custom-navbar">
+      <Navbar className="custom-navbar" expand="false">
         <Container>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -28,12 +29,11 @@ function MainPage() {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <button variant="outline-primary" className="profile-button ms auto">
-              Profile
-            </button>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      <h1 className='titulo'>Explora Manaus</h1>
     </div>
   );
 }

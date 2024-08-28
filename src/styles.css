@@ -7,11 +7,46 @@
     height: 100vh;
     background-color: #f8f9fa;
   }
-  
-  .home-page h1 {
-    margin-bottom: 20px;
-    font-size: 2.5rem;
-    color: #343a40;
-  }
+ 
+.home-page h1 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #343a40;
+}
 
-  
+/* Main page section */
+
+.main-page {
+  background-image: linear-gradient(-180deg, #78c267, #50965a, #2e5853);
+  height: 100vh;
+  position: relative;
+}
+
+/*Menu da esquerda*/
+.titulo {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 20px;
+  color: #2e5853;
+  user-select: none;
+}
+
+/*comentario 2*/
+.custom-navbar {
+  background-color: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+/*comentario*/
+.custom-navbar .navbar-toggler {
+  background-color: #FBFFE9;
+  border: none;
+  border-radius: 50px;
+  padding: 10px;
+}
+
+.custom-navbar .navbar-toggler:hover {
+  background-color: #dbe9d1;
+}
