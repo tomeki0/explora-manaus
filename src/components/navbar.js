@@ -4,13 +4,14 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './components/navbar.css';
+import './navbar.css';
 
 function NavBar() {
     return (
         <div className='main-page'>
             <Navbar className="custom-navbar" expand="false">
                 <Container>
+                    <Navbar.Brand href="#home" className="navbar-brand-fixed">Explora Manaus</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
@@ -31,8 +32,6 @@ function NavBar() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-
-            <h1 className='titulo'>Explora Manaus</h1>
         </div>
     );
 }
