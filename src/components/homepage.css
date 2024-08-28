@@ -1,15 +1,73 @@
 .home-page {
-  display: block;
+  display: flex;
   visibility: visible;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   height: 100vh;
-  background-color: #f8f9fa;
+  background: linear-gradient(#78c267, #50965a);
+  padding: 20px;
+  position: relative;
 }
 
-.home-page h1 {
-  margin-bottom: 20px;
-  font-size: 2.5rem;
-  color: #343a40;
+.logo-container{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.logo{
+  width: 80px;
+  height: auto;
+}
+
+.content-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.welcome-container{
+  flex: 1;
+  margin-right: 2rem;
+}
+
+.animated-text{
+  font-weight: bold;
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn{
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.info-card{
+  flex: 1;
+  max-width: 350px;
+  background: #E1DDC3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.info-card img{
+  width: 100%;
+  border-radius: 0;
+  margin-bottom: 1rem;
+}
+
+.info-card .card-header{
+  background-color: #FF873D;
+  padding: 1rem 0;
+  text-align: center;
+  color: black;
+}
+
+.info-card .card-body{
+  padding: 1rem;
+  text-align: center;
+  color: black;
 }

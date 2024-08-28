@@ -4,6 +4,7 @@ import '../components/mainpage.css';
 
 function MainPage() {
   return (
+    <body className='main-page'></body>
     <div className='main-page'>
     </div>
   );
