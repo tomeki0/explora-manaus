@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles.css';
+import '../components/homepage.css';
 import Button from 'react-bootstrap/Button';
 
 function HomePage() {

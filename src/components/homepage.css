@@ -1,0 +1,15 @@
+.home-page {
+  display: block;
+  visibility: visible;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.home-page h1 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #343a40;
+}
