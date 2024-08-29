@@ -9,19 +9,20 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 }
 
 .caixa {
     background-color: #E1DDC3;
+    border-radius: 10px;
     position: absolute;
-    top: 52%;
+    top: 50%;
     left: 50%;
+    margin-right: -50%;
     transform: translate(-50%, -50%);
-    padding: 300px 500px;
-    box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.2)
+    margin: auto;
+    width: 50%;
 }
 
-h1 {
-    color: #96836e;
+.caixa h1 {
+    text-align: center;
 }
