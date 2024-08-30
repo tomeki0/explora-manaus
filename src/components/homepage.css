@@ -33,7 +33,6 @@
 }
 
 .more-info-section{
-  display:none;
   background-color: #1F2D3D;
   color: white;
   padding: 50px 20px;
@@ -102,12 +101,32 @@
   border-radius: 10px;
 }
 
+/*login form setion */
+
 .login-form{
   background-color: #E1DDC3;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 30px;
+  border-radius: 12px;
   width: 100%;
   max-width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.login-form .form-label{
+  font-weight: 600;
+  color: #333;
+}
+
+.login-form .form-control{
+  border-radius: 8px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.login-form .form-control:focus{
+  border-color: #FF873D;
+  box-shadow: 0 0 8px rgba(255, 135, 61, 0.3);
 }
 
 /* button section */
@@ -116,6 +135,27 @@
   width: 100%;
   background-color: #FF873D;
   border-color: #FF873D;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover{
+  background-color: #e7671d;
+  border-color: #e7671d;
+}
+
+.nt-2.custom-button{
+  margin-top: 10px;
+  background-color: #555555;
+  border-color: #555555;
+}
+
+.nt-2.custom-button:hover{
+  background-color: #333333;
+  border-color: #333333;
 }
 
 .custom-button-transparent{
@@ -129,4 +169,13 @@
 .custom-button-transparent:hover{
   background-color: #FF873D;
   color: white;
+}
+
+.button-group{
+  display: flex;
+  gap: 10px;
+}
+
+.custom-button-transparent.m1-2{
+  margin-left: 10px;
 }
