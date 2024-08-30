@@ -1,15 +1,24 @@
 import React from 'react';
-import NavBar from '../components/navbar'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MenuMain from '../components/offcanvas-main';
+import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+
 import '../components/mainpage.css';
 
 function MainPage() {
+
+  const navigate = useNavigate();
+
   return (
     <div className='main-page'>
       <div className='caixa'>
         <h1>Placeholder</h1>
       </div>
-      <NavBar className='barrinha'></NavBar>
+      <MenuMain />
+      <Button onClick={() => navigate('/')} className='menu-main-button'>
+        Voltar para a home
+      </Button>
     </div>
   );
 }

@@ -1,0 +1,56 @@
+/*botão*/
+.button {
+    position: absolute;
+    right: 0;
+    background-color: #E1DDC3 !important;
+    margin: 30px;
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+    box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    background-color: #968171 !important;
+}
+
+/*ícone do botão*/
+.button-icon {
+    color: #968171 !important;
+}
+
+.button-icon:hover {
+    color: #E1DDC3 !important;
+}
+
+/*menu aberto*/
+.offcanvas-show {
+    background-color: #E1DDC3;
+    height: 60%;
+    border-radius: 10px 0 0 10px;
+    margin-bottom: 50%;
+}
+
+/*logo do explora manaus e botão de fechar no menu*/
+.logo-main {
+    width: 70px;
+    height: auto;
+}
+
+.close-button {
+    margin-right: 20px;
+}
+
+/*lista*/
+ul {
+    list-style: none;
+    font-size: larger;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -30%);
+    overflow: hidden;
+}
+
+li {
+    margin-bottom: 50%;
+}
