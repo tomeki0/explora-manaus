@@ -18,12 +18,14 @@ function MainPage() {
         <h1>Placeholder</h1>
       </div>
       <MenuMain />
+      <MapboxExample>
       <Button onClick={() => navigate('/')} className='menu-main-button'>
         Voltar para a home
       </Button>
+      </MapboxExample>
       <div className='mapa'>
         <div style={{ height: '500px', marginTop: '20px' }}>
-        <MapboxExample></MapboxExample>
+        
       </div>
     </div>
     </div>

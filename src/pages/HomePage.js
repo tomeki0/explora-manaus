@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../components/homepage.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 function HomePage() {
   const moreInfoRef = useRef(null);
@@ -20,6 +22,13 @@ function HomePage() {
     navigate('/about');
   };
 
+  // Função genérica para renderizar o Tooltip com texto personalizado
+  const renderTooltip = (text) => (props) => (
+    <Tooltip id={`tooltip-${text}`} {...props}>
+      {text}
+    </Tooltip>
+  );
+
   return (
     <div className="home-page">
       <div className="top-section">
@@ -34,12 +43,14 @@ function HomePage() {
             <p className='site-description'>
               Explora Manaus é uma plataforma que permite usuários compartilharem eventos, locais e tudo o que acontece na cidade de Manaus.
             </p>
-            <Button onClick={handleScrollClick} className="custom-button-transparent">
-              Saber Mais
-            </Button>
-            <Button onClick={navigateToAboutPage} className='custom-button-transparent'>
-              Sobre o Projeto
-            </Button>
+              <Button onClick={handleScrollClick} className="custom-button-transparent">
+                Saber Mais
+              </Button>
+            <OverlayTrigger placement="bottom" overlay={renderTooltip('Descubra mais sobre o projeto e como ele foi desenvolvido.')}>
+              <Button onClick={navigateToAboutPage} className='custom-button-transparent'>
+                Sobre o Projeto
+              </Button>
+            </OverlayTrigger>
           </div>
         </div>
         
@@ -55,14 +66,18 @@ function HomePage() {
                 <Form.Label>Senha</Form.Label>
                 <Form.Control type='password' placeholder='Insira sua senha...' />
               </Form.Group>
-              
-              <Button variant='primary' type='submit' className="mt-4 custom-button">
-                Login / Criar Conta
-              </Button>
 
-              <Button onClick={() => navigate('/main')} variant="secondary" className='nt-2 custom-button'>
-                Entrar sem conta
-              </Button>
+              <OverlayTrigger placement="bottom" overlay={renderTooltip('Faça login ou crie uma nova conta.')}>
+                <Button variant='primary' type='submit' className="mt-4 custom-button">
+                  Login / Criar Conta
+                </Button>
+              </OverlayTrigger>
+
+              <OverlayTrigger placement="bottom" overlay={renderTooltip('Entre sem criar uma conta.')}>
+                <Button onClick={() => navigate('/main')} variant="secondary" className='mt-2 custom-button'>
+                  Entrar sem conta
+                </Button>
+              </OverlayTrigger>
             </Form>
           </div>
         </div>
