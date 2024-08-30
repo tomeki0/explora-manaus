@@ -5,7 +5,7 @@
 }
 
 .main-page {
-    background-image: linear-gradient(-180deg, #78c267, #50965a, #2e5853);
+    background-image: linear-gradient(-180deg, #4787FF, #3661d8, #2937b9);
     height: 100vh;
     justify-content: center;
     align-items: center;
@@ -13,6 +13,7 @@
 
 .caixa {
     background-color: #E1DDC3;
+
     border-radius: 10px;
     position: absolute;
     top: 50%;
@@ -25,4 +26,10 @@
 
 .caixa h1 {
     text-align: center;
+}
+
+.menu-main-button {
+    background-color: rgba(22, 31, 70, 0.2) !important;
+    margin: 30px;
+    margin-top: 40px;
 }
