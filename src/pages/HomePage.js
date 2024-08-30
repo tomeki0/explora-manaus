@@ -16,6 +16,10 @@ function HomePage() {
     }
   };
 
+  const navigateToAboutPage = () => {
+    navigate('/about');
+  };
+
   return (
     <div className="home-page">
       <div className="top-section">
@@ -32,6 +36,9 @@ function HomePage() {
             </p>
             <Button onClick={handleScrollClick} className="custom-button-transparent">
               Saber Mais
+            </Button>
+            <Button onClick={navigateToAboutPage} className='custom-button-transparent'>
+              Sobre o Projeto
             </Button>
           </div>
         </div>
