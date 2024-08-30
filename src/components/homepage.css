@@ -1,0 +1,181 @@
+/*page section*/
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  background: #030F19;
+  overflow-y: auto;
+}
+
+.top-section{
+  display: flex;
+  height: 100vh;
+}
+
+.left-container{
+  flex: 0 0 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 50px;
+}
+
+.right-container{
+  flex: 2;
+  background-image: url('../img/card-manaus.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.more-info-section{
+  background-color: #1F2D3D;
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.info-title{
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.info-content{
+  font-size: 1.2rem;
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/*------------------------------------------------------*/
+/* logo section */
+
+.logo-container{
+  margin-bottom: 20px;
+}
+
+.logo{
+  width: 100px;
+  height: auto;
+}
+
+/*------------------------------------------------------*/
+
+.content-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.welcome-container{
+  max-width: 500px;
+}
+
+.animated-text{
+  font-weight: bold;
+  animation: fadeIn 2s ease-in-out;
+  color: #FF873D;
+}
+
+.site-description{
+  font-size: 1.2rem;
+  color:#E1DDC3;
+  margin-top: 1rem;
+}
+
+@keyframes fadeIn{
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.overlay{
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/*login form setion */
+
+.login-form{
+  background-color: #E1DDC3;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.login-form .form-label{
+  font-weight: 600;
+  color: #333;
+}
+
+.login-form .form-control{
+  border-radius: 8px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.login-form .form-control:focus{
+  border-color: #FF873D;
+  box-shadow: 0 0 8px rgba(255, 135, 61, 0.3);
+}
+
+/* button section */
+
+.custom-button{
+  width: 100%;
+  background-color: #FF873D;
+  border-color: #FF873D;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover{
+  background-color: #e7671d;
+  border-color: #e7671d;
+}
+
+.nt-2.custom-button{
+  margin-top: 10px;
+  background-color: #555555;
+  border-color: #555555;
+}
+
+.nt-2.custom-button:hover{
+  background-color: #333333;
+  border-color: #333333;
+}
+
+.custom-button-transparent{
+  background-color: transparent;
+  border: 2px solid #FF873D;
+  color:#FF873D;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease; 
+}
+
+.custom-button-transparent:hover{
+  background-color: #FF873D;
+  color: white;
+}
+
+.button-group{
+  display: flex;
+  gap: 10px;
+}
+
+.custom-button-transparent.m1-2{
+  margin-left: 10px;
+}
