@@ -5,7 +5,8 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-//comentario pra funfar o git add dessa page 
+//comentario pra mandar pra master
+
 const MapboxExample = () => {
     const mapContainerRef = useRef();
     const mapRef = useRef();
