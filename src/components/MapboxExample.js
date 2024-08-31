@@ -5,8 +5,6 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-//comentario pra mandar pra master
-
 const MapboxExample = () => {
     const mapContainerRef = useRef();
     const mapRef = useRef();
@@ -18,7 +16,7 @@ const MapboxExample = () => {
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v12',
             center: [-60.0217, -3.1174], // Centro aproximado de Manaus
-            zoom: 15
+            zoom: 16
         });
 
         // Adicionar controle de pesquisa
@@ -29,10 +27,10 @@ const MapboxExample = () => {
             })
         );
 
-        // Definir os limites de Manaus (substitua por coordenadas mais precisas se necessário)
+        // Definir os limites de Manaus com coordenadas mais próximas
         const bounds = [
-            [-60.2906, -3.2070], // SW coordenadas (latitude, longitude)
-            [-59.7570, -2.9860]  // NE coordenadas (latitude, longitude)
+            [-60.1055, -3.1673], // SW coordenadas próximas à área "Compensa"
+            [-59.9083, -2.9916]  // NE coordenadas próximas à área "Lago Azul"
         ];
 
         // Ajustar o mapa para os limites de Manaus
