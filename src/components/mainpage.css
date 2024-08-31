@@ -28,8 +28,20 @@
     text-align: center;
 }
 
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-10%);
+        opacity: 0%;
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
 .menu-main-button {
     background-color: rgba(22, 31, 70, 0.2) !important;
     margin: 30px;
-    margin-top: 40px;
+    margin-top: 30px;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
 }
