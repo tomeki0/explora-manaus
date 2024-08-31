@@ -17,7 +17,7 @@ const MapboxExample = () => {
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v12',
             center: [-60.0217, -3.1174], // Centro aproximado de Manaus
-            zoom: 12
+            zoom: 15
         });
 
         // Adicionar controle de pesquisa
@@ -35,7 +35,7 @@ const MapboxExample = () => {
         ];
 
         // Ajustar o mapa para os limites de Manaus
-        mapRef.current.fitBounds(bounds, { padding: 20 });
+        mapRef.current.fitBounds(bounds, { padding: 10 });
 
         // Impedir zoom out fora dos limites definidos
         mapRef.current.setMaxBounds(bounds);
@@ -43,7 +43,7 @@ const MapboxExample = () => {
         return () => mapRef.current.remove();
     }, []);
 
-    return <div ref={mapContainerRef} style={{ height: '100%' }} />;
+    return <div ref={mapContainerRef} style={{ height: '75%' }} />;
 };
 
 export default MapboxExample;

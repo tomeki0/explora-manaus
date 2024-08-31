@@ -17,20 +17,13 @@ function MainPage() {
       <div className='caixa'>
         <h1>Placeholder</h1>
       </div>
-      <MenuMain />
-      <MapboxExample>
-      <Button onClick={() => navigate('/')} className='menu-main-button'>
-        Voltar para a home
-      </Button>
-      </MapboxExample>
-      <div className='mapa'>
-        <div style={{ height: '500px', marginTop: '20px' }}>
-        
+        <MenuMain />
+            <Button onClick={() => navigate('/')} className='menu-main-button'>
+              Voltar para a home
+            </Button>
+            <MapboxExample></MapboxExample>
       </div>
-    </div>
-    </div>
-
-      
+       
   );
 }
 
