@@ -19,6 +19,7 @@ function MainPage() {
       <Button onClick={() => navigate('/')} className='menu-main-button'>
         Voltar para a home
       </Button>
+      <MapboxExample />
     </div>
   );
 }
