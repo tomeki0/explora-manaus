@@ -34,12 +34,14 @@ function HomePage() {
             <p className='site-description'>
               Explora Manaus é uma plataforma que permite usuários compartilharem eventos, locais e tudo o que acontece na cidade de Manaus.
             </p>
-            <Button onClick={handleScrollClick} className="custom-button-transparent">
-              Saber Mais
-            </Button>
-            <Button onClick={navigateToAboutPage} className='custom-button-transparent'>
-              Sobre o Projeto
-            </Button>
+            <div className='button-group'>
+              <Button onClick={handleScrollClick} className="custom-button-transparent">
+                Saber Mais
+              </Button>
+              <Button onClick={navigateToAboutPage} className='custom-button-transparent'>
+                Sobre o Projeto
+              </Button>
+            </div>
           </div>
         </div>
         
