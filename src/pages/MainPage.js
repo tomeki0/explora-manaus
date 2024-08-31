@@ -17,13 +17,13 @@ function MainPage() {
       <div className='caixa'>
         <h1>Placeholder</h1>
       </div>
-        <MenuMain />
-            <Button onClick={() => navigate('/')} className='menu-main-button'>
-              Voltar para a home
-            </Button>
-            <MapboxExample></MapboxExample>
-      </div>
-       
+      <MenuMain />
+      <Button onClick={() => navigate('/')} className='menu-main-button'>
+        Voltar para a home
+      </Button>
+      <MapboxExample />
+    </div>
+
   );
 }
 
