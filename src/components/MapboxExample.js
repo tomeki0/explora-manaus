@@ -36,7 +36,7 @@ const MapboxExample = () => {
         ];
 
         // Ajustar o mapa para os limites de Manaus
-        mapRef.current.fitBounds(bounds, { padding: 10 });
+        mapRef.current.fitBounds(bounds, { padding: 20 });
 
         // Impedir zoom out fora dos limites definidos
         mapRef.current.setMaxBounds(bounds);
@@ -44,7 +44,11 @@ const MapboxExample = () => {
         return () => mapRef.current.remove();
     }, []);
 
-    return <div ref={mapContainerRef} style={{ height: '75%' }} />;
+    return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+            <div ref={mapContainerRef} style={{ width: '70%', height: '85%' }} />
+        </div>
+    );
 };
 
 export default MapboxExample;

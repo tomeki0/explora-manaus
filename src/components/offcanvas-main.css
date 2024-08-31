@@ -14,7 +14,8 @@
     position: absolute;
     right: 0;
     background-color: white !important;
-    margin: 30px;
+    margin-right: 30px;
+    margin-top: 18px;
     height: 60px;
     width: 60px;
     border-radius: 50px;
