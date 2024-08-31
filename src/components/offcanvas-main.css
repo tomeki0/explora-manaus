@@ -1,31 +1,44 @@
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(10%);
+        opacity: 0%;
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
 /*botão*/
 .button {
     position: absolute;
     right: 0;
-    background-color: #E1DDC3 !important;
+    background-color: white !important;
     margin: 30px;
     height: 60px;
     width: 60px;
     border-radius: 50px;
     box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.2);
+
+    animation: 1s ease-out 0s 1 slideInFromRight;
 }
 
 .button:hover {
-    background-color: #968171 !important;
+    background-color: #b3b3b3 !important;
 }
 
 /*ícone do botão*/
 .button-icon {
-    color: #968171 !important;
+    color: #b3b3b3 !important;
 }
 
 .button-icon:hover {
-    color: #E1DDC3 !important;
+    color: white !important;
 }
 
 /*menu aberto*/
 .offcanvas-show {
-    background-color: #E1DDC3;
+    background-color: white;
     height: 60%;
     border-radius: 10px 0 0 10px;
     margin-bottom: 50%;

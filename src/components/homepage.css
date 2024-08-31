@@ -23,8 +23,8 @@
 
 .right-container{
   flex: 2;
-  background-image: url('../img/card-manaus.png');
-  background-size: cover;
+  background-image: url('../img/cidade-manaus.png');
+  background-size:auto;
   background-position: center;
   display: flex;
   justify-content: center;
@@ -96,7 +96,7 @@
 }
 
 .overlay{
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: none;
   padding: 20px;
   border-radius: 10px;
 }
@@ -104,17 +104,17 @@
 /*login form setion */
 
 .login-form{
-  background-color: #E1DDC3;
+  background-color:none;
   padding: 30px;
   border-radius: 12px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
 }
 
 .login-form .form-label{
   font-weight: 600;
-  color: #333;
+  color: #FF873D;
 }
 
 .login-form .form-control{

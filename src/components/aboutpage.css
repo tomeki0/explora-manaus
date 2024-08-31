@@ -1,6 +1,7 @@
 .about-page {
-    background-color: #f8f9fa;
+    background-color: #030F19;
     padding: 40px 20px;
+    color: #E1DDC3;
   }
   
   .team-image {
@@ -15,12 +16,15 @@
     font-size: 1.2rem;
     line-height: 1.6;
     margin: 20px 0;
+    color: #E1DDC3;
   }
   
   .card {
+    background-color: #1F2D3d;
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    color: #E1DDC3;
   }
   
   .card:hover {
@@ -34,6 +38,35 @@
   
   .card-text {
     font-size: 1rem;
-    color: #555;
+    color: #c1c1c1;
+  }
+
+  .icon{
+    width: 50px;
+    height: 50px;
+    fill: #FF873D;
+  }
+
+  h1{
+    color: #FF873D;
+  }
+  
+
+  .back-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: 2px solid #FF873D;
+    color: #FF873D;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #FF873D;
+    color: white;
   }
   

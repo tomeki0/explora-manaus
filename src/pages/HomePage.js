@@ -43,14 +43,14 @@ function HomePage() {
             <p className='site-description'>
               Explora Manaus é uma plataforma que permite usuários compartilharem eventos, locais e tudo o que acontece na cidade de Manaus.
             </p>
+            <div className='button-group'>
               <Button onClick={handleScrollClick} className="custom-button-transparent">
                 Saber Mais
               </Button>
-            <OverlayTrigger placement="bottom" overlay={renderTooltip('Descubra mais sobre o projeto e como ele foi desenvolvido.')}>
               <Button onClick={navigateToAboutPage} className='custom-button-transparent'>
                 Sobre o Projeto
               </Button>
-            </OverlayTrigger>
+            </div>
           </div>
         </div>
         
