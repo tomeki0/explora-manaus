@@ -95,11 +95,16 @@
   to {opacity: 1; transform: translateY(0);}
 }
 
-.overlay{
-  background-color: none;
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo preto com opacidade para contraste */
   padding: 20px;
   border-radius: 10px;
+  /* Remover o desfoque */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
+
+
 
 /*login form setion */
 
