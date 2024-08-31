@@ -1,12 +1,22 @@
 import React from 'react';
 import '../components/aboutpage.css';
-import {Card, Container, Row, Col} from 'react-bootstrap';
+import {Card, Container, Row, Col, Button} from 'react-bootstrap';
 import teamImage from '../img/card-manaus.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useNavigate} from 'react-router-dom';
 
 function AboutPage() {
+    const navigate = useNavigate();
+
+    const handleBackToHome = () => {
+        navigate('/');
+    };
+
   return (
     <div className='about-page'>
+        <Button className='back-button' onClick={handleBackToHome}>
+            Voltar para home
+        </Button>
         <Container>
             <h1 className='text-center my-4'>Sobre o Projeto</h1>
 
@@ -39,7 +49,7 @@ function AboutPage() {
                             <Card.Title>Trabalho Escrito</Card.Title>
                             <i className='fas fa-paint-brush fa-3x mb-3'></i>
                             <Card.Text>
-                                Equipe do tranalho escrito
+                                Equipe do trabalho escrito
                             </Card.Text>
                         </Card.Body>
                     </Card>
