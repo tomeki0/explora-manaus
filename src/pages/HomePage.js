@@ -43,7 +43,7 @@ function HomePage() {
           </div>
           <div className="welcome-container">
             <h1 className="display-3 mb-4 animated-text">
-              Bem vindo(a) ao Explora Manaus!!
+              Bem vindo(a) ao Explora Manaus!
             </h1>
             <p className='site-description'>
               Explora Manaus é uma plataforma que permite usuários compartilharem eventos, locais e tudo o que acontece na cidade de Manaus.
