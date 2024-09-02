@@ -12,9 +12,6 @@ function MainPage() {
 
   return (
     <div className='main-page'>
-      <div className='caixa'>
-        <h1>Placeholder</h1>
-      </div>
       <MenuMain />
       <Button onClick={() => navigate('/')} className='menu-main-button'>
         Voltar para a home

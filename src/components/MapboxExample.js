@@ -12,19 +12,18 @@ const MapboxExample = () => {
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [eventData, setEventData] = useState({ name: '', description: '' });
-    const [markers, setMarkers] = useState([]);
+    const currentMarkerRef = useRef(null);
 
     useEffect(() => {
         mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpbGltYWRldiIsImEiOiJjbTBkYmc4aDcwYm12MnFweGEyY283cmhtIn0.1S4flGeLkg8EI2H2-OjDLw';
 
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/dark-v10', // Estilo escuro
-            center: [-60.0217, -3.1174], // Centro aproximado de Manaus
-            zoom: 15
+            style: 'mapbox://styles/mapbox/dark-v10',
+            center: [-60.0217, -3.1174],
+            zoom: 12
         });
 
-        // Adicionar controle de pesquisa
         mapRef.current.addControl(
             new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,
@@ -32,33 +31,39 @@ const MapboxExample = () => {
             })
         );
 
-        // Adicionar controle de navegação (zoom e rotação)
         mapRef.current.addControl(new mapboxgl.NavigationControl());
 
-        // Definir os limites de Manaus
         const bounds = [
-            [-60.2906, -3.2070], // SW coordenadas (latitude, longitude)
-            [-59.7570, -2.9860]  // NE coordenadas (latitude, longitude)
+            [-60.2906, -3.2070],
+            [-59.7570, -2.9860]
         ];
 
-        // Ajustar o mapa para os limites de Manaus
         mapRef.current.fitBounds(bounds, { padding: 20 });
-
-        // Impedir zoom out fora dos limites definidos
         mapRef.current.setMaxBounds(bounds);
 
-        // Adicionar animação de transição ao inicializar o mapa
         mapRef.current.flyTo({
             center: [-60.0217, -3.1174],
             zoom: 14,
-            speed: 0.8, // Velocidade de transição
-            curve: 1 // Curvatura da trajetória
+            speed: 0.8,
+            curve: 1
         });
 
-        // Evento de clique para capturar endereço e coordenadas
         mapRef.current.on('click', async (event) => {
             const { lng, lat } = event.lngLat;
             setSelectedCoordinates([lng, lat]);
+
+            // Remover o marcador existente, se houver
+            if (currentMarkerRef.current) {
+                currentMarkerRef.current.remove();
+            }
+
+            // Criar novo marcador na posição clicada
+            const newMarker = new mapboxgl.Marker({ color: '#FF6347' })
+                .setLngLat([lng, lat])
+                .addTo(mapRef.current);
+
+            // Armazenar o novo marcador na referência
+            currentMarkerRef.current = newMarker;
 
             // Usar o serviço de geocodificação reversa para obter o endereço
             const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`);
@@ -70,33 +75,29 @@ const MapboxExample = () => {
             }
         });
 
-        return () => mapRef.current.remove();
-    }, []);
+        return () => {
+            if (mapRef.current) {
+                mapRef.current.remove();
+            }
+        };
+    }, []); // Sem dependências, para que o mapa só seja inicializado uma vez
 
-    // Função para exibir o formulário de evento
     const showEventForm = () => {
         setIsFormVisible(true);
     };
 
-    // Função para adicionar um evento no local selecionado
     const handleAddEvent = (e) => {
         e.preventDefault();
-        
+
         if (eventData.name && eventData.description && selectedCoordinates) {
-            // Criar um novo marcador
             const marker = new mapboxgl.Marker({ color: '#FF6347' })
                 .setLngLat(selectedCoordinates)
                 .addTo(mapRef.current);
 
-            // Adicionar o evento ao marcador
             marker.getElement().addEventListener('click', () => {
                 alert(`Evento: ${eventData.name}\nDescrição: ${eventData.description}`);
             });
 
-            // Armazenar o marcador e as informações do evento
-            setMarkers([...markers, { marker, eventData }]);
-
-            // Limpar o formulário e esconder
             setEventData({ name: '', description: '' });
             setIsFormVisible(false);
             setSelectedAddress(null);
@@ -106,14 +107,14 @@ const MapboxExample = () => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', position: 'relative' }}>
-            <div ref={mapContainerRef} style={{ width: '70%', height: '85%' }} />
-            
-            {/* Exibir o endereço e o botão + */}
+            <div ref={mapContainerRef} style={{ width: '80%', height: '100%' }} />
+
             {selectedAddress && (
                 <div style={{
                     position: 'absolute',
                     bottom: 20,
-                    right: 20,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
                     backgroundColor: 'white',
                     padding: '10px',
                     borderRadius: '5px',
@@ -134,14 +135,12 @@ const MapboxExample = () => {
                             height: '30px',
                             cursor: 'pointer',
                             fontSize: '18px'
-                        }}
-                    >
+                        }}>
                         +
                     </button>
                 </div>
             )}
 
-            {/* Exibir o formulário de evento no centro do mapa */}
             {isFormVisible && (
                 <div style={{
                     position: 'absolute',
