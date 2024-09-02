@@ -45,7 +45,7 @@
 }
 
 /*logo do explora manaus e botão de fechar no menu*/
-.logo-main {
+.profile-main {
     width: 70px;
     height: auto;
 }
@@ -64,6 +64,19 @@ ul {
     overflow: hidden;
 }
 
-li {
-    margin-bottom: 50%;
+.button-menu {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25%;
+    width: 150px;
+
+    color: black;
+    background: none;
+    border-color: #e7671d;
+    border-radius: 8px;
+}
+
+.button-menu:hover {
+    background-color: #e7671d;
+    border-color: #e7671d;
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import './mapbox-extra.css'; // Importa o arquivo CSS com a regra para o cursor
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
@@ -58,7 +59,7 @@ const MapboxExample = () => {
             }
 
             // Criar novo marcador na posição clicada
-            const newMarker = new mapboxgl.Marker({ color: '#FF6347' })
+            const newMarker = new mapboxgl.Marker({ color: '#0079FE' })
                 .setLngLat([lng, lat])
                 .addTo(mapRef.current);
 
@@ -107,7 +108,7 @@ const MapboxExample = () => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', position: 'relative' }}>
-            <div ref={mapContainerRef} style={{ width: '80%', height: '100%' }} />
+            <div ref={mapContainerRef} className="map-container" style={{ width: '80%', height: '100%' }} />
 
             {selectedAddress && (
                 <div style={{
@@ -123,7 +124,7 @@ const MapboxExample = () => {
                     boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
                 }}>
                     <span>{selectedAddress}</span>
-                    <button 
+                    <button
                         onClick={showEventForm}
                         style={{
                             marginLeft: '10px',
@@ -156,17 +157,17 @@ const MapboxExample = () => {
                     <form onSubmit={handleAddEvent}>
                         <div>
                             <label>Nome do Evento:</label>
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 value={eventData.name}
                                 onChange={(e) => setEventData({ ...eventData, name: e.target.value })}
-                                required 
+                                required
                                 style={{ display: 'block', marginBottom: '10px', width: '100%' }}
                             />
                         </div>
                         <div>
                             <label>Descrição:</label>
-                            <textarea 
+                            <textarea
                                 value={eventData.description}
                                 onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
                                 required

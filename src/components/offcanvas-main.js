@@ -21,15 +21,18 @@ function MenuMain() {
             <Offcanvas show={show} onHide={handleClose} placement='end' className="offcanvas-show">
                 <Offcanvas.Header closeButton className='close-button'>
                     <Offcanvas.Title>
-                        <img src={require('../img/logo.png')} alt="Logo Explora Manaus" className="logo-main" />
+                        <img src={require('../img/profile-icon.png')} alt="Foto de perfil" className="profile-main" />
+                        <div>
+                            <h1>Nome do individuo</h1>
+                        </div>
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <ul>
-                        <li>Item 1</li>
-                        <li>Item 2</li>
-                        <li>Item 3</li>
-                        <li>Item 4</li>
+                        <Button className='button-menu'>Perfil</Button>
+                        <Button className='button-menu'>Configurações</Button>
+                        <Button className='button-menu'>Log out</Button>
+                        <Button className='button-menu'>Log in</Button>
                     </ul>
                 </Offcanvas.Body>
             </Offcanvas>
