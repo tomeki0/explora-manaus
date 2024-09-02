@@ -1,0 +1,4 @@
+.mapboxgl-canvas-container {
+    cursor: url('../img/cursor-marker.png'), auto !important;
+    /* Substitua /path/to/cursor.png pelo caminho do seu ícone de cursor */
+}
