@@ -7,12 +7,12 @@
   overflow-y: auto;
 }
 
-.top-section{
+.top-section {
   display: flex;
   height: 100vh;
 }
 
-.left-container{
+.left-container {
   flex: 0 0 60%;
   display: flex;
   flex-direction: column;
@@ -21,10 +21,10 @@
   padding-left: 50px;
 }
 
-.right-container{
+.right-container {
   flex: 2;
   background-image: url('../img/cidade-manaus.png');
-  background-size:auto;
+  background-size: auto;
   background-position: center;
   display: flex;
   justify-content: center;
@@ -32,20 +32,20 @@
   position: relative;
 }
 
-.more-info-section{
+.more-info-section {
   background-color: #1F2D3D;
   color: white;
   padding: 50px 20px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
-.info-title{
+.info-title {
   font-size: 2rem;
   margin-bottom: 20px;
 }
 
-.info-content{
+.info-content {
   font-size: 1.2rem;
   line-height: 1.5;
   max-width: 800px;
@@ -55,18 +55,18 @@
 /*------------------------------------------------------*/
 /* logo section */
 
-.logo-container{
+.logo-container {
   margin-bottom: 20px;
 }
 
-.logo{
+.logo {
   width: 100px;
   height: auto;
 }
 
 /*------------------------------------------------------*/
 
-.content-container{
+.content-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -74,28 +74,35 @@
   flex: 1;
 }
 
-.welcome-container{
+.welcome-container {
   max-width: 500px;
 }
 
-.animated-text{
+.animated-text {
   font-weight: bold;
   animation: fadeIn 2s ease-in-out;
   color: #FF873D;
 }
 
-.site-description{
+.site-description {
   font-size: 1.2rem;
-  color:#E1DDC3;
+  color: #E1DDC3;
   margin-top: 1rem;
 }
 
-@keyframes fadeIn{
-  from {opacity: 0; transform: translateY(-20px);}
-  to {opacity: 1; transform: translateY(0);}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .overlay {
+<<<<<<< HEAD
   background-color: rgba(0, 0, 0, 0.7); /* Fundo preto com opacidade para contraste */
   padding: 3px;
   border-radius: 15px;
@@ -107,36 +114,44 @@
 
 
 /*login form setion */
+=======
+  background-color: none;
+  padding: 20px;
+  border-radius: 10px;
+}
 
-.login-form{
-  background-color:none;
+/*login form section */
+>>>>>>> 8560dc863b620a29be9b815850de60d395328632
+
+.login-form,
+.signup-form {
+  background-color: rgba(0, 0, 0, 0.75); /* Preto meio transparente */
   padding: 30px;
   border-radius: 12px;
-  width: 100%;
-  max-width: 400px;
+  width: 200%;
+  max-width: 350px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
-.login-form .form-label{
-  font-weight: 600;
-  color: #FF873D;
+.login-form {
+  transform: translateX(0);
+  opacity: 1;
 }
 
-.login-form .form-control{
-  border-radius: 8px;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease;
+.signup-form {
+  transform: translateX(0);
+  opacity: 1;
 }
 
-.login-form .form-control:focus{
-  border-color: #FF873D;
-  box-shadow: 0 0 8px rgba(255, 135, 61, 0.3);
+.form-content {
+  display: flex;
+  flex-direction: column;
 }
 
 /* button section */
 
-.custom-button{
+.custom-button {
   width: 100%;
   background-color: #FF873D;
   border-color: #FF873D;
@@ -147,40 +162,315 @@
   transition: background-color 0.3s ease;
 }
 
-.custom-button:hover{
+.custom-button:hover {
   background-color: #e7671d;
   border-color: #e7671d;
 }
 
-.nt-2.custom-button{
+.nt-2.custom-button {
   margin-top: 10px;
   background-color: #555555;
   border-color: #555555;
 }
 
-.nt-2.custom-button:hover{
+.nt-2.custom-button:hover {
   background-color: #333333;
   border-color: #333333;
 }
 
-.custom-button-transparent{
+.custom-button-transparent {
   background-color: transparent;
   border: 2px solid #FF873D;
-  color:#FF873D;
+  color: #FF873D;
   margin-top: 1.5rem;
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
 }
 
-.custom-button-transparent:hover{
+.custom-button-transparent:hover {
   background-color: #FF873D;
   color: white;
 }
 
-.button-group{
+.button-group {
   display: flex;
   gap: 10px;
 }
 
-.custom-button-transparent.m1-2{
+.custom-button-transparent.m1-2 {
   margin-left: 10px;
+}
+
+/* Form switch button styles */
+.button-switch {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.switch-button {
+  flex: 1;
+  background-color: transparent;
+  border: 2px solid #FF873D;
+  color: #FF873D;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+
+.switch-button:hover {
+  background-color: #FF873D;
+  color: white;
+}
+
+.switch-button.active {
+  background-color: #FF873D;
+  color: white;/*page section*/
+
+  .home-page {
+    display: flex;
+    flex-direction: column;
+    background: #030F19;
+    overflow-y: auto;
+  }
+  
+  .top-section {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .left-container {
+    flex: 0 0 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 50px;
+  }
+  
+  .right-container {
+    flex: 2;
+    background-image: url('../img/cidade-manaus.png');
+    background-size: auto;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .more-info-section {
+    background-color: #1F2D3D;
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .info-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .info-content {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /*------------------------------------------------------*/
+  /* logo section */
+  
+  .logo-container {
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 100px;
+    height: auto;
+  }
+  
+  /*------------------------------------------------------*/
+  
+  .content-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+  
+  .welcome-container {
+    max-width: 500px;
+  }
+  
+  .animated-text {
+    font-weight: bold;
+    animation: fadeIn 2s ease-in-out;
+    color: #FF873D;
+  }
+  
+  .site-description {
+    font-size: 1.2rem;
+    color: #E1DDC3;
+    margin-top: 1rem;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .overlay {
+    background-color: none;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /*login form section */
+  
+  .login-form,
+  .signup-form {
+    background-color: rgba(0, 0, 0, 0.75); /* Preto meio transparente */
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  }
+  
+  .login-form {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .signup-form {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  
+  .form-visible {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .form-hidden {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  
+  .form-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* button section */
+  
+  .custom-button {
+    width: 100%;
+    background-color: #FF873D;
+    border-color: #FF873D;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-button:hover {
+    background-color: #e7671d;
+    border-color: #e7671d;
+  }
+  
+  .nt-2.custom-button {
+    margin-top: 10px;
+    background-color: #555555;
+    border-color: #555555;
+  }
+  
+  .nt-2.custom-button:hover {
+    background-color: #333333;
+    border-color: #333333;
+  }
+  
+  .custom-button-transparent {
+    background-color: transparent;
+    border: 2px solid #FF873D;
+    color: #FF873D;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .custom-button-transparent:hover {
+    background-color: #FF873D;
+    color: white;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .custom-button-transparent.m1-2 {
+    margin-left: 10px;
+  }
+  
+  /* Form switch button styles */
+  .button-switch {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .switch-button {
+    flex: 1;
+    background-color: transparent;
+    border: 2px solid #FF873D;
+    color: #FF873D;
+    padding: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .switch-button:hover {
+    background-color: #FF873D;
+    color: white;
+  }
+  
+  .switch-button.active {
+    background-color: #FF873D;
+    color: white;
+  }
+  
+  /* Email e Senha cores */
+  .login-form .form-control,
+  .signup-form .form-control {
+    color: #FF873D;
+  }
+  
+  .login-form .form-label,
+  .signup-form .form-label {
+    font-weight: 600;
+    color: #FF873D;
+  }
+  
+}
+
+/* Email e Senha cores */
+
+.login-form .form-label,
+.signup-form .form-label {
+  font-weight: 600;
+  color: #FF873D;
 }
