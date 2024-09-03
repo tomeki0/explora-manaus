@@ -20,7 +20,7 @@ const MapboxExample = () => {
 
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/light-v10',
+            style: 'mapbox://styles/mapbox/streets-v12',
             center: [-60.0217, -3.1174],
             zoom: 12,
             pitchWithRotate: false,  // Desativa a rotação do mapa junto com o pitch
