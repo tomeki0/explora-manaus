@@ -18,9 +18,6 @@ function AboutPage() {
     const handleBackToHome = () => {
         navigate('/');
     };
-    const handleImageLoad = () => {
-        setImageLoaded(true);
-    };
 
     return (
         <div className="about-page">
@@ -33,14 +30,12 @@ function AboutPage() {
                 <div className={`text-center mb-4 ${imageLoaded ? 'loaded' : 'loading'}`}>
                     {imageLoaded ? (
                         <img
-                        src={teamImage}
-                        alt="Equipe do Projeto"
-                        className="team-image"
-                        onLoad={handleImageLoad}
-                        loading="lazy"
-                        style={{ visibility: imageLoaded ? 'visible' : 'hidden' }} 
-                    />
-                    
+                            src={teamImage}
+                            alt="Equipe do Projeto"
+                            className="team-image"
+                            loading="lazy"
+                            style={{ visibility: imageLoaded ? 'visible' : 'hidden' }} 
+                        />
                     ) : (
                         <div style={{ height: '200px', backgroundColor: '#f0f0f0' }}></div>
                     )}
@@ -58,8 +53,18 @@ function AboutPage() {
                         <Card className="text-center h-100">
                             <Card.Body>
                                 <Card.Title>Programação</Card.Title>
-                                <i className="fas fa-keyboard fa-3x mb-3"></i>
-                                <Card.Text>Equipe de Programação</Card.Text>
+                                <i className="fas fa-keyboard fa-3x mb-3 icon"></i>
+                                <Card.Text>
+                                    <ul>
+                                        <li>João Campos</li>
+                                        <li>Guilherme Lima</li>
+                                        <li>Luiz Guilherme</li>
+                                        <li>Gustavo Mattos</li>
+                                        <li>Gustavo Lopes</li>
+                                        <li>Hamilton Melo</li>
+                                        <li>Felipe Carvalho</li>
+                                    </ul>
+                                </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -67,8 +72,17 @@ function AboutPage() {
                         <Card className="text-center h-100">
                             <Card.Body>
                                 <Card.Title>Trabalho Escrito</Card.Title>
-                                <i className="fas fa-paint-brush fa-3x mb-3"></i>
-                                <Card.Text>Equipe do trabalho escrito</Card.Text>
+                                <i className="fas fa-paint-brush fa-3x mb-3 icon"></i>
+                                <Card.Text>
+                                    <ul>
+                                        <li>Rickson Cavalcante</li>
+                                        <li>Sara Oliveira</li>
+                                        <li>Yan Carlo</li>
+                                        <li>Lucas Gabriel</li>
+                                        <li>Kezia Frazão</li>
+                                        <li>Yanne</li>
+                                    </ul>
+                                    </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -76,8 +90,14 @@ function AboutPage() {
                         <Card className="text-center h-100">
                             <Card.Body>
                                 <Card.Title>Banner</Card.Title>
-                                <i className="fas fa-image fa-3x mb-3"></i>
-                                <Card.Text>Equipe de criação do banner</Card.Text>
+                                <i className="fas fa-image fa-3x mb-3 icon"></i>
+                                <Card.Text>
+                                    <ul>
+                                        <li>Kayki Lins</li>
+                                        <li>LAyana Cibele</li>
+                                        <li>Abe Samuel</li>
+                                    </ul>
+                                    </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>

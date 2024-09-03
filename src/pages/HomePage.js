@@ -11,6 +11,7 @@ function HomePage() {
   const moreInfoRef = useRef(null);
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true); // Estado para alternar entre login e criação de conta
+  const [formAnimation, setFormAnimation] = useState('');
 
   const handleScrollClick = () => {
     if (moreInfoRef.current) {
@@ -23,7 +24,6 @@ function HomePage() {
     navigate('/about');
   };
 
-  // Função genérica para renderizar o Tooltip com texto personalizado
   const renderTooltip = (text) => (props) => (
     <Tooltip id={`tooltip-${text}`} {...props}>
       {text}
@@ -31,7 +31,16 @@ function HomePage() {
   );
 
   const toggleForm = () => {
-    setIsLogin(!isLogin);
+    setFormAnimation(isLogin ? 'form-exit' : 'form-enter');
+    setTimeout(() => {
+      setIsLogin(!isLogin);
+      setFormAnimation(isLogin ? 'form-enter' : 'form-exit');
+    }, 500); // Duração da animação
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    // Adicione a lógica de envio do formulário aqui
   };
 
   return (
@@ -61,10 +70,9 @@ function HomePage() {
         
         <div className="right-container">
           <div className='overlay'>
-            <div className={`form-container ${isLogin ? 'login-form' : 'signup-form'}`}>
-              {/* Exibe o formulário de Login */}
+            <Form className={`form-container ${isLogin ? 'login-form' : 'signup-form'} ${formAnimation}`} onSubmit={handleFormSubmit}>
               {isLogin ? (
-                <Form className="form-content">
+                <>
                   <Form.Group controlId='formBasicEmail'>
                     <Form.Label>Email</Form.Label>
                     <Form.Control type='email' placeholder='Insira seu email...' />
@@ -74,16 +82,9 @@ function HomePage() {
                     <Form.Label>Senha</Form.Label>
                     <Form.Control type='password' placeholder='Insira sua senha...' />
                   </Form.Group>
-
-                  <OverlayTrigger placement="bottom" overlay={renderTooltip('Faça login em sua conta.')}>
-                    <Button variant='primary' type='submit' className="mt-4 custom-button">
-                      Login
-                    </Button>
-                  </OverlayTrigger>
-                </Form>
+                </>
               ) : (
-                // Exibe o formulário de Criação de Conta
-                <Form className="form-content">
+                <>
                   <Form.Group controlId='formBasicName'>
                     <Form.Label>Nome</Form.Label>
                     <Form.Control type='text' placeholder='Insira seu nome...' />
@@ -108,29 +109,15 @@ function HomePage() {
                     <Form.Label>Número de Celular</Form.Label>
                     <Form.Control type='tel' placeholder='Insira seu número de celular...' />
                   </Form.Group>
-
-                  <OverlayTrigger placement="bottom" overlay={renderTooltip('Crie sua conta.')}>
-                    <Button variant='primary' type='submit' className="mt-4 custom-button">
-                      Criar Conta
-                    </Button>
-                  </OverlayTrigger>
-                </Form>
+                </>
               )}
 
-              <div className="button-switch">
-                <Button
-                  onClick={() => setIsLogin(true)}
-                  className={`switch-button ${isLogin ? 'active' : ''}`}>
-                  Login
+              <OverlayTrigger placement="bottom" overlay={renderTooltip(isLogin ? 'Faça login em sua conta.' : 'Crie sua conta.')}>
+                <Button variant='primary' type='submit' className="mt-4 custom-button">
+                  {isLogin ? 'Login' : 'Criar Conta'}
                 </Button>
-                <Button
-                  onClick={toggleForm}
-                  className={`switch-button ${!isLogin ? 'active' : ''}`}>
-                  Criar Conta
-                </Button>
-              </div>
+              </OverlayTrigger>
 
-              {/* Botão para entrar sem conta */}
               {isLogin && (
                 <OverlayTrigger placement="bottom" overlay={renderTooltip('Entre sem criar uma conta.')}>
                   <Button onClick={() => navigate('/main')} variant="secondary" className='mt-2 custom-button'>
@@ -138,7 +125,15 @@ function HomePage() {
                   </Button>
                 </OverlayTrigger>
               )}
-            </div>
+
+              <div className="button-switch mt-4">
+                <Button
+                  onClick={toggleForm}
+                  className={`switch-button ${isLogin ? '' : 'active'}`}>
+                  {isLogin ? 'Criar Conta' : 'Login'}
+                </Button>
+              </div>
+            </Form>
           </div>
         </div>
       </div>
