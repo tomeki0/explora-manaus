@@ -20,7 +20,7 @@ const MapboxExample = () => {
 
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/dark-v10',
+            style: 'mapbox://styles/mapbox/light-v10',
             center: [-60.0217, -3.1174],
             zoom: 12,
             pitchWithRotate: false,  // Desativa a rotação do mapa junto com o pitch
@@ -44,7 +44,7 @@ const MapboxExample = () => {
         geocoder.on('results', () => {
             const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
             const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
-            
+
             if (suggestions) {
                 // Se necessário, ajuste o top para garantir que as sugestões apareçam abaixo da barra de pesquisa
                 suggestions.style.top = `${geocoderElement.offsetHeight}px`;
@@ -52,9 +52,9 @@ const MapboxExample = () => {
                 suggestions.style.zIndex = 5;
             }
         });
-        
-        
-        
+
+
+
 
         // Adiciona controle de navegação apenas com zoom, sem rotação
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
