@@ -2,3 +2,19 @@
     cursor: url('../img/cursor-marker.png'), auto !important;
     /* Substitua /path/to/cursor.png pelo caminho do seu ícone de cursor */
 }
+
+.mapboxgl-ctrl-geocoder {
+    width: 100%;
+    margin-top: 0%;  /* Garante que o geocoder ocupe toda a largura do container */
+}
+
+.suggestions-wrapper {
+    position: relative;
+    left: -105%;
+    
+    z-index: 5;
+    margin-top: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
