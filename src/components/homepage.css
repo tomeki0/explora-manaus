@@ -3,7 +3,7 @@
 .home-page {
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(#0a0f27, #132044);
+  background-image: linear-gradient(#16244d, #193c64);
   overflow-y: auto;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .more-info-section {
-  background-color: #1F2D3D;
+  background-image: linear-gradient(#16244d);
   color: white;
   padding: 50px 20px;
   text-align: center;
