@@ -3,7 +3,7 @@
 .home-page {
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(#16244d, #193c64);
+  background-image: linear-gradient(#0a0f27, #132044);
   overflow-y: auto;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .more-info-section {
-  background-image: linear-gradient(#16244d);
+  background-color: #1F2D3D;
   color: white;
   padding: 50px 20px;
   text-align: center;
@@ -95,7 +95,6 @@
     opacity: 0;
     transform: translateY(-20px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -112,8 +111,7 @@
 
 .login-form,
 .signup-form {
-  background-color: rgba(0, 0, 0, 0.75);
-  /* Preto meio transparente */
+  background-color: rgba(0, 0, 0, 0.75); /* Preto meio transparente */
   padding: 30px;
   border-radius: 12px;
   width: 200%;
@@ -214,8 +212,7 @@
 
 .switch-button.active {
   background-color: #FF873D;
-  color: white;
-  /*page section*/
+  color: white;/*page section*/
 
   .home-page {
     display: flex;
@@ -223,12 +220,12 @@
     background: #030F19;
     overflow-y: auto;
   }
-
+  
   .top-section {
     display: flex;
     height: 100vh;
   }
-
+  
   .left-container {
     flex: 0 0 60%;
     display: flex;
@@ -237,7 +234,7 @@
     align-items: flex-start;
     padding-left: 50px;
   }
-
+  
   .right-container {
     flex: 2;
     background-image: url('../img/cidade-manaus.png');
@@ -248,7 +245,7 @@
     align-items: center;
     position: relative;
   }
-
+  
   .more-info-section {
     background-color: #1F2D3D;
     color: white;
@@ -256,33 +253,33 @@
     text-align: center;
     margin-top: 20px;
   }
-
+  
   .info-title {
     font-size: 2rem;
     margin-bottom: 20px;
   }
-
+  
   .info-content {
     font-size: 1.2rem;
     line-height: 1.5;
     max-width: 800px;
     margin: 0 auto;
   }
-
+  
   /*------------------------------------------------------*/
   /* logo section */
-
+  
   .logo-container {
     margin-bottom: 20px;
   }
-
+  
   .logo {
     width: 100px;
     height: auto;
   }
-
+  
   /*------------------------------------------------------*/
-
+  
   .content-container {
     display: flex;
     flex-direction: row;
@@ -290,47 +287,45 @@
     justify-content: center;
     flex: 1;
   }
-
+  
   .welcome-container {
     max-width: 500px;
   }
-
+  
   .animated-text {
     font-weight: bold;
     animation: fadeIn 2s ease-in-out;
     color: #FF873D;
   }
-
+  
   .site-description {
     font-size: 1.2rem;
     color: #E1DDC3;
     margin-top: 1rem;
   }
-
+  
   @keyframes fadeIn {
     from {
       opacity: 0;
       transform: translateY(-20px);
     }
-
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-
+  
   .overlay {
     background-color: none;
     padding: 20px;
     border-radius: 10px;
   }
-
+  
   /*login form section */
-
+  
   .login-form,
   .signup-form {
-    background-color: rgba(0, 0, 0, 0.75);
-    /* Preto meio transparente */
+    background-color: rgba(0, 0, 0, 0.75); /* Preto meio transparente */
     padding: 30px;
     border-radius: 12px;
     width: 100%;
@@ -338,34 +333,34 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.75);
     transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   }
-
+  
   .login-form {
     transform: translateX(0);
     opacity: 1;
   }
-
+  
   .signup-form {
     transform: translateX(100%);
     opacity: 0;
   }
-
+  
   .form-visible {
     transform: translateX(0);
     opacity: 1;
   }
-
+  
   .form-hidden {
     transform: translateX(-100%);
     opacity: 0;
   }
-
+  
   .form-content {
     display: flex;
     flex-direction: column;
   }
-
+  
   /* button section */
-
+  
   .custom-button {
     width: 100%;
     background-color: #FF873D;
@@ -376,23 +371,23 @@
     font-weight: 600;
     transition: background-color 0.3s ease;
   }
-
+  
   .custom-button:hover {
     background-color: #e7671d;
     border-color: #e7671d;
   }
-
+  
   .nt-2.custom-button {
     margin-top: 10px;
     background-color: #555555;
     border-color: #555555;
   }
-
+  
   .nt-2.custom-button:hover {
     background-color: #333333;
     border-color: #333333;
   }
-
+  
   .custom-button-transparent {
     background-color: transparent;
     border: 2px solid #FF873D;
@@ -400,28 +395,28 @@
     margin-top: 1.5rem;
     transition: all 0.3s ease;
   }
-
+  
   .custom-button-transparent:hover {
     background-color: #FF873D;
     color: white;
   }
-
+  
   .button-group {
     display: flex;
     gap: 10px;
   }
-
+  
   .custom-button-transparent.m1-2 {
     margin-left: 10px;
   }
-
+  
   /* Form switch button styles */
   .button-switch {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
   }
-
+  
   .switch-button {
     flex: 1;
     background-color: transparent;
@@ -433,29 +428,29 @@
     cursor: pointer;
     text-align: center;
   }
-
+  
   .switch-button:hover {
     background-color: #FF873D;
     color: white;
   }
-
+  
   .switch-button.active {
     background-color: #FF873D;
     color: white;
   }
-
+  
   /* Email e Senha cores */
   .login-form .form-control,
   .signup-form .form-control {
     color: #FF873D;
   }
-
+  
   .login-form .form-label,
   .signup-form .form-label {
     font-weight: 600;
     color: #FF873D;
   }
-
+  
 }
 
 /* Email e Senha cores */
