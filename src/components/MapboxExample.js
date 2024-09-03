@@ -22,17 +22,42 @@ const MapboxExample = () => {
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/dark-v10',
             center: [-60.0217, -3.1174],
-            zoom: 12
+            zoom: 12,
+            pitchWithRotate: false,  // Desativa a rotação do mapa junto com o pitch
+            dragRotate: false,  // Desativa a rotação do mapa via drag
+            touchZoomRotate: false  // Desativa a rotação do mapa via toque em dispositivos móveis
         });
 
-        mapRef.current.addControl(
-            new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken,
-                mapboxgl: mapboxgl
-            })
-        );
+        const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl,
+            bbox: [-60.2906, -3.2070, -59.7570, -2.9860],  // Limites da área de Manaus
+            proximity: {
+                longitude: -60.0217,
+                latitude: -3.1174
+            }
+        });
 
-        mapRef.current.addControl(new mapboxgl.NavigationControl());
+        mapRef.current.addControl(geocoder);
+
+        // Código adicionado para ajustar a posição das sugestões de pesquisa
+        geocoder.on('results', () => {
+            const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
+            const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
+            
+            if (suggestions) {
+                // Se necessário, ajuste o top para garantir que as sugestões apareçam abaixo da barra de pesquisa
+                suggestions.style.top = `${geocoderElement.offsetHeight}px`;
+                // Garantir que o z-index esteja correto
+                suggestions.style.zIndex = 5;
+            }
+        });
+        
+        
+        
+
+        // Adiciona controle de navegação apenas com zoom, sem rotação
+        mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
 
         const bounds = [
             [-60.2906, -3.2070],
@@ -106,6 +131,10 @@ const MapboxExample = () => {
         }
     };
 
+    const handleCancel = () => {
+        setIsFormVisible(false);
+    };
+
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', position: 'relative' }}>
             <div ref={mapContainerRef} className="map-container" style={{ width: '80%', height: '100%' }} />
@@ -128,7 +157,7 @@ const MapboxExample = () => {
                         onClick={showEventForm}
                         style={{
                             marginLeft: '10px',
-                            backgroundColor: '#FF6347',
+                            backgroundColor: '#0079FE',
                             border: 'none',
                             color: 'white',
                             borderRadius: '50%',
@@ -174,9 +203,14 @@ const MapboxExample = () => {
                                 style={{ display: 'block', marginBottom: '10px', width: '100%' }}
                             />
                         </div>
-                        <button type="submit" style={{ backgroundColor: '#FF6347', color: 'white', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
-                            Adicionar Evento
-                        </button>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <button type="submit" style={{ backgroundColor: '#FF6347', color: 'white', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
+                                Adicionar Evento
+                            </button>
+                            <button type="button" onClick={handleCancel} style={{ backgroundColor: '#d3d3d3', color: 'black', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
+                                Cancelar
+                            </button>
+                        </div>
                     </form>
                 </div>
             )}
