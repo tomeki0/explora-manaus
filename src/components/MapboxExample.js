@@ -41,21 +41,39 @@ const MapboxExample = () => {
         mapRef.current.addControl(geocoder);
 
         // Código adicionado para ajustar a posição das sugestões de pesquisa
-        geocoder.on('results', () => {
+        geocoder.on('results', (response) => {
             const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
             const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
-
+            
             if (suggestions) {
-                // Se necessário, ajuste o top para garantir que as sugestões apareçam abaixo da barra de pesquisa
-                suggestions.style.top = `${geocoderElement.offsetHeight}px`;
-                // Garantir que o z-index esteja correto
-                suggestions.style.zIndex = 5;
+                // Se houver resultados, ajusta a lista de sugestões
+                if (response.features && response.features.length > 0) {
+                    suggestions.style.top = `80px`; // Ajuste a posição conforme necessário
+                    suggestions.style.left = '0px'; 
+                    suggestions.style.zIndex = 5;
+                    suggestions.style.display = 'block'; // Mostra a lista de sugestões
+                } else {
+                    suggestions.style.top = `10px`; // Esconde a lista se não houver resultados
+                }
             }
         });
-
-
-
-
+        
+       /* IGNORA ISSO
+       geocoder.on('error', () => {
+            const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
+            const noResults = geocoderElement?.querySelector('.no-results');
+            
+            if (noResults) {
+                // Se não houver resultados, ajusta a posição da mensagem "No results found"
+                noResults.style.top = `${geocoderElement.offsetHeight}px`; 
+                noResults.style.left = '0px';
+                noResults.style.zIndex = 5;
+                noResults.style.display = 'block'; // Mostra a mensagem de erro
+            }
+        });*/
+        
+        
+        
         // Adiciona controle de navegação apenas com zoom, sem rotação
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
 
