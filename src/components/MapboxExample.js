@@ -45,33 +45,59 @@ const MapboxExample = () => {
             const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
             const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
             
+            //DESCULPA PELO CODIGO MERDA MAS SO FUNCIONOU ASSIM AAAAAAAAAAAAAAAAAAAAAAA
             if (suggestions) {
-                // Se houver resultados, ajusta a lista de sugestões
-                if (response.features && response.features.length > 0) {
-                    suggestions.style.top = `80px`; // Ajuste a posição conforme necessário
-                    suggestions.style.left = '0px'; 
-                    suggestions.style.zIndex = 5;
-                    suggestions.style.display = 'block'; // Mostra a lista de sugestões
+                const suggestionCount = response.features ? response.features.length : 0;
+                
+                if (suggestionCount === 1) {
+                    suggestions.style.top = '24px'; // Posição para 1 sugestão
+                    suggestions.style.display = 'block';
+                } else if (suggestionCount === 2) {
+                    suggestions.style.top = '37px'; // Posição para 2 sugestões
+                    suggestions.style.display = 'block';
+                } else if (suggestionCount === 3) {
+                    suggestions.style.top = '52px'; // Posição para 3 sugestões
+                    suggestions.style.display = 'block';
+                } else if (suggestionCount === 4) {
+                    suggestions.style.top = '67px'; // Posição para 4 sugestões
+                    suggestions.style.display = 'block';
+                } else if (suggestionCount >= 5) {
+                    suggestions.style.top = '81px'; // Posição para 5 ou mais sugestões
+                    suggestions.style.display = 'block';
                 } else {
-                    suggestions.style.top = `10px`; // Esconde a lista se não houver resultados
+                    suggestions.style.display = 'none'; // Esconde a lista se não houver sugestões
                 }
+        
+                /* IGNORA ISSO NAO SEI MAIS O QUE FAZER// Configurações comuns para todas as quantidades de sugestões
+                if (suggestionCount > 0) {
+                    suggestions.style.left = '0px';
+                    suggestions.style.zIndex = 5;
+                }*/
             }
         });
-        
-       /* IGNORA ISSO
-       geocoder.on('error', () => {
-            const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
-            const noResults = geocoderElement?.querySelector('.no-results');
-            
-            if (noResults) {
-                // Se não houver resultados, ajusta a posição da mensagem "No results found"
-                noResults.style.top = `${geocoderElement.offsetHeight}px`; 
-                noResults.style.left = '0px';
-                noResults.style.zIndex = 5;
-                noResults.style.display = 'block'; // Mostra a mensagem de erro
+
+        /*CODIGO DE BACKUP
+        if (suggestions) {
+                // Se houver resultados, ajusta a lista de sugestões
+                if (response.features && response.features.length >= 5) {
+                    suggestions.style.top = '80px'; // Ajuste a posição para 80px
+                    suggestions.style.left = '0px';
+                    suggestions.style.zIndex = 5;
+                    suggestions.style.display = 'block'; // Mostra a lista de sugestões
+                } 
+                // Se houver entre 1 e 4 sugestões, ajusta o top para 150px
+                else if (response.features && response.features.length > 0 && response.features.length < 5) {
+                    suggestions.style.top = '50px'; // Ajuste a posição para 150px
+                    suggestions.style.left = '0px';
+                    suggestions.style.zIndex = 5;
+                    suggestions.style.display = 'block'; // Mostra a lista de sugestões
+                } 
+                // Se não houver sugestões, esconde a lista
+                else {
+                    suggestions.style.display = 'none'; // Esconde a lista de sugestões
+                }
             }
-        });*/
-        
+        }); */
         
         
         // Adiciona controle de navegação apenas com zoom, sem rotação
