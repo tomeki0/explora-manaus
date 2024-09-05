@@ -38,6 +38,28 @@ const MapboxExample = () => {
             }
         });
 
+        geocoder.on('result', (event) => {
+            const { geometry, place_name } = event.result;
+        
+            // Atualizar as coordenadas e o endereço selecionado com base na pesquisa
+            setSelectedCoordinates(geometry.coordinates);
+            setSelectedAddress(place_name);
+        
+            // Remover o marcador existente, se houver
+            if (currentMarkerRef.current) {
+                currentMarkerRef.current.remove();
+            }
+        
+            // Criar novo marcador na posição pesquisada
+            const newMarker = new mapboxgl.Marker({ color: '#0079FE' })
+                .setLngLat(geometry.coordinates)
+                .addTo(mapRef.current);
+        
+            // Armazenar o novo marcador na referência
+            currentMarkerRef.current = newMarker;
+        });
+        
+
         mapRef.current.addControl(geocoder);
 
         // Código adicionado para ajustar a posição das sugestões de pesquisa
