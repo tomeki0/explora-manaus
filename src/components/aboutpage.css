@@ -1,5 +1,7 @@
 .about-page {
-  background-image: linear-gradient(#16244d, #193c64);
+  /*background-image: linear-gradient(#16244d, #193c64);*/
+  
+    background-image: linear-gradient(#151f52, #132044);
     padding: 40px 20px;
     color: #E1DDC3;
   }

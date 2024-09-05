@@ -3,7 +3,7 @@
 .home-page {
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(#0a0f27, #132044);
+  background-image: linear-gradient(#151f52, #132044);
   overflow-y: auto;
 }
 
