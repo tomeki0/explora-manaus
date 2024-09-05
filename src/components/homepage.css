@@ -155,17 +155,6 @@
   border-color: #e7671d;
 }
 
-.nt-2.custom-button {
-  margin-top: 10px;
-  background-color: #555555;
-  border-color: #555555;
-}
-
-.nt-2.custom-button:hover {
-  background-color: #333333;
-  border-color: #333333;
-}
-
 .custom-button-transparent {
   background-color: transparent;
   border: 2px solid #FF873D;
@@ -242,9 +231,18 @@
   color: white;
 }
 
+/* BOTAO DE LOGIN NO FORM DE CADASTRO */
 .switch-button.active {
-  background-color: #FF873D;
-  color: white;
+  flex: 1;
+  background-color: transparent;
+  border: 2px solid #FF873D;
+  color: #FF873D;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+
 }
 
 
