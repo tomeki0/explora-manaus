@@ -128,11 +128,13 @@ function HomePage() {
               )}
 
               <div className="button-switch mt-4">
-                <Button
-                  onClick={toggleForm}
-                  className={`switch-button ${isLogin ? '' : 'active'}`}>
-                  {isLogin ? 'Criar Conta' : 'Login'}
-                </Button>
+                <OverlayTrigger placement="bottom" overlay={renderTooltip(isLogin ? 'Ir pra Criar Conta' : 'Voltar pra Login')}>
+                  <Button
+                    onClick={toggleForm}
+                    className={`switch-button ${isLogin ? '' : 'active'}`}>
+                    {isLogin ? 'Criar Conta' : 'Login'}
+                  </Button>
+                </OverlayTrigger>
               </div>
             </Form>
           </div>
