@@ -33,7 +33,7 @@ function AboutPage() {
                             src={teamImage}
                             alt="Equipe do Projeto"
                             className="team-image"
-                            loading="lazy"
+                            loading="eager"
                             style={{ visibility: imageLoaded ? 'visible' : 'hidden' }} 
                         />
                     ) : (

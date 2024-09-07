@@ -1,5 +1,7 @@
 .about-page {
-  background-image: linear-gradient(#16244d, #193c64);
+  /*background-image: linear-gradient(#16244d, #193c64);*/
+  
+    background-image: linear-gradient(#151f52, #132044);
     padding: 40px 20px;
     color: #E1DDC3;
   }
@@ -101,3 +103,11 @@
     color: white;
   }
   
+  .image-placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: #f0f0f0; /* Cor neutra ou um padrão de fundo */
+    background-image: url('/src/img/cidade-manaus.png'); /* Imagem de placeholder opcional */
+    background-size: cover;
+    background-position: center;
+}
