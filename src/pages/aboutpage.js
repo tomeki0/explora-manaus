@@ -33,7 +33,7 @@ function AboutPage() {
                             src={teamImage}
                             alt="Equipe do Projeto"
                             className="team-image"
-                            loading="lazy"
+                            loading="eager"
                             style={{ visibility: imageLoaded ? 'visible' : 'hidden' }} 
                         />
                     ) : (
@@ -94,7 +94,7 @@ function AboutPage() {
                                 <Card.Text>
                                     <ul>
                                         <li>Kayki Lins</li>
-                                        <li>LAyana Cibele</li>
+                                        <li>Layana Cibele</li>
                                         <li>Abe Samuel</li>
                                     </ul>
                                     </Card.Text>

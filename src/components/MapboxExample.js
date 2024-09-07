@@ -38,24 +38,90 @@ const MapboxExample = () => {
             }
         });
 
+        geocoder.on('result', (event) => {
+            const { geometry, place_name } = event.result;
+        
+            // Atualizar as coordenadas e o endereço selecionado com base na pesquisa
+            setSelectedCoordinates(geometry.coordinates);
+            setSelectedAddress(place_name);
+        
+            // Remover o marcador existente, se houver
+            if (currentMarkerRef.current) {
+                currentMarkerRef.current.remove();
+            }
+        
+            // Criar novo marcador na posição pesquisada
+            const newMarker = new mapboxgl.Marker({ color: '#0079FE' })
+                .setLngLat(geometry.coordinates)
+                .addTo(mapRef.current);
+        
+            // Armazenar o novo marcador na referência
+            currentMarkerRef.current = newMarker;
+        });
+        
+
         mapRef.current.addControl(geocoder);
 
         // Código adicionado para ajustar a posição das sugestões de pesquisa
-        geocoder.on('results', () => {
+        geocoder.on('results', (response) => {
             const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
             const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
-
+            
+            //DESCULPA PELO CODIGO MERDA MAS SO FUNCIONOU ASSIM AAAAAAAAAAAAAAAAAAAAAAA
             if (suggestions) {
-                // Se necessário, ajuste o top para garantir que as sugestões apareçam abaixo da barra de pesquisa
-                suggestions.style.top = `${geocoderElement.offsetHeight}px`;
-                // Garantir que o z-index esteja correto
-                suggestions.style.zIndex = 5;
+                const suggestionCount = response.features ? response.features.length : 0;
+                
+                if (suggestionCount === 1) {
+                    suggestions.style.top = '24px'; // Posição para 1 sugestão
+                    suggestions.style.display = 'block';
+                } else if (suggestionCount === 2) {
+                    suggestions.style.top = '37px'; // Posição para 2 sugestões
+                    suggestions.style.display = 'block';
+                } else if (suggestionCount === 3) {
+                    suggestions.style.top = '52px'; // Posição para 3 sugestões
+                    suggestions.style.display = 'block';
+                } else if (suggestionCount === 4) {
+                    suggestions.style.top = '67px'; // Posição para 4 sugestões
+                    suggestions.style.display = 'block';
+                } else if (suggestionCount >= 5) {
+                    suggestions.style.top = '81px'; // Posição para 5 ou mais sugestões
+                    suggestions.style.display = 'block';
+                } else {
+                    suggestions.style.display = 'none'; // Esconde a lista se não houver sugestões
+                }
+        
+                /* IGNORA ISSO NAO SEI MAIS O QUE FAZER// Configurações comuns para todas as quantidades de sugestões
+                if (suggestionCount > 0) {
+                    suggestions.style.left = '0px';
+                    suggestions.style.zIndex = 5;
+                }*/
             }
         });
 
-
-
-
+        /*CODIGO DE BACKUP
+        if (suggestions) {
+                // Se houver resultados, ajusta a lista de sugestões
+                if (response.features && response.features.length >= 5) {
+                    suggestions.style.top = '80px'; // Ajuste a posição para 80px
+                    suggestions.style.left = '0px';
+                    suggestions.style.zIndex = 5;
+                    suggestions.style.display = 'block'; // Mostra a lista de sugestões
+                } 
+                // Se houver entre 1 e 4 sugestões, ajusta o top para 150px
+                else if (response.features && response.features.length > 0 && response.features.length < 5) {
+                    suggestions.style.top = '50px'; // Ajuste a posição para 150px
+                    suggestions.style.left = '0px';
+                    suggestions.style.zIndex = 5;
+                    suggestions.style.display = 'block'; // Mostra a lista de sugestões
+                } 
+                // Se não houver sugestões, esconde a lista
+                else {
+                    suggestions.style.display = 'none'; // Esconde a lista de sugestões
+                }
+            }
+        }); */
+        
+        
         // Adiciona controle de navegação apenas com zoom, sem rotação
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
 

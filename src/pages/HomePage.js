@@ -105,10 +105,11 @@ function HomePage() {
                     <Form.Control type='password' placeholder='Confirme sua senha...' />
                   </Form.Group>
 
-                  <Form.Group controlId='formBasicPhone' className='mt-3'>
+                 { /* FORMS DE TELEFONE, REMOVIDO POR ENQUANTO
+                   <Form.Group controlId='formBasicPhone' className='mt-3'>
                     <Form.Label>Número de Celular</Form.Label>
                     <Form.Control type='tel' placeholder='Insira seu número de celular...' />
-                  </Form.Group>
+                  </Form.Group> */}
                 </>
               )}
 
@@ -127,11 +128,13 @@ function HomePage() {
               )}
 
               <div className="button-switch mt-4">
-                <Button
-                  onClick={toggleForm}
-                  className={`switch-button ${isLogin ? '' : 'active'}`}>
-                  {isLogin ? 'Criar Conta' : 'Login'}
-                </Button>
+                <OverlayTrigger placement="bottom" overlay={renderTooltip(isLogin ? 'Ir pra Criar Conta' : 'Voltar pra Login')}>
+                  <Button
+                    onClick={toggleForm}
+                    className={`switch-button ${isLogin ? '' : 'active'}`}>
+                    {isLogin ? 'Criar Conta' : 'Login'}
+                  </Button>
+                </OverlayTrigger>
               </div>
             </Form>
           </div>

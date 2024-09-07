@@ -5,16 +5,19 @@
 
 .mapboxgl-ctrl-geocoder {
     width: 100%;
-    margin-top: 0%;  /* Garante que o geocoder ocupe toda a largura do container */
+    margin-top: 0%;
+    position: relative; /* Altera o contexto de posicionamento da lista */
 }
 
 .suggestions-wrapper {
-    position: relative;
-    left: -105%;
-    
+    position: relative; /* Troca para absolute para que possa ser posicionado em relação à barra */
+    top: 100%; /* Coloca logo abaixo da barra de pesquisa */
+    left: 0;
     z-index: 5;
-    margin-top: 2px;
+    margin-top: 0px;
+    width: 100%; /* Alinha a largura ao da barra de pesquisa */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 
