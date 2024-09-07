@@ -25,6 +25,7 @@ const MapboxExample = () => {
             style: 'mapbox://styles/mapbox/streets-v12',
             center: [-60.0217, -3.1174],
             zoom: 12,
+            minZoom: 11.3,
             pitchWithRotate: false,
             dragRotate: false,
             touchZoomRotate: false
