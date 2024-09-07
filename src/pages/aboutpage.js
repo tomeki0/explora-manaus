@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import '../components/aboutpage.css';
-import { Card, Container, Row, Col, Button } from 'react-bootstrap';
-import teamImage from '../img/card-manaus.png';
+import { Card, Container, Row, Col, Button, Carousel } from 'react-bootstrap';
+import teamImage1 from '../img/card-manaus.png';
+import teamImage2 from '../img/card-manaus.png';
+import teamImage3 from '../img/card-manaus.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 
 function AboutPage() {
     const navigate = useNavigate();
-    const [imageLoaded, setImageLoaded] = useState(false);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
 
     useEffect(() => {
-        const img = new Image();
-        img.src = teamImage;
-        img.onload = () => setImageLoaded(true);
+        const img1 = new Image();
+        const img2 = new Image();
+        const img3 = new Image();
+
+        img1.src = teamImage1;
+        img2.src = teamImage2;
+        img3.src = teamImage3;
+
+        Promise.all([img1, img2, img3].map(img => new Promise(resolve => {
+            img.onload = resolve;
+        }))).then(() => setImagesLoaded(true));
     }, []);
 
     const handleBackToHome = () => {
@@ -27,15 +37,31 @@ function AboutPage() {
             <Container>
                 <h1 className="text-center my-4">Sobre o Projeto</h1>
 
-                <div className={`text-center mb-4 ${imageLoaded ? 'loaded' : 'loading'}`}>
-                    {imageLoaded ? (
-                        <img
-                            src={teamImage}
-                            alt="Equipe do Projeto"
-                            className="team-image"
-                            loading="eager"
-                            style={{ visibility: imageLoaded ? 'visible' : 'hidden' }} 
-                        />
+                <div className={`text-center mb-4 ${imagesLoaded ? 'loaded' : 'loading'}`}>
+                    {imagesLoaded ? (
+                        <Carousel interval={3000}>
+                            <Carousel.Item>
+                                <img
+                                    className="d-block w-100 team-image"
+                                    src={teamImage1}
+                                    alt="Equipe do Projeto 1"
+                                />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <img
+                                    className="d-block w-100 team-image"
+                                    src={teamImage2}
+                                    alt="Equipe do Projeto 2"
+                                />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <img
+                                    className="d-block w-100 team-image"
+                                    src={teamImage3}
+                                    alt="Equipe do Projeto 3"
+                                />
+                            </Carousel.Item>
+                        </Carousel>
                     ) : (
                         <div style={{ height: '200px', backgroundColor: '#f0f0f0' }}></div>
                     )}
@@ -82,7 +108,7 @@ function AboutPage() {
                                         <li>Kezia Frazão</li>
                                         <li>Yanne</li>
                                     </ul>
-                                    </Card.Text>
+                                </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -97,7 +123,7 @@ function AboutPage() {
                                         <li>Layana Cibele</li>
                                         <li>Abe Samuel</li>
                                     </ul>
-                                    </Card.Text>
+                                </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>

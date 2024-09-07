@@ -182,7 +182,7 @@ const MapboxExample = () => {
         e.preventDefault();
 
         if (eventData.name && eventData.description && selectedCoordinates) {
-            const marker = new mapboxgl.Marker({ color: '#FF6347' })
+            const marker = new mapboxgl.Marker({ color: '#0079FE' })
                 .setLngLat(selectedCoordinates)
                 .addTo(mapRef.current);
 
