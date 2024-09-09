@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import './mapbox-extra.css'; // Importa o arquivo CSS com a regra para o cursor
+import { IoMdPin } from "react-icons/io";
+import { MdCancel } from "react-icons/md";
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
@@ -45,11 +47,11 @@ const MapboxExample = () => {
         geocoder.on('results', (response) => {
             const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
             const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
-            
+
             //DESCULPA PELO CODIGO MERDA MAS SO FUNCIONOU ASSIM AAAAAAAAAAAAAAAAAAAAAAA
             if (suggestions) {
                 const suggestionCount = response.features ? response.features.length : 0;
-                
+
                 if (suggestionCount === 1) {
                     suggestions.style.top = '24px'; // Posição para 1 sugestão
                     suggestions.style.display = 'block';
@@ -68,7 +70,7 @@ const MapboxExample = () => {
                 } else {
                     suggestions.style.display = 'none'; // Esconde a lista se não houver sugestões
                 }
-        
+
                 /* IGNORA ISSO NAO SEI MAIS O QUE FAZER// Configurações comuns para todas as quantidades de sugestões
                 if (suggestionCount > 0) {
                     suggestions.style.left = '0px';
@@ -99,7 +101,7 @@ const MapboxExample = () => {
                 }
             }
         }); */
-        
+
         mapRef.current.addControl(geocoder);
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
 
@@ -247,22 +249,12 @@ const MapboxExample = () => {
             )}
 
             {isFormVisible1 && (
-                <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    backgroundColor: 'white',
-                    padding: '20px',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-                    zIndex: 1000
-                }}>
+                <div className='caixa-submit'>
                     <form onSubmit={handleAddEvent1}>
                         <div>
                             <label>Nome do Local:</label>
                             <input
-                                type="text"
+                                type="text" className='inputbox'
                                 value={eventData1.name}
                                 onChange={(e) => setEventData1({ ...eventData1, name: e.target.value })}
                                 required
@@ -271,7 +263,7 @@ const MapboxExample = () => {
                         </div>
                         <div>
                             <label>Descrição:</label>
-                            <textarea
+                            <textarea className='inputbox'
                                 value={eventData1.description}
                                 onChange={(e) => setEventData1({ ...eventData1, description: e.target.value })}
                                 required
@@ -279,28 +271,29 @@ const MapboxExample = () => {
                             />
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <button type="submit" style={{
+                            <button className='button-left' type="submit" style={{
                                 backgroundColor: '#0079FE',
                                 border: 'none',
                                 color: 'white',
-                                padding: '8px 12px',
-                                borderRadius: '5px',
+                                padding: '12px',
+                                borderRadius: '50px',
                                 cursor: 'pointer'
-                            }}>
-                                Adicionar Local
+                            }}
+                                title='Cancelar'>
+                                <IoMdPin className='icon-submit' size={25} />
                             </button>
-                            <button
+                            <button className='button-right'
                                 type="button"
                                 onClick={handleCancel1}
                                 style={{
-                                    backgroundColor: 'red',
+                                    backgroundColor: '#FF873D',
                                     border: 'none',
                                     color: 'white',
-                                    padding: '8px 12px',
-                                    borderRadius: '5px',
+                                    padding: '12px',
+                                    borderRadius: '50px',
                                     cursor: 'pointer'
                                 }}>
-                                Cancelar
+                                <MdCancel className='icon-submit' size={25} />
                             </button>
                         </div>
                     </form>
@@ -308,22 +301,12 @@ const MapboxExample = () => {
             )}
 
             {isFormVisible2 && (
-                <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    backgroundColor: 'white',
-                    padding: '20px',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-                    zIndex: 1000
-                }}>
+                <div className='caixa-submit'>
                     <form onSubmit={handleAddEvent2}>
                         <div>
                             <label>Nome do Evento:</label>
                             <input
-                                type="text"
+                                type="text" className='inputbox'
                                 value={eventData2.name}
                                 onChange={(e) => setEventData2({ ...eventData2, name: e.target.value })}
                                 required
@@ -332,7 +315,7 @@ const MapboxExample = () => {
                         </div>
                         <div>
                             <label>Descrição:</label>
-                            <textarea
+                            <textarea className='inputbox'
                                 value={eventData2.description}
                                 onChange={(e) => setEventData2({ ...eventData2, description: e.target.value })}
                                 required
@@ -340,34 +323,35 @@ const MapboxExample = () => {
                             />
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <button type="submit" style={{
+                            <button className='button-left' type="submit" style={{
                                 backgroundColor: '#0079FE',
                                 border: 'none',
                                 color: 'white',
-                                padding: '8px 12px',
-                                borderRadius: '5px',
+                                padding: '12px',
+                                borderRadius: '50px',
                                 cursor: 'pointer'
                             }}>
-                                Adicionar Evento
+                                <IoMdPin className='icon-submit' size={25} />
                             </button>
-                            <button
+                            <button className='button-right'
                                 type="button"
                                 onClick={handleCancel2}
                                 style={{
-                                    backgroundColor: 'red',
+                                    backgroundColor: '#FF873D',
                                     border: 'none',
                                     color: 'white',
-                                    padding: '8px 12px',
-                                    borderRadius: '5px',
-                                    cursor: 'pointer'
+                                    padding: '12px',
+                                    borderRadius: '50px',
+                                    cursor: 'pointer',
+                                    outline: 'none'
                                 }}>
-                                Cancelar
+                                <MdCancel className='icon-submit' size={25} />
                             </button>
                         </div>
                     </form>
-                </div>
+                </div >
             )}
-        </div>
+        </div >
     );
 };
 
