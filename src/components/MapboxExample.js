@@ -2,9 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import './mapbox-extra.css'; // Importa o arquivo CSS com a regra para o cursor
-import { IoMdPin } from "react-icons/io";
-import { MdCancel } from "react-icons/md";
-
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
@@ -13,10 +10,9 @@ const MapboxExample = () => {
     const mapRef = useRef();
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
-    const [isFormVisible1, setIsFormVisible1] = useState(false);
-    const [isFormVisible2, setIsFormVisible2] = useState(false);
-    const [eventData1, setEventData1] = useState({ name: '', description: '' });
-    const [eventData2, setEventData2] = useState({ name: '', description: '' });
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [eventData, setEventData] = useState({ name: '', description: '', category: 'Categoria 1' });
+    const [categories] = useState(['Categoria 1', 'Categoria 2', 'Categoria 3', 'Categoria 4', 'Categoria 5']);
     const currentMarkerRef = useRef(null);
 
     useEffect(() => {
@@ -47,60 +43,12 @@ const MapboxExample = () => {
         geocoder.on('results', (response) => {
             const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
             const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
-
-            //DESCULPA PELO CODIGO MERDA MAS SO FUNCIONOU ASSIM AAAAAAAAAAAAAAAAAAAAAAA
             if (suggestions) {
                 const suggestionCount = response.features ? response.features.length : 0;
-
-                if (suggestionCount === 1) {
-                    suggestions.style.top = '24px'; // Posição para 1 sugestão
-                    suggestions.style.display = 'block';
-                } else if (suggestionCount === 2) {
-                    suggestions.style.top = '37px'; // Posição para 2 sugestões
-                    suggestions.style.display = 'block';
-                } else if (suggestionCount === 3) {
-                    suggestions.style.top = '52px'; // Posição para 3 sugestões
-                    suggestions.style.display = 'block';
-                } else if (suggestionCount === 4) {
-                    suggestions.style.top = '67px'; // Posição para 4 sugestões
-                    suggestions.style.display = 'block';
-                } else if (suggestionCount >= 5) {
-                    suggestions.style.top = '81px'; // Posição para 5 ou mais sugestões
-                    suggestions.style.display = 'block';
-                } else {
-                    suggestions.style.display = 'none'; // Esconde a lista se não houver sugestões
-                }
-
-                /* IGNORA ISSO NAO SEI MAIS O QUE FAZER// Configurações comuns para todas as quantidades de sugestões
-                if (suggestionCount > 0) {
-                    suggestions.style.left = '0px';
-                    suggestions.style.zIndex = 5;
-                }*/
+                suggestions.style.top = `${24 + (suggestionCount - 1) * 15}px`;
+                suggestions.style.display = 'block';
             }
         });
-
-        /*CODIGO DE BACKUP
-        if (suggestions) {
-                // Se houver resultados, ajusta a lista de sugestões
-                if (response.features && response.features.length >= 5) {
-                    suggestions.style.top = '80px'; // Ajuste a posição para 80px
-                    suggestions.style.left = '0px';
-                    suggestions.style.zIndex = 5;
-                    suggestions.style.display = 'block'; // Mostra a lista de sugestões
-                } 
-                // Se houver entre 1 e 4 sugestões, ajusta o top para 150px
-                else if (response.features && response.features.length > 0 && response.features.length < 5) {
-                    suggestions.style.top = '50px'; // Ajuste a posição para 150px
-                    suggestions.style.left = '0px';
-                    suggestions.style.zIndex = 5;
-                    suggestions.style.display = 'block'; // Mostra a lista de sugestões
-                } 
-                // Se não houver sugestões, esconde a lista
-                else {
-                    suggestions.style.display = 'none'; // Esconde a lista de sugestões
-                }
-            }
-        }); */
 
         mapRef.current.addControl(geocoder);
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
@@ -143,62 +91,41 @@ const MapboxExample = () => {
         };
     }, []);
 
-    const showEventForm1 = () => {
-        setIsFormVisible1(true);
-    };
-
-    const showEventForm2 = () => {
-        setIsFormVisible2(true);
-    };
-
-    const handleAddEvent1 = (e) => {
+    const handleAddEvent = (e) => {
         e.preventDefault();
 
-        if (eventData1.name && eventData1.description && selectedCoordinates) {
+        if (eventData.name && eventData.description && selectedCoordinates) {
             const marker = new mapboxgl.Marker({ color: '#FF6347' })
                 .setLngLat(selectedCoordinates)
                 .addTo(mapRef.current);
 
-            marker.getElement().addEventListener('click', () => {
-                alert(`Evento: ${eventData1.name}\nDescrição: ${eventData1.description}`);
-            });
+            const popupContent = `
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <strong>${eventData.name}</strong>
+                    <p>${eventData.description}</p>
+                    <span style="background-color: #${eventData.category.replace(' ', '').toLowerCase()}; color: white; padding: 2px 5px; border-radius: 5px;">
+                        ${eventData.category}
+                    </span>
+                </div>
+            `;
 
-            setEventData1({ name: '', description: '' });
-            setIsFormVisible1(false);
+            const popup = new mapboxgl.Popup({ offset: 25 })
+                .setHTML(popupContent)
+                .addTo(mapRef.current);
+
+            marker.setPopup(popup);
+
+            setEventData({ name: '', description: '', category: 'Categoria 1' });
+            setIsFormVisible(false);
             setSelectedAddress(null);
             setSelectedCoordinates(null);
         }
     };
 
-    const handleAddEvent2 = (e) => {
-        e.preventDefault();
-
-        if (eventData2.name && eventData2.description && selectedCoordinates) {
-            const marker = new mapboxgl.Marker({ color: '#FF6347' })
-                .setLngLat(selectedCoordinates)
-                .addTo(mapRef.current);
-
-            marker.getElement().addEventListener('click', () => {
-                alert(`Evento: ${eventData2.name}\nDescrição: ${eventData2.description}`);
-            });
-
-            setEventData2({ name: '', description: '' });
-            setIsFormVisible2(false);
-            setSelectedAddress(null);
-            setSelectedCoordinates(null);
-        }
+    const handleCancel = () => {
+        setIsFormVisible(false);
     };
 
-    const handleCancel1 = () => {
-        setIsFormVisible1(false);
-    };
-
-    const handleCancel2 = () => {
-        setIsFormVisible2(false);
-    };
-
-    //aaaaa hhhkkkk
-    
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', position: 'relative' }}>
             <div ref={mapContainerRef} className="map-container" style={{ width: '80%', height: '100%' }} />
@@ -217,115 +144,63 @@ const MapboxExample = () => {
                     boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
                 }}>
                     <span>{selectedAddress}</span>
-                    <div style={{ display: 'flex', gap: '10px', marginLeft: '10px' }}>
-                        <button
-                            onClick={showEventForm1}
-                            style={{
-                                backgroundColor: '#0079FE',
-                                border: 'none',
-                                color: 'white',
-                                borderRadius: '50%',
-                                width: '30px',
-                                height: '30px',
-                                cursor: 'pointer',
-                                fontSize: '18px'
-                            }}>
-                            +
-                        </button>
-                        <button
-                            onClick={showEventForm2}
-                            style={{
-                                backgroundColor: '#0079FE',
-                                border: 'none',
-                                color: 'white',
-                                borderRadius: '50%',
-                                width: '30px',
-                                height: '30px',
-                                cursor: 'pointer',
-                                fontSize: '18px'
-                            }}>
-                            +
-                        </button>
-                    </div>
+                    <button
+                        onClick={() => setIsFormVisible(true)}
+                        style={{
+                            backgroundColor: '#0079FE',
+                            border: 'none',
+                            color: 'white',
+                            borderRadius: '50%',
+                            width: '30px',
+                            height: '30px',
+                            cursor: 'pointer',
+                            fontSize: '18px',
+                            marginLeft: '10px'
+                        }}>
+                        +
+                    </button>
                 </div>
             )}
 
-            {isFormVisible1 && (
+            {isFormVisible && (
                 <div className='caixa-submit'>
-                    <form onSubmit={handleAddEvent1}>
-                        <div>
-                            <label>Nome do Local:</label>
-                            <input
-                                type="text" className='inputbox'
-                                value={eventData1.name}
-                                onChange={(e) => setEventData1({ ...eventData1, name: e.target.value })}
-                                required
-                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
-                            />
-                        </div>
-                        <div>
-                            <label>Descrição:</label>
-                            <textarea className='inputbox'
-                                value={eventData1.description}
-                                onChange={(e) => setEventData1({ ...eventData1, description: e.target.value })}
-                                required
-                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
-                            />
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <button className='button-left' type="submit" style={{
-                                backgroundColor: '#0079FE',
-                                border: 'none',
-                                color: 'white',
-                                padding: '12px',
-                                borderRadius: '50px',
-                                cursor: 'pointer'
-                            }}
-                                title='Cancelar'>
-                                <IoMdPin className='icon-submit' size={25} />
-                            </button>
-                            <button className='button-right'
-                                type="button"
-                                onClick={handleCancel1}
-                                style={{
-                                    backgroundColor: '#FF873D',
-                                    border: 'none',
-                                    color: 'white',
-                                    padding: '12px',
-                                    borderRadius: '50px',
-                                    cursor: 'pointer'
-                                }}>
-                                <MdCancel className='icon-submit' size={25} />
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            )}
-
-            {isFormVisible2 && (
-                <div className='caixa-submit'>
-                    <form onSubmit={handleAddEvent2}>
+                    <form onSubmit={handleAddEvent}>
                         <div>
                             <label>Nome do Evento:</label>
                             <input
-                                type="text" className='inputbox'
-                                value={eventData2.name}
-                                onChange={(e) => setEventData2({ ...eventData2, name: e.target.value })}
+                                type="text"
+                                value={eventData.name}
+                                onChange={(e) => setEventData({ ...eventData, name: e.target.value })}
                                 required
                                 style={{ display: 'block', marginBottom: '10px', width: '100%' }}
                             />
                         </div>
                         <div>
                             <label>Descrição:</label>
-                            <textarea className='inputbox'
-                                value={eventData2.description}
-                                onChange={(e) => setEventData2({ ...eventData2, description: e.target.value })}
+                            <textarea
+                                value={eventData.description}
+                                onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
                                 required
                                 style={{ display: 'block', marginBottom: '10px', width: '100%' }}
                             />
                         </div>
+                        <div>
+                            <label>Categoria:</label>
+                            <select
+                                value={eventData.category}
+                                onChange={(e) => setEventData({ ...eventData, category: e.target.value })}
+                                required
+                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+                            >
+                                {categories.map((category) => (
+                                    <option key={category} value={category}>
+                                        {category}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <button className='button-left' type="submit" style={{
+                            <button type="submit" style={{
                                 backgroundColor: '#0079FE',
                                 border: 'none',
                                 color: 'white',
@@ -333,11 +208,11 @@ const MapboxExample = () => {
                                 borderRadius: '50px',
                                 cursor: 'pointer'
                             }}>
-                                <IoMdPin className='icon-submit' size={25} />
+                                Adicionar Evento
                             </button>
-                            <button className='button-right'
+                            <button
                                 type="button"
-                                onClick={handleCancel2}
+                                onClick={handleCancel}
                                 style={{
                                     backgroundColor: '#FF873D',
                                     border: 'none',
@@ -347,13 +222,13 @@ const MapboxExample = () => {
                                     cursor: 'pointer',
                                     outline: 'none'
                                 }}>
-                                <MdCancel className='icon-submit' size={25} />
+                                Cancelar
                             </button>
                         </div>
                     </form>
-                </div >
+                </div>
             )}
-        </div >
+        </div>
     );
 };
 
