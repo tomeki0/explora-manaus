@@ -243,6 +243,11 @@
 
 }
 
+.switch-button.active:hover {
+  background-color: #FF873D;
+  color: white;
+}
+
 
 /* Email e Senha cores */
 
