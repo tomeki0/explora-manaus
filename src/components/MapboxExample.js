@@ -11,10 +11,9 @@ const MapboxExample = () => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
-    const [eventData, setEventData] = useState({ name: '', description: '', category: '' });
+    const [eventData, setEventData] = useState({ name: '', description: '', category: 'Categoria 1' });
+    const [categories] = useState(['Categoria 1', 'Categoria 2', 'Categoria 3', 'Categoria 4', 'Categoria 5']);
     const currentMarkerRef = useRef(null);
-
-    const categories = ['Restaurante', 'Loja', 'Parque', 'Museu', 'Outro'];
 
     useEffect(() => {
         mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpbGltYWRldiIsImEiOiJjbTBkYmc4aDcwYm12MnFweGEyY283cmhtIn0.1S4flGeLkg8EI2H2-OjDLw';
@@ -37,6 +36,17 @@ const MapboxExample = () => {
             proximity: {
                 longitude: -60.0217,
                 latitude: -3.1174
+            }
+        });
+
+        // Código adicionado para ajustar a posição das sugestões de pesquisa
+        geocoder.on('results', (response) => {
+            const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
+            const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
+            if (suggestions) {
+                const suggestionCount = response.features ? response.features.length : 0;
+                suggestions.style.top = `${24 + (suggestionCount - 1) * 15}px`;
+                suggestions.style.display = 'block';
             }
         });
 
@@ -81,29 +91,31 @@ const MapboxExample = () => {
         };
     }, []);
 
-    const showEventForm = () => {
-        setIsFormVisible(true);
-    };
-
     const handleAddEvent = (e) => {
         e.preventDefault();
 
-        if (eventData.name && eventData.description && eventData.category && selectedCoordinates) {
-            const popup = new mapboxgl.Popup({ offset: 25 })
-                .setHTML(`
-                    <div style="font-family: Arial, sans-serif; text-align: center;">
-                        <h3 style="margin: 0; color: #0079FE;">${eventData.name}</h3>
-                        <p style="margin: 5px 0;">${eventData.description}</p>
-                        <p style="margin: 5px 0;"><strong>Categoria:</strong> ${eventData.category}</p>
-                    </div>
-                `);
-
-            const marker = new mapboxgl.Marker({ color: '#0079FE' })
+        if (eventData.name && eventData.description && selectedCoordinates) {
+            const marker = new mapboxgl.Marker({ color: '#FF6347' })
                 .setLngLat(selectedCoordinates)
-                .setPopup(popup) // Vincula o popup ao marcador
                 .addTo(mapRef.current);
 
-            setEventData({ name: '', description: '', category: '' });
+            const popupContent = `
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <strong>${eventData.name}</strong>
+                    <p>${eventData.description}</p>
+                    <span style="background-color: #${eventData.category.replace(' ', '').toLowerCase()}; color: white; padding: 2px 5px; border-radius: 5px;">
+                        ${eventData.category}
+                    </span>
+                </div>
+            `;
+
+            const popup = new mapboxgl.Popup({ offset: 25 })
+                .setHTML(popupContent)
+                .addTo(mapRef.current);
+
+            marker.setPopup(popup);
+
+            setEventData({ name: '', description: '', category: 'Categoria 1' });
             setIsFormVisible(false);
             setSelectedAddress(null);
             setSelectedCoordinates(null);
@@ -114,8 +126,6 @@ const MapboxExample = () => {
         setIsFormVisible(false);
     };
 
-    //aaaaa hhhkkkk
-    
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', position: 'relative' }}>
             <div ref={mapContainerRef} className="map-container" style={{ width: '80%', height: '100%' }} />
@@ -134,40 +144,29 @@ const MapboxExample = () => {
                     boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
                 }}>
                     <span>{selectedAddress}</span>
-                    <div style={{ display: 'flex', gap: '10px', marginLeft: '10px' }}>
-                        <button
-                            onClick={showEventForm}
-                            style={{
-                                backgroundColor: '#0079FE',
-                                border: 'none',
-                                color: 'white',
-                                borderRadius: '50%',
-                                width: '30px',
-                                height: '30px',
-                                cursor: 'pointer',
-                                fontSize: '18px'
-                            }}>
-                            +
-                        </button>
-                    </div>
+                    <button
+                        onClick={() => setIsFormVisible(true)}
+                        style={{
+                            backgroundColor: '#0079FE',
+                            border: 'none',
+                            color: 'white',
+                            borderRadius: '50%',
+                            width: '30px',
+                            height: '30px',
+                            cursor: 'pointer',
+                            fontSize: '18px',
+                            marginLeft: '10px'
+                        }}>
+                        +
+                    </button>
                 </div>
             )}
 
             {isFormVisible && (
-                <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    backgroundColor: 'white',
-                    padding: '20px',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-                    zIndex: 1000
-                }}>
+                <div className='caixa-submit'>
                     <form onSubmit={handleAddEvent}>
                         <div>
-                            <label>Nome do Local:</label>
+                            <label>Nome do Evento:</label>
                             <input
                                 type="text"
                                 value={eventData.name}
@@ -193,9 +192,10 @@ const MapboxExample = () => {
                                 required
                                 style={{ display: 'block', marginBottom: '10px', width: '100%' }}
                             >
-                                <option value="" disabled>Selecione uma categoria</option>
-                                {categories.map((category, index) => (
-                                    <option key={index} value={category}>{category}</option>
+                                {categories.map((category) => (
+                                    <option key={category} value={category}>
+                                        {category}
+                                    </option>
                                 ))}
                             </select>
                         </div>
@@ -204,22 +204,23 @@ const MapboxExample = () => {
                                 backgroundColor: '#0079FE',
                                 border: 'none',
                                 color: 'white',
-                                padding: '8px 12px',
-                                borderRadius: '5px',
+                                padding: '12px',
+                                borderRadius: '50px',
                                 cursor: 'pointer'
                             }}>
-                                Adicionar Local
+                                Adicionar Evento
                             </button>
                             <button
                                 type="button"
                                 onClick={handleCancel}
                                 style={{
-                                    backgroundColor: 'red',
+                                    backgroundColor: '#FF873D',
                                     border: 'none',
                                     color: 'white',
-                                    padding: '8px 12px',
-                                    borderRadius: '5px',
-                                    cursor: 'pointer'
+                                    padding: '12px',
+                                    borderRadius: '50px',
+                                    cursor: 'pointer',
+                                    outline: 'none'
                                 }}>
                                 Cancelar
                             </button>
