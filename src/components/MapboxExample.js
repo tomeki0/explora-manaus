@@ -13,11 +13,11 @@ const MapboxExample = () => {
     const mapRef = useRef();
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
-    const [isFormVisible1, setIsFormVisible1] = useState(false);
-    const [isFormVisible2, setIsFormVisible2] = useState(false);
-    const [eventData1, setEventData1] = useState({ name: '', description: '' });
-    const [eventData2, setEventData2] = useState({ name: '', description: '' });
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [eventData, setEventData] = useState({ name: '', description: '', category: '' });
     const currentMarkerRef = useRef(null);
+
+    const categories = ['Restaurante', 'Loja', 'Parque', 'Museu', 'Outro'];
 
     useEffect(() => {
         mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpbGltYWRldiIsImEiOiJjbTBkYmc4aDcwYm12MnFweGEyY283cmhtIn0.1S4flGeLkg8EI2H2-OjDLw';
@@ -42,65 +42,6 @@ const MapboxExample = () => {
                 latitude: -3.1174
             }
         });
-
-        // Código adicionado para ajustar a posição das sugestões de pesquisa
-        geocoder.on('results', (response) => {
-            const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
-            const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
-
-            //DESCULPA PELO CODIGO MERDA MAS SO FUNCIONOU ASSIM AAAAAAAAAAAAAAAAAAAAAAA
-            if (suggestions) {
-                const suggestionCount = response.features ? response.features.length : 0;
-
-                if (suggestionCount === 1) {
-                    suggestions.style.top = '24px'; // Posição para 1 sugestão
-                    suggestions.style.display = 'block';
-                } else if (suggestionCount === 2) {
-                    suggestions.style.top = '37px'; // Posição para 2 sugestões
-                    suggestions.style.display = 'block';
-                } else if (suggestionCount === 3) {
-                    suggestions.style.top = '52px'; // Posição para 3 sugestões
-                    suggestions.style.display = 'block';
-                } else if (suggestionCount === 4) {
-                    suggestions.style.top = '67px'; // Posição para 4 sugestões
-                    suggestions.style.display = 'block';
-                } else if (suggestionCount >= 5) {
-                    suggestions.style.top = '81px'; // Posição para 5 ou mais sugestões
-                    suggestions.style.display = 'block';
-                } else {
-                    suggestions.style.display = 'none'; // Esconde a lista se não houver sugestões
-                }
-
-                /* IGNORA ISSO NAO SEI MAIS O QUE FAZER// Configurações comuns para todas as quantidades de sugestões
-                if (suggestionCount > 0) {
-                    suggestions.style.left = '0px';
-                    suggestions.style.zIndex = 5;
-                }*/
-            }
-        });
-
-        /*CODIGO DE BACKUP
-        if (suggestions) {
-                // Se houver resultados, ajusta a lista de sugestões
-                if (response.features && response.features.length >= 5) {
-                    suggestions.style.top = '80px'; // Ajuste a posição para 80px
-                    suggestions.style.left = '0px';
-                    suggestions.style.zIndex = 5;
-                    suggestions.style.display = 'block'; // Mostra a lista de sugestões
-                } 
-                // Se houver entre 1 e 4 sugestões, ajusta o top para 150px
-                else if (response.features && response.features.length > 0 && response.features.length < 5) {
-                    suggestions.style.top = '50px'; // Ajuste a posição para 150px
-                    suggestions.style.left = '0px';
-                    suggestions.style.zIndex = 5;
-                    suggestions.style.display = 'block'; // Mostra a lista de sugestões
-                } 
-                // Se não houver sugestões, esconde a lista
-                else {
-                    suggestions.style.display = 'none'; // Esconde a lista de sugestões
-                }
-            }
-        }); */
 
         mapRef.current.addControl(geocoder);
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
@@ -134,6 +75,8 @@ const MapboxExample = () => {
             } else {
                 setSelectedAddress('Endereço não encontrado');
             }
+
+            setIsFormVisible(true);
         });
 
         return () => {
@@ -143,65 +86,42 @@ const MapboxExample = () => {
         };
     }, []);
 
-    const showEventForm1 = () => {
-        setIsFormVisible1(true);
-    };
-
-    const showEventForm2 = () => {
-        setIsFormVisible2(true);
-    };
-
-    const handleAddEvent1 = (e) => {
+    const handleAddEvent = (e) => {
         e.preventDefault();
 
-        if (eventData1.name && eventData1.description && selectedCoordinates) {
-            const marker = new mapboxgl.Marker({ color: '#FF6347' })
+        if (eventData.name && eventData.description && eventData.category && selectedCoordinates) {
+            const popup = new mapboxgl.Popup({ offset: 25 })
+                .setHTML(`
+                    <div style="font-family: Arial, sans-serif; text-align: center;">
+                        <h3 style="margin: 0; color: #0079FE;">${eventData.name}</h3>
+                        <p style="margin: 5px 0;">${eventData.description}</p>
+                        <p style="margin: 5px 0;"><strong>Categoria:</strong> ${eventData.category}</p>
+                    </div>
+                `);
+
+            const marker = new mapboxgl.Marker({ color: '#0079FE' })
                 .setLngLat(selectedCoordinates)
+                .setPopup(popup) // Vincula o popup ao marcador
                 .addTo(mapRef.current);
 
-            marker.getElement().addEventListener('click', () => {
-                alert(`Evento: ${eventData1.name}\nDescrição: ${eventData1.description}`);
-            });
-
-            setEventData1({ name: '', description: '' });
-            setIsFormVisible1(false);
+            setEventData({ name: '', description: '', category: '' });
+            setIsFormVisible(false);
             setSelectedAddress(null);
             setSelectedCoordinates(null);
         }
     };
 
-    const handleAddEvent2 = (e) => {
-        e.preventDefault();
-
-        if (eventData2.name && eventData2.description && selectedCoordinates) {
-            const marker = new mapboxgl.Marker({ color: '#FF6347' })
-                .setLngLat(selectedCoordinates)
-                .addTo(mapRef.current);
-
-            marker.getElement().addEventListener('click', () => {
-                alert(`Evento: ${eventData2.name}\nDescrição: ${eventData2.description}`);
-            });
-
-            setEventData2({ name: '', description: '' });
-            setIsFormVisible2(false);
-            setSelectedAddress(null);
-            setSelectedCoordinates(null);
-        }
-    };
-
-    const handleCancel1 = () => {
-        setIsFormVisible1(false);
-    };
-
-    const handleCancel2 = () => {
-        setIsFormVisible2(false);
+    const handleCancel = () => {
+        setIsFormVisible(false);
+        setSelectedAddress(null);
+        setSelectedCoordinates(null);
     };
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', position: 'relative' }}>
             <div ref={mapContainerRef} className="map-container" style={{ width: '80%', height: '100%' }} />
 
-            {selectedAddress && (
+            {selectedAddress && !isFormVisible && (
                 <div style={{
                     position: 'absolute',
                     bottom: 20,
@@ -217,21 +137,7 @@ const MapboxExample = () => {
                     <span>{selectedAddress}</span>
                     <div style={{ display: 'flex', gap: '10px', marginLeft: '10px' }}>
                         <button
-                            onClick={showEventForm1}
-                            style={{
-                                backgroundColor: '#0079FE',
-                                border: 'none',
-                                color: 'white',
-                                borderRadius: '50%',
-                                width: '30px',
-                                height: '30px',
-                                cursor: 'pointer',
-                                fontSize: '18px'
-                            }}>
-                            +
-                        </button>
-                        <button
-                            onClick={showEventForm2}
+                            onClick={() => setIsFormVisible(true)}
                             style={{
                                 backgroundColor: '#0079FE',
                                 border: 'none',
@@ -248,43 +154,66 @@ const MapboxExample = () => {
                 </div>
             )}
 
-            {isFormVisible1 && (
-                <div className='caixa-submit'>
-                    <form onSubmit={handleAddEvent1}>
+            {isFormVisible && (
+                <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    backgroundColor: 'white',
+                    padding: '20px',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+                    zIndex: 1000
+                }}>
+                    <form onSubmit={handleAddEvent}>
                         <div>
                             <label>Nome do Local:</label>
                             <input
-                                type="text" className='inputbox'
-                                value={eventData1.name}
-                                onChange={(e) => setEventData1({ ...eventData1, name: e.target.value })}
+                                type="text"
+                                value={eventData.name}
+                                onChange={(e) => setEventData({ ...eventData, name: e.target.value })}
                                 required
                                 style={{ display: 'block', marginBottom: '10px', width: '100%' }}
                             />
                         </div>
                         <div>
                             <label>Descrição:</label>
-                            <textarea className='inputbox'
-                                value={eventData1.description}
-                                onChange={(e) => setEventData1({ ...eventData1, description: e.target.value })}
+                            <textarea
+                                value={eventData.description}
+                                onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
                                 required
                                 style={{ display: 'block', marginBottom: '10px', width: '100%' }}
                             />
                         </div>
+                        <div>
+                            <label>Categoria:</label>
+                            <select
+                                value={eventData.category}
+                                onChange={(e) => setEventData({ ...eventData, category: e.target.value })}
+                                required
+                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+                            >
+                                <option value="" disabled>Selecione uma categoria</option>
+                                {categories.map((category, index) => (
+                                    <option key={index} value={category}>{category}</option>
+                                ))}
+                            </select>
+                        </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <button className='button-left' type="submit" style={{
+                            <button type="submit" style={{
                                 backgroundColor: '#0079FE',
                                 border: 'none',
                                 color: 'white',
                                 padding: '12px',
                                 borderRadius: '50px',
                                 cursor: 'pointer'
-                            }}
-                                title='Cancelar'>
-                                <IoMdPin className='icon-submit' size={25} />
+                            }}>
+                                <IoMdPin size={25} />
                             </button>
-                            <button className='button-right'
+                            <button
                                 type="button"
-                                onClick={handleCancel1}
+                                onClick={handleCancel}
                                 style={{
                                     backgroundColor: '#FF873D',
                                     border: 'none',
@@ -293,65 +222,13 @@ const MapboxExample = () => {
                                     borderRadius: '50px',
                                     cursor: 'pointer'
                                 }}>
-                                <MdCancel className='icon-submit' size={25} />
+                                <MdCancel size={25} />
                             </button>
                         </div>
                     </form>
                 </div>
             )}
-
-            {isFormVisible2 && (
-                <div className='caixa-submit'>
-                    <form onSubmit={handleAddEvent2}>
-                        <div>
-                            <label>Nome do Evento:</label>
-                            <input
-                                type="text" className='inputbox'
-                                value={eventData2.name}
-                                onChange={(e) => setEventData2({ ...eventData2, name: e.target.value })}
-                                required
-                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
-                            />
-                        </div>
-                        <div>
-                            <label>Descrição:</label>
-                            <textarea className='inputbox'
-                                value={eventData2.description}
-                                onChange={(e) => setEventData2({ ...eventData2, description: e.target.value })}
-                                required
-                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
-                            />
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <button className='button-left' type="submit" style={{
-                                backgroundColor: '#0079FE',
-                                border: 'none',
-                                color: 'white',
-                                padding: '12px',
-                                borderRadius: '50px',
-                                cursor: 'pointer'
-                            }}>
-                                <IoMdPin className='icon-submit' size={25} />
-                            </button>
-                            <button className='button-right'
-                                type="button"
-                                onClick={handleCancel2}
-                                style={{
-                                    backgroundColor: '#FF873D',
-                                    border: 'none',
-                                    color: 'white',
-                                    padding: '12px',
-                                    borderRadius: '50px',
-                                    cursor: 'pointer',
-                                    outline: 'none'
-                                }}>
-                                <MdCancel className='icon-submit' size={25} />
-                            </button>
-                        </div>
-                    </form>
-                </div >
-            )}
-        </div >
+        </div>
     );
 };
 
