@@ -114,6 +114,8 @@ const MapboxExample = () => {
         setIsFormVisible(false);
     };
 
+    //aaaaa hhhkkkk
+    
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', position: 'relative' }}>
             <div ref={mapContainerRef} className="map-container" style={{ width: '80%', height: '100%' }} />
