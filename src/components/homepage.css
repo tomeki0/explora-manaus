@@ -95,7 +95,6 @@
     opacity: 0;
     transform: translateY(-20px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -112,8 +111,7 @@
 
 .login-form,
 .signup-form {
-  background-color: rgba(0, 0, 0, 0.75);
-  /* Preto meio transparente */
+  background-color: rgba(0, 0, 0, 0.75); /* Preto meio transparente */
   padding: 30px;
   border-radius: 12px;
   width: 200%;

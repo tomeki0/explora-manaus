@@ -13,11 +13,11 @@ const MapboxExample = () => {
     const mapRef = useRef();
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
-    const [isFormVisible1, setIsFormVisible1] = useState(false);
-    const [isFormVisible2, setIsFormVisible2] = useState(false);
-    const [eventData1, setEventData1] = useState({ name: '', description: '' });
-    const [eventData2, setEventData2] = useState({ name: '', description: '' });
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [eventData, setEventData] = useState({ name: '', description: '', category: '' });
     const currentMarkerRef = useRef(null);
+
+    const categories = ['Restaurante', 'Loja', 'Parque', 'Museu', 'Outro'];
 
     useEffect(() => {
         mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpbGltYWRldiIsImEiOiJjbTBkYmc4aDcwYm12MnFweGEyY283cmhtIn0.1S4flGeLkg8EI2H2-OjDLw';
@@ -47,11 +47,11 @@ const MapboxExample = () => {
         geocoder.on('results', (response) => {
             const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
             const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
-
+            
             //DESCULPA PELO CODIGO MERDA MAS SO FUNCIONOU ASSIM AAAAAAAAAAAAAAAAAAAAAAA
             if (suggestions) {
                 const suggestionCount = response.features ? response.features.length : 0;
-
+                
                 if (suggestionCount === 1) {
                     suggestions.style.top = '24px'; // Posição para 1 sugestão
                     suggestions.style.display = 'block';
@@ -70,7 +70,7 @@ const MapboxExample = () => {
                 } else {
                     suggestions.style.display = 'none'; // Esconde a lista se não houver sugestões
                 }
-
+        
                 /* IGNORA ISSO NAO SEI MAIS O QUE FAZER// Configurações comuns para todas as quantidades de sugestões
                 if (suggestionCount > 0) {
                     suggestions.style.left = '0px';
@@ -101,7 +101,7 @@ const MapboxExample = () => {
                 }
             }
         }); */
-
+        
         mapRef.current.addControl(geocoder);
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
 
@@ -143,58 +143,37 @@ const MapboxExample = () => {
         };
     }, []);
 
-    const showEventForm1 = () => {
-        setIsFormVisible1(true);
+    const showEventForm = () => {
+        setIsFormVisible(true);
     };
 
-    const showEventForm2 = () => {
-        setIsFormVisible2(true);
-    };
-
-    const handleAddEvent1 = (e) => {
+    const handleAddEvent = (e) => {
         e.preventDefault();
 
-        if (eventData1.name && eventData1.description && selectedCoordinates) {
-            const marker = new mapboxgl.Marker({ color: '#FF6347' })
+        if (eventData.name && eventData.description && eventData.category && selectedCoordinates) {
+            const popup = new mapboxgl.Popup({ offset: 25 })
+                .setHTML(`
+                    <div style="font-family: Arial, sans-serif; text-align: center;">
+                        <h3 style="margin: 0; color: #0079FE;">${eventData.name}</h3>
+                        <p style="margin: 5px 0;">${eventData.description}</p>
+                        <p style="margin: 5px 0;"><strong>Categoria:</strong> ${eventData.category}</p>
+                    </div>
+                `);
+
+            const marker = new mapboxgl.Marker({ color: '#0079FE' })
                 .setLngLat(selectedCoordinates)
+                .setPopup(popup) // Vincula o popup ao marcador
                 .addTo(mapRef.current);
 
-            marker.getElement().addEventListener('click', () => {
-                alert(`Evento: ${eventData1.name}\nDescrição: ${eventData1.description}`);
-            });
-
-            setEventData1({ name: '', description: '' });
-            setIsFormVisible1(false);
+            setEventData({ name: '', description: '', category: '' });
+            setIsFormVisible(false);
             setSelectedAddress(null);
             setSelectedCoordinates(null);
         }
     };
 
-    const handleAddEvent2 = (e) => {
-        e.preventDefault();
-
-        if (eventData2.name && eventData2.description && selectedCoordinates) {
-            const marker = new mapboxgl.Marker({ color: '#FF6347' })
-                .setLngLat(selectedCoordinates)
-                .addTo(mapRef.current);
-
-            marker.getElement().addEventListener('click', () => {
-                alert(`Evento: ${eventData2.name}\nDescrição: ${eventData2.description}`);
-            });
-
-            setEventData2({ name: '', description: '' });
-            setIsFormVisible2(false);
-            setSelectedAddress(null);
-            setSelectedCoordinates(null);
-        }
-    };
-
-    const handleCancel1 = () => {
-        setIsFormVisible1(false);
-    };
-
-    const handleCancel2 = () => {
-        setIsFormVisible2(false);
+    const handleCancel = () => {
+        setIsFormVisible(false);
     };
 
     return (
@@ -217,21 +196,7 @@ const MapboxExample = () => {
                     <span>{selectedAddress}</span>
                     <div style={{ display: 'flex', gap: '10px', marginLeft: '10px' }}>
                         <button
-                            onClick={showEventForm1}
-                            style={{
-                                backgroundColor: '#0079FE',
-                                border: 'none',
-                                color: 'white',
-                                borderRadius: '50%',
-                                width: '30px',
-                                height: '30px',
-                                cursor: 'pointer',
-                                fontSize: '18px'
-                            }}>
-                            +
-                        </button>
-                        <button
-                            onClick={showEventForm2}
+                            onClick={showEventForm}
                             style={{
                                 backgroundColor: '#0079FE',
                                 border: 'none',
@@ -249,12 +214,22 @@ const MapboxExample = () => {
             )}
 
             {isFormVisible1 && (
-                <div className='caixa-submit'>
+                <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    backgroundColor: 'white',
+                    padding: '20px',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+                    zIndex: 1000
+                }}>
                     <form onSubmit={handleAddEvent1}>
                         <div>
                             <label>Nome do Local:</label>
                             <input
-                                type="text" className='inputbox'
+                                type="text"
                                 value={eventData1.name}
                                 onChange={(e) => setEventData1({ ...eventData1, name: e.target.value })}
                                 required
@@ -263,12 +238,26 @@ const MapboxExample = () => {
                         </div>
                         <div>
                             <label>Descrição:</label>
-                            <textarea className='inputbox'
+                            <textarea
                                 value={eventData1.description}
                                 onChange={(e) => setEventData1({ ...eventData1, description: e.target.value })}
                                 required
                                 style={{ display: 'block', marginBottom: '10px', width: '100%' }}
                             />
+                        </div>
+                        <div>
+                            <label>Categoria:</label>
+                            <select
+                                value={eventData.category}
+                                onChange={(e) => setEventData({ ...eventData, category: e.target.value })}
+                                required
+                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+                            >
+                                <option value="" disabled>Selecione uma categoria</option>
+                                {categories.map((category, index) => (
+                                    <option key={index} value={category}>{category}</option>
+                                ))}
+                            </select>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <button className='button-left' type="submit" style={{
@@ -286,14 +275,14 @@ const MapboxExample = () => {
                                 type="button"
                                 onClick={handleCancel1}
                                 style={{
-                                    backgroundColor: '#FF873D',
+                                    backgroundColor: 'red',
                                     border: 'none',
                                     color: 'white',
-                                    padding: '12px',
-                                    borderRadius: '50px',
+                                    padding: '8px 12px',
+                                    borderRadius: '5px',
                                     cursor: 'pointer'
                                 }}>
-                                <MdCancel className='icon-submit' size={25} />
+                                Cancelar
                             </button>
                         </div>
                     </form>
@@ -301,12 +290,22 @@ const MapboxExample = () => {
             )}
 
             {isFormVisible2 && (
-                <div className='caixa-submit'>
+                <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    backgroundColor: 'white',
+                    padding: '20px',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+                    zIndex: 1000
+                }}>
                     <form onSubmit={handleAddEvent2}>
                         <div>
                             <label>Nome do Evento:</label>
                             <input
-                                type="text" className='inputbox'
+                                type="text"
                                 value={eventData2.name}
                                 onChange={(e) => setEventData2({ ...eventData2, name: e.target.value })}
                                 required
@@ -315,7 +314,7 @@ const MapboxExample = () => {
                         </div>
                         <div>
                             <label>Descrição:</label>
-                            <textarea className='inputbox'
+                            <textarea
                                 value={eventData2.description}
                                 onChange={(e) => setEventData2({ ...eventData2, description: e.target.value })}
                                 required
@@ -323,17 +322,17 @@ const MapboxExample = () => {
                             />
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <button className='button-left' type="submit" style={{
+                            <button type="submit" style={{
                                 backgroundColor: '#0079FE',
                                 border: 'none',
                                 color: 'white',
-                                padding: '12px',
-                                borderRadius: '50px',
+                                padding: '8px 12px',
+                                borderRadius: '5px',
                                 cursor: 'pointer'
                             }}>
-                                <IoMdPin className='icon-submit' size={25} />
+                                Adicionar Evento
                             </button>
-                            <button className='button-right'
+                            <button
                                 type="button"
                                 onClick={handleCancel2}
                                 style={{
