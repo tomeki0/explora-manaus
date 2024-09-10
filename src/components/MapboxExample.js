@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import './mapbox-extra.css';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { IoMdPin } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
+
+import './mapbox-extra.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 const MapboxExample = () => {
     const mapContainerRef = useRef();
@@ -185,7 +186,7 @@ const MapboxExample = () => {
             {isFormVisible && (
                 <div className='caixa-submit'>
                     <form onSubmit={handleAddEvent}>
-                        
+
                         <div>
                             <label>{isEventForm ? 'Nome do Evento:' : 'Nome do Local:'}</label>
                             <input className='inputbox'
@@ -270,11 +271,11 @@ const MapboxExample = () => {
                                     cursor: 'pointer'
                                 }} />
                         </div>
-                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
-                                <button type="button" onClick={toggleForm} style={{ cursor: 'pointer' }}>
-                                    {isEventForm ? 'Mudar pra Local' : 'Mudar pra Evento'}
-                                </button>
-                            </div>
+                        <div className='form-changer' style={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
+                            <button type="button" onClick={toggleForm} style={{ cursor: 'pointer' }}>
+                                {isEventForm ? 'Local' : 'Evento'}
+                            </button>
+                        </div>
                     </form>
                 </div>
             )}
