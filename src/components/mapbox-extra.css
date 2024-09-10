@@ -23,6 +23,7 @@
 }
 
 .caixa-submit {
+    /*form de evento/local*/
     position: absolute;
     top: 50%;
     left: 50%;
@@ -36,6 +37,7 @@
 }
 
 .inputbox {
+    /*caixa das de input dentro do forms*/
     outline: none;
     border: none;
     background-color: rgb(214, 214, 214);
@@ -45,6 +47,7 @@
 
 
 .button-left {
+    /*botao de adicionar pin*/
     margin-right: 2%;
     position: relative;
     left: 20%;
@@ -56,6 +59,7 @@
 }
 
 .button-right {
+    /*botao de cancelar pin*/
     margin-left: 2%;
     position: relative;
     right: 20%;
@@ -67,6 +71,7 @@
 }
 
 .select-adress {
+    /*botao de selecionar endereço e abrir o forms*/
     padding: 5px;
     transition: all 0.3s ease;
 
@@ -76,44 +81,57 @@
 }
 
 label {
+    /*Nome do local/descrição/categoria*/
     font-weight: 500;
     margin-bottom: 2%;
 }
 
-.button-placeholder1 {
-    background-color: red;
-    border: none;
-    align-items: center;
-    justify-content: center;
+.form-changer {
+    /*botao de alternar entre form de local e evento*/
+
+    & button {
+        background-color: rgb(214, 214, 214);
+        border: none;
+        border-radius: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-weight: 600;
+    }
+
+    & button:hover {
+        background-color: #37c275;
+        color: white;
+    }
 }
 
-/* mapbox-extra.css */
-
 .popup-card {
+    /*card de informações sobre o pin*/
     max-width: 250px;
     padding: 10px;
     border-radius: 8px;
     background: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
-}
 
-.popup-card h4 {
-    margin: 0 0 10px;
-    font-size: 16px;
-    color: #333;
-}
+    & h4 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        color: #333;
+    }
 
-.popup-card p {
-    margin: 0 0 10px;
-    color: #666;
-}
+    & p {
+        margin: 0 0 10px;
+        color: #666;
+    }
 
-.popup-card span {
-    display: inline-block;
-    background-color: #0079FE;
-    color: white;
-    padding: 2px 5px;
-    border-radius: 4px;
-    font-size: 12px;
+    & span {
+        display: inline-block;
+        background-color: #0079FE;
+        color: white;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 12px;
+    }
 }
