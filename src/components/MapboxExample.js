@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import './mapbox-extra.css'; // Importa o arquivo CSS com a regra para o cursor
+import './mapbox-extra.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { IoMdPin } from "react-icons/io";
@@ -14,13 +14,17 @@ const MapboxExample = () => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
-    const [eventData, setEventData] = useState({ name: '', description: '', category: '' });
-    
-    // Categorias para eventos e locais separadamente
+    const [eventData, setEventData] = useState({
+        name: '',
+        description: '',
+        category: '',
+        date: '',
+        time: ''
+    });
+
     const [eventCategories] = useState(['Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
     const [locationCategories] = useState(['Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
-    
-    const [isEventForm, setIsEventForm] = useState(true); // Estado para alternar entre Evento e Local
+    const [isEventForm, setIsEventForm] = useState(true);
     const currentMarkerRef = useRef(null);
 
     useEffect(() => {
@@ -110,6 +114,7 @@ const MapboxExample = () => {
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <strong>${eventData.name}</strong>
                     <p>${eventData.description}</p>
+                    <p>${eventData.date ? `Data: ${eventData.date}` : ''} ${eventData.time ? `Hora: ${eventData.time}` : ''}</p>
                     <span style="background-color: #${eventData.category.replace(' ', '').toLowerCase()}; color: white; padding: 2px 5px; border-radius: 5px;">
                         ${eventData.category}
                     </span>
@@ -122,7 +127,13 @@ const MapboxExample = () => {
 
             marker.setPopup(popup);
 
-            setEventData({ name: '', description: '', category: 'Categoria 1' });
+            setEventData({
+                name: '',
+                description: '',
+                category: '',
+                date: '',
+                time: ''
+            });
             setIsFormVisible(false);
             setSelectedAddress(null);
             setSelectedCoordinates(null);
@@ -134,7 +145,7 @@ const MapboxExample = () => {
     };
 
     const toggleForm = () => {
-        setIsEventForm(!isEventForm); // Alterna entre o formulário de evento e local
+        setIsEventForm(!isEventForm);
     };
 
     return (
@@ -196,6 +207,30 @@ const MapboxExample = () => {
                                 style={{ display: 'block', marginBottom: '10px', width: '100%', resize: 'none' }}
                             />
                         </div>
+                        {isEventForm && (
+                            <>
+                                <div>
+                                    <label>Data:</label>
+                                    <input className='inputbox'
+                                        type="date"
+                                        value={eventData.date}
+                                        onChange={(e) => setEventData({ ...eventData, date: e.target.value })}
+                                        required
+                                        style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+                                    />
+                                </div>
+                                <div>
+                                    <label>Hora:</label>
+                                    <input className='inputbox'
+                                        type="time"
+                                        value={eventData.time}
+                                        onChange={(e) => setEventData({ ...eventData, time: e.target.value })}
+                                        required
+                                        style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+                                    />
+                                </div>
+                            </>
+                        )}
                         <div>
                             <label>Categoria:</label>
                             <select className='inputbox'
