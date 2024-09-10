@@ -82,13 +82,13 @@ function AboutPage() {
                                 <i className="fas fa-keyboard fa-3x mb-3 icon"></i>
                                 <Card.Text>
                                     <ul>
-                                        <li>Felipe Carvalho</li>
+                                        <li>João Campos</li>
                                         <li>Guilherme Lima</li>
+                                        <li>Luiz Guilherme</li>
                                         <li>Gustavo Mattos</li>
                                         <li>Gustavo Lopes</li>
                                         <li>Hamilton Melo</li>
-                                        <li>João Campos</li>
-                                        <li>Luiz Guilherme</li>
+                                        <li>Felipe Carvalho</li>
                                     </ul>
                                 </Card.Text>
                             </Card.Body>
@@ -101,11 +101,11 @@ function AboutPage() {
                                 <i className="fas fa-paint-brush fa-3x mb-3 icon"></i>
                                 <Card.Text>
                                     <ul>
-                                        <li>Kezia Frazão</li>
-                                        <li>Lucas Gabriel</li>
                                         <li>Rickson Cavalcante</li>
                                         <li>Sara Oliveira</li>
                                         <li>Yan Carlo</li>
+                                        <li>Lucas Gabriel</li>
+                                        <li>Kezia Frazão</li>
                                         <li>Yanne</li>
                                     </ul>
                                 </Card.Text>
@@ -119,9 +119,9 @@ function AboutPage() {
                                 <i className="fas fa-image fa-3x mb-3 icon"></i>
                                 <Card.Text>
                                     <ul>
-                                        <li>Abe Samuel</li>
                                         <li>Kayki Lins</li>
                                         <li>Layana Cibele</li>
+                                        <li>Abe Samuel</li>
                                     </ul>
                                 </Card.Text>
                             </Card.Body>
