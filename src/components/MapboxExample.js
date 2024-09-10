@@ -185,9 +185,7 @@ const MapboxExample = () => {
             {isFormVisible && (
                 <div className='caixa-submit'>
                     <form onSubmit={handleAddEvent}>
-                        <button type="button" onClick={toggleForm} style={{ marginBottom: '10px', cursor: 'pointer' }}>
-                            {isEventForm ? 'Mudar pra Local' : 'Mudar pra Evento'}
-                        </button>
+                        
                         <div>
                             <label>{isEventForm ? 'Nome do Evento:' : 'Nome do Local:'}</label>
                             <input className='inputbox'
@@ -208,28 +206,28 @@ const MapboxExample = () => {
                             />
                         </div>
                         {isEventForm && (
-                            <>
-                                <div>
+                            <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                                <div style={{ flex: 1 }}>
                                     <label>Data:</label>
                                     <input className='inputbox'
                                         type="date"
                                         value={eventData.date}
                                         onChange={(e) => setEventData({ ...eventData, date: e.target.value })}
                                         required
-                                        style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+                                        style={{ display: 'block', width: '100%' }}
                                     />
                                 </div>
-                                <div>
+                                <div style={{ flex: 1 }}>
                                     <label>Hora:</label>
                                     <input className='inputbox'
                                         type="time"
                                         value={eventData.time}
                                         onChange={(e) => setEventData({ ...eventData, time: e.target.value })}
                                         required
-                                        style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+                                        style={{ display: 'block', width: '100%' }}
                                     />
                                 </div>
-                            </>
+                            </div>
                         )}
                         <div>
                             <label>Categoria:</label>
@@ -272,6 +270,11 @@ const MapboxExample = () => {
                                     cursor: 'pointer'
                                 }} />
                         </div>
+                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
+                                <button type="button" onClick={toggleForm} style={{ cursor: 'pointer' }}>
+                                    {isEventForm ? 'Mudar pra Local' : 'Mudar pra Evento'}
+                                </button>
+                            </div>
                     </form>
                 </div>
             )}
