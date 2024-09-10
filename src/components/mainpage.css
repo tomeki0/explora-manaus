@@ -32,9 +32,10 @@
     margin-top: 30px;
     animation: 1s ease-out 0s 1 slideInFromLeft;
     font-weight: 500;
-}
 
-.menu-main-button:hover {
-    background-color: #FF873D;
-    color: white;
+    &:hover {
+        background-color: #FF873D;
+        border: 2px solid #FF873D;
+        color: white;
+    }
 }

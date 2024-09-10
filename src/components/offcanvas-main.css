@@ -13,30 +13,22 @@
 .button {
     position: absolute;
     right: 0;
-    background-color: white !important;
+    color: gray !important;
+    background-color: white;
     margin: 30px;
-    height: 60px;
-    width: 60px;
+    padding: 10px;
+    height: 50px;
+    width: 50px;
     border-radius: 50px;
     box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.2);
     border: none;
 
     animation: 1s ease-out 0s 1 slideInFromRight;
-}
 
-.button:hover {
-    background-color: #e7671d !important;
-}
-
-/*ícone do botão*/
-.button-icon {
-    color: gray !important;
-    position: relative;
-    z-index: 10;
-}
-
-.button-icon:hover {
-    color: white !important;
+    &:hover {
+        background-color: #e7671d !important;
+        color: white !important;
+    }
 }
 
 /*menu aberto*/
@@ -83,13 +75,14 @@ ul {
     margin-bottom: 25%;
     width: 150px;
 
-    color: black;
+    color: rgb(77, 77, 77);
+    font-weight: 600;
     background-color: rgb(214, 214, 214);
     border: none;
     border-radius: 8px;
-}
 
-.button-menu:hover {
-    background-color: #e7671d;
-    border-color: #e7671d;
+    &:hover {
+        background-color: #e7671d;
+        border-color: #e7671d;
+    }
 }

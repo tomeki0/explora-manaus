@@ -8,6 +8,10 @@
     position: relative;
 }
 
+.mapboxgl-ctrl-geocoder input:focus {
+    outline: none;
+}
+
 .suggestions-wrapper {
     position: relative;
     top: 100%;
@@ -16,14 +20,6 @@
     margin-top: 0px;
     width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.inputbox {
-    outline: none;
-    border: none;
-    background-color: rgb(214, 214, 214);
-    border-radius: 5px;
-    padding: 2%;
 }
 
 .caixa-submit {
@@ -38,19 +34,54 @@
     z-index: 1000;
 }
 
+.inputbox {
+    outline: none;
+    border: none;
+    background-color: rgb(214, 214, 214);
+    border-radius: 5px;
+    padding: 2%;
+}
+
+
 .button-left {
     margin-right: 2%;
     position: relative;
     left: 20%;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(1.1)
+    }
 }
 
 .button-right {
     margin-left: 2%;
     position: relative;
     right: 20%;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(1.1)
+    }
+}
+
+.select-adress {
+    padding: 5px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(1.1)
+    }
 }
 
 label {
     font-weight: 500;
     margin-bottom: 2%;
+}
+
+.button-placeholder1 {
+    background-color: red;
+    border: none;
+    align-items: center;
+    justify-content: center;
 }
