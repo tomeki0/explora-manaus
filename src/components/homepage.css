@@ -102,7 +102,6 @@
 }
 
 .overlay {
-<<<<<<< HEAD
   background-color: rgba(0, 0, 0, 0.7); /* Fundo preto com opacidade para contraste */
   padding: 3px;
   border-radius: 15px;
@@ -114,14 +113,6 @@
 
 
 /*login form setion */
-=======
-  background-color: none;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-/*login form section */
->>>>>>> 8560dc863b620a29be9b815850de60d395328632
 
 .login-form,
 .signup-form {
