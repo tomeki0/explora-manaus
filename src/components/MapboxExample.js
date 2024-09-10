@@ -182,7 +182,7 @@ const MapboxExample = () => {
                                 value={eventData.description}
                                 onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
                                 required
-                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+                                style={{ display: 'block', marginBottom: '10px', width: '100%', resize: 'none' }}
                             />
                         </div>
                         <div>
