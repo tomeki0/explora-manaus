@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import './mapbox-extra.css'; // Importa o arquivo CSS com a regra para o cursor
-
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import { IoMdPin } from "react-icons/io";
+import { MdCancel } from "react-icons/md";
+import { FaPlus } from "react-icons/fa";
 
 const MapboxExample = () => {
     const mapContainerRef = useRef();
@@ -12,7 +14,8 @@ const MapboxExample = () => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
-    const [eventData, setEventData] = useState({ name: '', description: '' });
+    const [eventData, setEventData] = useState({ name: '', description: '', category: 'Categoria 1' });
+    const [categories] = useState(['Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
     const currentMarkerRef = useRef(null);
 
     useEffect(() => {
@@ -20,43 +23,37 @@ const MapboxExample = () => {
 
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/dark-v10',
+            style: 'mapbox://styles/mapbox/streets-v12',
             center: [-60.0217, -3.1174],
             zoom: 12,
-            pitchWithRotate: false,  // Desativa a rotação do mapa junto com o pitch
-            dragRotate: false,  // Desativa a rotação do mapa via drag
-            touchZoomRotate: false  // Desativa a rotação do mapa via toque em dispositivos móveis
+            minZoom: 11.3,
+            pitchWithRotate: false,
+            dragRotate: false,
+            touchZoomRotate: false
         });
 
         const geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
             mapboxgl: mapboxgl,
-            bbox: [-60.2906, -3.2070, -59.7570, -2.9860],  // Limites da área de Manaus
+            bbox: [-60.2906, -3.2070, -59.7570, -2.9860],
             proximity: {
                 longitude: -60.0217,
                 latitude: -3.1174
             }
         });
 
-        mapRef.current.addControl(geocoder);
-
         // Código adicionado para ajustar a posição das sugestões de pesquisa
-        geocoder.on('results', () => {
+        geocoder.on('results', (response) => {
             const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
             const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
-            
             if (suggestions) {
-                // Se necessário, ajuste o top para garantir que as sugestões apareçam abaixo da barra de pesquisa
-                suggestions.style.top = `${geocoderElement.offsetHeight}px`;
-                // Garantir que o z-index esteja correto
-                suggestions.style.zIndex = 5;
+                const suggestionCount = response.features ? response.features.length : 0;
+                suggestions.style.top = `${24 + (suggestionCount - 1) * 15}px`;
+                suggestions.style.display = 'block';
             }
         });
-        
-        
-        
 
-        // Adiciona controle de navegação apenas com zoom, sem rotação
+        mapRef.current.addControl(geocoder);
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
 
         const bounds = [
@@ -67,31 +64,20 @@ const MapboxExample = () => {
         mapRef.current.fitBounds(bounds, { padding: 20 });
         mapRef.current.setMaxBounds(bounds);
 
-        mapRef.current.flyTo({
-            center: [-60.0217, -3.1174],
-            zoom: 14,
-            speed: 0.8,
-            curve: 1
-        });
-
         mapRef.current.on('click', async (event) => {
             const { lng, lat } = event.lngLat;
             setSelectedCoordinates([lng, lat]);
 
-            // Remover o marcador existente, se houver
             if (currentMarkerRef.current) {
                 currentMarkerRef.current.remove();
             }
 
-            // Criar novo marcador na posição clicada
             const newMarker = new mapboxgl.Marker({ color: '#0079FE' })
                 .setLngLat([lng, lat])
                 .addTo(mapRef.current);
 
-            // Armazenar o novo marcador na referência
             currentMarkerRef.current = newMarker;
 
-            // Usar o serviço de geocodificação reversa para obter o endereço
             const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`);
             const data = await response.json();
             if (data.features.length > 0) {
@@ -106,11 +92,7 @@ const MapboxExample = () => {
                 mapRef.current.remove();
             }
         };
-    }, []); // Sem dependências, para que o mapa só seja inicializado uma vez
-
-    const showEventForm = () => {
-        setIsFormVisible(true);
-    };
+    }, []);
 
     const handleAddEvent = (e) => {
         e.preventDefault();
@@ -120,11 +102,23 @@ const MapboxExample = () => {
                 .setLngLat(selectedCoordinates)
                 .addTo(mapRef.current);
 
-            marker.getElement().addEventListener('click', () => {
-                alert(`Evento: ${eventData.name}\nDescrição: ${eventData.description}`);
-            });
+            const popupContent = `
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <strong>${eventData.name}</strong>
+                    <p>${eventData.description}</p>
+                    <span style="background-color: #${eventData.category.replace(' ', '').toLowerCase()}; color: white; padding: 2px 5px; border-radius: 5px;">
+                        ${eventData.category}
+                    </span>
+                </div>
+            `;
 
-            setEventData({ name: '', description: '' });
+            const popup = new mapboxgl.Popup({ offset: 25 })
+                .setHTML(popupContent)
+                .addTo(mapRef.current);
+
+            marker.setPopup(popup);
+
+            setEventData({ name: '', description: '', category: 'Categoria 1' });
             setIsFormVisible(false);
             setSelectedAddress(null);
             setSelectedCoordinates(null);
@@ -153,40 +147,28 @@ const MapboxExample = () => {
                     boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
                 }}>
                     <span>{selectedAddress}</span>
-                    <button
-                        onClick={showEventForm}
+                    <FaPlus className='select-adress'
+                        onClick={() => setIsFormVisible(true)}
                         style={{
-                            marginLeft: '10px',
+                            position: 'relative',
                             backgroundColor: '#0079FE',
                             border: 'none',
                             color: 'white',
-                            borderRadius: '50%',
-                            width: '30px',
-                            height: '30px',
+                            borderRadius: '50px',
+                            minWidth: '30px',
+                            minHeight: '30px',
                             cursor: 'pointer',
-                            fontSize: '18px'
-                        }}>
-                        +
-                    </button>
+                            marginLeft: '10px'
+                        }} />
                 </div>
             )}
 
             {isFormVisible && (
-                <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    backgroundColor: 'white',
-                    padding: '20px',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-                    zIndex: 1000
-                }}>
+                <div className='caixa-submit'>
                     <form onSubmit={handleAddEvent}>
                         <div>
                             <label>Nome do Evento:</label>
-                            <input
+                            <input className='inputbox'
                                 type="text"
                                 value={eventData.name}
                                 onChange={(e) => setEventData({ ...eventData, name: e.target.value })}
@@ -196,20 +178,53 @@ const MapboxExample = () => {
                         </div>
                         <div>
                             <label>Descrição:</label>
-                            <textarea
+                            <textarea className='inputbox'
                                 value={eventData.description}
                                 onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
                                 required
-                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+                                style={{ display: 'block', marginBottom: '10px', width: '100%', resize: 'none' }}
                             />
                         </div>
+                        <div>
+                            <label>Categoria:</label>
+                            <select className='inputbox'
+                                value={eventData.category}
+                                onChange={(e) => setEventData({ ...eventData, category: e.target.value })}
+                                required
+                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+                            >
+                                {categories.map((category) => (
+                                    <option key={category} value={category}>
+                                        {category}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <button type="submit" style={{ backgroundColor: '#FF6347', color: 'white', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
-                                Adicionar Evento
-                            </button>
-                            <button type="button" onClick={handleCancel} style={{ backgroundColor: '#d3d3d3', color: 'black', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
-                                Cancelar
-                            </button>
+                            <IoMdPin size={25} type="button"
+                                onClick={handleAddEvent} className='button-left'
+                                style={{
+                                    backgroundColor: '#0079FE',
+                                    border: 'none',
+                                    color: 'white',
+                                    padding: '10px',
+                                    height: '50px',
+                                    width: '50px',
+                                    borderRadius: '50px',
+                                    cursor: 'pointer'
+                                }} />
+                            <MdCancel size={25} type="button"
+                                onClick={handleCancel} className='button-right'
+                                style={{
+                                    backgroundColor: '#FF873D',
+                                    border: 'none',
+                                    color: 'white',
+                                    padding: '10px',
+                                    height: '50px',
+                                    width: '50px',
+                                    borderRadius: '50px',
+                                    cursor: 'pointer'
+                                }} />
                         </div>
                     </form>
                 </div>

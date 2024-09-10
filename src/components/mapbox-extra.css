@@ -1,20 +1,88 @@
 .mapboxgl-canvas-container {
     cursor: url('../img/cursor-marker.png'), auto !important;
-    /* Substitua /path/to/cursor.png pelo caminho do seu ícone de cursor */
 }
 
 .mapboxgl-ctrl-geocoder {
     width: 100%;
-    margin-top: 0%;  /* Garante que o geocoder ocupe toda a largura do container */
+    margin-top: 0%;
+    position: relative;
+}
+
+.mapboxgl-ctrl-geocoder input:focus {
+    outline: none;
 }
 
 .suggestions-wrapper {
     position: relative;
-    left: -105%;
-    
+    top: 100%;
+    left: 0;
     z-index: 5;
-    margin-top: 5px;
+    margin-top: 0px;
+    width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.caixa-submit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
 
+.inputbox {
+    outline: none;
+    border: none;
+    background-color: rgb(214, 214, 214);
+    border-radius: 5px;
+    padding: 2%;
+}
+
+
+.button-left {
+    margin-right: 2%;
+    position: relative;
+    left: 20%;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(1.1)
+    }
+}
+
+.button-right {
+    margin-left: 2%;
+    position: relative;
+    right: 20%;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(1.1)
+    }
+}
+
+.select-adress {
+    padding: 5px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(1.1)
+    }
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 2%;
+}
+
+.button-placeholder1 {
+    background-color: red;
+    border: none;
+    align-items: center;
+    justify-content: center;
+}

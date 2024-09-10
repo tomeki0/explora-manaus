@@ -5,7 +5,8 @@
 }
 
 .main-page {
-    background-image: linear-gradient(#1b7bbb, #1a2b5c);
+    /*background-image: linear-gradient(135deg, #17469e, #171e5a);*/
+    background-image: linear-gradient(#151f52, #132044);
     height: 100vh;
     justify-content: center;
     align-items: center;
@@ -23,15 +24,18 @@
 }
 
 .menu-main-button {
-    background-color: rgba(10, 13, 54, 0.342) !important;
+
+    background-color: transparent;
+    border: 2px solid #FF873D;
+    color: #FF873D;
     margin: 30px;
     margin-top: 30px;
     animation: 1s ease-out 0s 1 slideInFromLeft;
-    border: none;
     font-weight: 500;
-}
 
-.menu-main-button:hover {
-    background-color: #e7671d !important;
-    color: white;
+    &:hover {
+        background-color: #FF873D;
+        border: 2px solid #FF873D;
+        color: white;
+    }
 }

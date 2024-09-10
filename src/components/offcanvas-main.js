@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { TiThMenu } from "react-icons/ti";
-import { IconContext } from "react-icons";
 
 import './offcanvas-main.css'
 
@@ -15,9 +14,7 @@ function MenuMain() {
 
     return (
         <>
-            <Button className="button" variant="primary" onClick={handleShow}>
-                <TiThMenu size={30} className='button-icon' />
-            </Button>
+            <TiThMenu className="button" variant="primary" onClick={handleShow} size={30} />
 
             <Offcanvas show={show} onHide={handleClose} placement='end' className="offcanvas-show">
                 <Offcanvas.Header closeButton className='close-button'>
