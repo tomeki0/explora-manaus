@@ -4,6 +4,9 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import './mapbox-extra.css'; // Importa o arquivo CSS com a regra para o cursor
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import { IoMdPin } from "react-icons/io";
+import { MdCancel } from "react-icons/md";
+import { FaPlus } from "react-icons/fa";
 
 const MapboxExample = () => {
     const mapContainerRef = useRef();
@@ -12,7 +15,7 @@ const MapboxExample = () => {
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [eventData, setEventData] = useState({ name: '', description: '', category: 'Categoria 1' });
-    const [categories] = useState(['Categoria 1', 'Categoria 2', 'Categoria 3', 'Categoria 4', 'Categoria 5']);
+    const [categories] = useState(['Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
     const currentMarkerRef = useRef(null);
 
     useEffect(() => {
@@ -144,21 +147,19 @@ const MapboxExample = () => {
                     boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
                 }}>
                     <span>{selectedAddress}</span>
-                    <button
+                    <FaPlus className='select-adress'
                         onClick={() => setIsFormVisible(true)}
                         style={{
+                            position: 'relative',
                             backgroundColor: '#0079FE',
                             border: 'none',
                             color: 'white',
-                            borderRadius: '50%',
-                            width: '30px',
-                            height: '30px',
+                            borderRadius: '50px',
+                            minWidth: '30px',
+                            minHeight: '30px',
                             cursor: 'pointer',
-                            fontSize: '18px',
                             marginLeft: '10px'
-                        }}>
-                        +
-                    </button>
+                        }} />
                 </div>
             )}
 
@@ -167,7 +168,7 @@ const MapboxExample = () => {
                     <form onSubmit={handleAddEvent}>
                         <div>
                             <label>Nome do Evento:</label>
-                            <input
+                            <input className='inputbox'
                                 type="text"
                                 value={eventData.name}
                                 onChange={(e) => setEventData({ ...eventData, name: e.target.value })}
@@ -177,7 +178,7 @@ const MapboxExample = () => {
                         </div>
                         <div>
                             <label>Descrição:</label>
-                            <textarea
+                            <textarea className='inputbox'
                                 value={eventData.description}
                                 onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
                                 required
@@ -186,7 +187,7 @@ const MapboxExample = () => {
                         </div>
                         <div>
                             <label>Categoria:</label>
-                            <select
+                            <select className='inputbox'
                                 value={eventData.category}
                                 onChange={(e) => setEventData({ ...eventData, category: e.target.value })}
                                 required
@@ -200,30 +201,30 @@ const MapboxExample = () => {
                             </select>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <button type="submit" style={{
-                                backgroundColor: '#0079FE',
-                                border: 'none',
-                                color: 'white',
-                                padding: '12px',
-                                borderRadius: '50px',
-                                cursor: 'pointer'
-                            }}>
-                                Adicionar Evento
-                            </button>
-                            <button
-                                type="button"
-                                onClick={handleCancel}
+                            <IoMdPin size={25} type="button"
+                                onClick={handleAddEvent} className='button-left'
+                                style={{
+                                    backgroundColor: '#0079FE',
+                                    border: 'none',
+                                    color: 'white',
+                                    padding: '10px',
+                                    height: '50px',
+                                    width: '50px',
+                                    borderRadius: '50px',
+                                    cursor: 'pointer'
+                                }} />
+                            <MdCancel size={25} type="button"
+                                onClick={handleCancel} className='button-right'
                                 style={{
                                     backgroundColor: '#FF873D',
                                     border: 'none',
                                     color: 'white',
-                                    padding: '12px',
+                                    padding: '10px',
+                                    height: '50px',
+                                    width: '50px',
                                     borderRadius: '50px',
-                                    cursor: 'pointer',
-                                    outline: 'none'
-                                }}>
-                                Cancelar
-                            </button>
+                                    cursor: 'pointer'
+                                }} />
                         </div>
                     </form>
                 </div>
