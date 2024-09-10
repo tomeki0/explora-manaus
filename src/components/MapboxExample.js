@@ -14,8 +14,13 @@ const MapboxExample = () => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
-    const [eventData, setEventData] = useState({ name: '', description: '', category: 'Categoria 1' });
-    const [categories] = useState(['Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
+    const [eventData, setEventData] = useState({ name: '', description: '', category: '' });
+    
+    // Categorias para eventos e locais separadamente
+    const [eventCategories] = useState(['Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
+    const [locationCategories] = useState(['Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
+    
+    const [isEventForm, setIsEventForm] = useState(true); // Estado para alternar entre Evento e Local
     const currentMarkerRef = useRef(null);
 
     useEffect(() => {
@@ -42,7 +47,6 @@ const MapboxExample = () => {
             }
         });
 
-        // Código adicionado para ajustar a posição das sugestões de pesquisa
         geocoder.on('results', (response) => {
             const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
             const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
@@ -129,6 +133,10 @@ const MapboxExample = () => {
         setIsFormVisible(false);
     };
 
+    const toggleForm = () => {
+        setIsEventForm(!isEventForm); // Alterna entre o formulário de evento e local
+    };
+
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', position: 'relative' }}>
             <div ref={mapContainerRef} className="map-container" style={{ width: '80%', height: '100%' }} />
@@ -166,8 +174,11 @@ const MapboxExample = () => {
             {isFormVisible && (
                 <div className='caixa-submit'>
                     <form onSubmit={handleAddEvent}>
+                        <button type="button" onClick={toggleForm} style={{ marginBottom: '10px', cursor: 'pointer' }}>
+                            {isEventForm ? 'Mudar pra Local' : 'Mudar pra Evento'}
+                        </button>
                         <div>
-                            <label>Nome do Evento:</label>
+                            <label>{isEventForm ? 'Nome do Evento:' : 'Nome do Local:'}</label>
                             <input className='inputbox'
                                 type="text"
                                 value={eventData.name}
@@ -177,7 +188,7 @@ const MapboxExample = () => {
                             />
                         </div>
                         <div>
-                            <label>Descrição:</label>
+                            <label>{isEventForm ? 'Descrição:' : 'Descrição:'}</label>
                             <textarea className='inputbox'
                                 value={eventData.description}
                                 onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
@@ -193,7 +204,7 @@ const MapboxExample = () => {
                                 required
                                 style={{ display: 'block', marginBottom: '10px', width: '100%' }}
                             >
-                                {categories.map((category) => (
+                                {(isEventForm ? eventCategories : locationCategories).map((category) => (
                                     <option key={category} value={category}>
                                         {category}
                                     </option>
@@ -216,7 +227,7 @@ const MapboxExample = () => {
                             <MdCancel size={25} type="button"
                                 onClick={handleCancel} className='button-right'
                                 style={{
-                                    backgroundColor: '#FF873D',
+                                    backgroundColor: '#FF6347',
                                     border: 'none',
                                     color: 'white',
                                     padding: '10px',
