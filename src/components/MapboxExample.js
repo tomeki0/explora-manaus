@@ -27,6 +27,9 @@ const MapboxExample = () => {
     const [locationCategories] = useState(['Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
     const [selectedEventCategories, setSelectedEventCategories] = useState([]);
     const [selectedLocationCategories, setSelectedLocationCategories] = useState([]);
+    const [savedEvents, setSavedEvents] = useState([]);
+    const [savedLocations, setSavedLocations] = useState([]);
+
     const [isEventForm, setIsEventForm] = useState(true);
     const currentMarkerRef = useRef(null);
 
@@ -68,8 +71,8 @@ const MapboxExample = () => {
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
 
         const bounds = [
-            [-60.2906, -3.2070],
-            [-59.7570, -2.9860]
+            [-60.118532, -3.160522], // SW
+            [-59.816644, -2.922472]  // NE
         ];
 
         mapRef.current.fitBounds(bounds, { padding: 20 });
@@ -107,12 +110,12 @@ const MapboxExample = () => {
 
     const handleAddEvent = (e) => {
         e.preventDefault();
-
+    
         if (eventData.name && eventData.description && selectedCoordinates) {
             const marker = new mapboxgl.Marker({ color: '#FF6347' })
                 .setLngLat(selectedCoordinates)
                 .addTo(mapRef.current);
-
+    
             const popupContent = `
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <strong>${eventData.name}</strong>
@@ -123,13 +126,25 @@ const MapboxExample = () => {
                     </span>
                 </div>
             `;
-
+    
             const popup = new mapboxgl.Popup({ offset: 25 })
                 .setHTML(popupContent)
                 .addTo(mapRef.current);
-
+    
             marker.setPopup(popup);
-
+    
+            // Salva o evento no estado
+            setSavedEvents(prevEvents => [
+                ...prevEvents,
+                { ...eventData, coordinates: selectedCoordinates }
+            ]);
+    
+            // Remove o marcador após 5 segundos
+            setTimeout(() => {
+                marker.remove();
+            }, 3000);
+    
+            // Reseta o formulário e o marcador atual
             setEventData({
                 name: '',
                 description: '',
@@ -142,7 +157,7 @@ const MapboxExample = () => {
             setSelectedCoordinates(null);
         }
     };
-
+    
     const handleCancel = () => {
         setIsFormVisible(false);
     };
