@@ -25,6 +25,8 @@ const MapboxExample = () => {
 
     const [eventCategories] = useState(['Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
     const [locationCategories] = useState(['Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
+    const [selectedEventCategories, setSelectedEventCategories] = useState([]);
+    const [selectedLocationCategories, setSelectedLocationCategories] = useState([]);
     const [isEventForm, setIsEventForm] = useState(true);
     const currentMarkerRef = useRef(null);
 
@@ -149,9 +151,51 @@ const MapboxExample = () => {
         setIsEventForm(!isEventForm);
     };
 
+    const handleCategoryChange = (categoryType, category) => {
+        if (categoryType === 'event') {
+            setSelectedEventCategories(prev => prev.includes(category)
+                ? prev.filter(c => c !== category)
+                : [...prev, category]);
+        } else {
+            setSelectedLocationCategories(prev => prev.includes(category)
+                ? prev.filter(c => c !== category)
+                : [...prev, category]);
+        }
+    };
+
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', position: 'relative' }}>
-            <div ref={mapContainerRef} className="map-container" style={{ width: '80%', height: '100%' }} />
+        <div style={{ display: 'flex', height: '80vh', position: 'relative' }}>
+            <div className="filter-menu">
+                <div className="category-group">
+                    <h3>Eventos</h3>
+                    {eventCategories.map(category => (
+                        <label key={category}>
+                            <input
+                                type="checkbox"
+                                checked={selectedEventCategories.includes(category)}
+                                onChange={() => handleCategoryChange('event', category)}
+                            />
+                            {category}
+                        </label>
+                    ))}
+                </div>
+                <div className="category-group">
+                    <h3>Locais</h3>
+                    {locationCategories.map(category => (
+                        <label key={category}>
+                            <input
+                                type="checkbox"
+                                checked={selectedLocationCategories.includes(category)}
+                                onChange={() => handleCategoryChange('location', category)}
+                            />
+                            {category}
+                        </label>
+                    ))}
+                </div>
+            </div>
+            
+            {/*AQUI QUE ALTERA O TAMANHO DO MAPA PPRT*/}
+            <div ref={mapContainerRef} className="map-container" style={{ width: '150vh', height: '80vh'}} />
 
             {selectedAddress && (
                 <div style={{
