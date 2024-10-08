@@ -23,8 +23,8 @@ const MapboxExample = () => {
         time: ''
     });
 
-    const [eventCategories] = useState(['Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
-    const [locationCategories] = useState(['Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
+    const [eventCategories] = useState(['Selecione uma categoria', 'Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
+    const [locationCategories] = useState(['Selecione uma categoria', 'Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
     const [selectedEventCategories, setSelectedEventCategories] = useState([]);
     const [selectedLocationCategories, setSelectedLocationCategories] = useState([]);
     const [savedEvents, setSavedEvents] = useState([]);
@@ -110,40 +110,40 @@ const MapboxExample = () => {
 
     const handleAddEvent = (e) => {
         e.preventDefault();
-    
+
         if (eventData.name && eventData.description && selectedCoordinates) {
             const marker = new mapboxgl.Marker({ color: '#FF6347' })
                 .setLngLat(selectedCoordinates)
                 .addTo(mapRef.current);
-    
+
             const popupContent = `
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <strong>${eventData.name}</strong>
-                    <p>${eventData.description}</p>
-                    <p>${eventData.date ? `Data: ${eventData.date}` : ''} ${eventData.time ? `Hora: ${eventData.time}` : ''}</p>
-                    <span style="background-color: #${eventData.category.replace(' ', '').toLowerCase()}; color: white; padding: 2px 5px; border-radius: 5px;">
+                <div class="popup-pin-set">
+                    <p class="popup-title">${eventData.name}</p>
+                    <p class="popup-description">${eventData.description}</p>
+                    <p class="popup-datetime">${eventData.date ? `Data: ${eventData.date}` : ''} <br> ${eventData.time ? `Hora: ${eventData.time}` : ''}</p>
+                    <span style="background-color: #${eventData.category.replace(' ', '').toLowerCase()};">
                         ${eventData.category}
                     </span>
                 </div>
             `;
-    
+
             const popup = new mapboxgl.Popup({ offset: 25 })
                 .setHTML(popupContent)
                 .addTo(mapRef.current);
-    
+
             marker.setPopup(popup);
-    
+
             // Salva o evento no estado
             setSavedEvents(prevEvents => [
                 ...prevEvents,
                 { ...eventData, coordinates: selectedCoordinates }
             ]);
-    
+
             // Remove o marcador após 5 segundos
             setTimeout(() => {
                 marker.remove();
             }, 3000);
-    
+
             // Reseta o formulário e o marcador atual
             setEventData({
                 name: '',
@@ -157,7 +157,7 @@ const MapboxExample = () => {
             setSelectedCoordinates(null);
         }
     };
-    
+
     const handleCancel = () => {
         setIsFormVisible(false);
     };
@@ -208,9 +208,9 @@ const MapboxExample = () => {
                     ))}
                 </div>
             </div>
-            
+
             {/*AQUI QUE ALTERA O TAMANHO DO MAPA PPRT*/}
-            <div ref={mapContainerRef} className="map-container" style={{ width: '150vh', height: '80vh'}} />
+            <div ref={mapContainerRef} className="map-container" style={{ width: '150vh', height: '80vh' }} />
 
             {selectedAddress && (
                 <div style={{
