@@ -23,8 +23,8 @@ const MapboxExample = () => {
         time: ''
     });
 
-    const [eventCategories] = useState(['Selecione uma categoria', 'Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
-    const [locationCategories] = useState(['Selecione uma categoria', 'Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
+    const [eventCategories] = useState(['Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
+    const [locationCategories] = useState(['Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
     const [selectedEventCategories, setSelectedEventCategories] = useState([]);
     const [selectedLocationCategories, setSelectedLocationCategories] = useState([]);
     const [savedEvents, setSavedEvents] = useState([]);
