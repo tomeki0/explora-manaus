@@ -178,6 +178,7 @@ const MapboxExample = () => {
         }
     };
 
+    {/* ISSO AQUI MUDA O MENU DE FILTRO */}
     return (
         <div style={{ display: 'flex', height: '80vh', position: 'relative' }}>
             <div className="filter-menu">
