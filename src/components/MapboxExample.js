@@ -217,7 +217,7 @@ const MapboxExample = () => {
                 <div style={{
                     position: 'absolute',
                     bottom: 20,
-                    left: '56%',
+                    left: '64%',
                     transform: 'translateX(-50%)',
                     backgroundColor: 'white',
                     padding: '10px',
