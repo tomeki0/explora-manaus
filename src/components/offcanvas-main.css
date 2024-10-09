@@ -28,6 +28,7 @@
     &:hover {
         background-color: #e7671d !important;
         color: white !important;
+        cursor: pointer;
     }
 }
 
@@ -72,17 +73,24 @@ ul {
 
 .button-menu {
     display: flex;
-    margin-bottom: 25%;
+    margin-bottom: 15px;
+    /* Distância entre os botões */
     width: 150px;
-
     color: rgb(77, 77, 77);
     font-weight: 600;
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(255, 255, 255);
     border: none;
     border-radius: 8px;
+    transition: transform 0.2s;
 
     &:hover {
         background-color: #e7671d;
         border-color: #e7671d;
     }
+}
+
+/* Classe para mover ambos os botões para baixo */
+.button-menu-back {
+    margin-top: 10px;
+    /* Move 10px para baixo */
 }

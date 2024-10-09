@@ -3,14 +3,30 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { TiThMenu } from "react-icons/ti";
 
-import './offcanvas-main.css'
+import './offcanvas-main.css';
 
 function MenuMain() {
-
     const [show, setShow] = useState(false);
+    const [buttons, setButtons] = useState(['Perfil', 'Log in', 'Log out']);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+        resetButtons();
+    };
+
     const handleShow = () => setShow(true);
+
+    const handleProfileClick = () => {
+        setButtons(['Configurações', 'Voltar']);
+    };
+
+    const handleBackClick = () => {
+        resetButtons();
+    };
+
+    const resetButtons = () => {
+        setButtons(['Perfil', 'Log in']);
+    };
 
     return (
         <>
@@ -27,10 +43,12 @@ function MenuMain() {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <ul>
-                        <Button className='button-menu'>Perfil</Button>
-                        <Button className='button-menu'>Configurações</Button>
-                        <Button className='button-menu'>Log in</Button>
-                        <Button className='button-menu'>Log out</Button>
+                        <Button className={`button-menu ${buttons[0] === 'Configurações' ? 'button-menu-back' : ''}`} onClick={handleProfileClick}>
+                            {buttons[0]}
+                        </Button>
+                        <Button className={`button-menu ${buttons[1] === 'Voltar' ? 'button-menu-back' : ''}`} onClick={buttons[1] === 'Voltar' ? handleBackClick : undefined}>
+                            {buttons[1]}
+                        </Button>
                     </ul>
                 </Offcanvas.Body>
             </Offcanvas>
