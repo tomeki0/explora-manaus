@@ -27,8 +27,39 @@ const MapboxExample = () => {
     const [locationCategories] = useState(['Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
     const [selectedEventCategories, setSelectedEventCategories] = useState([]);
     const [selectedLocationCategories, setSelectedLocationCategories] = useState([]);
-    const [savedEvents, setSavedEvents] = useState([]);
-    const [savedLocations, setSavedLocations] = useState([]);
+    const [savedEvents, setSavedEvents] = useState([
+        {
+            name: 'Festival de Música',
+            description: 'Um festival incrível com várias bandas locais.',
+            category: 'Cultura e Entretenimento',
+            date: '2024-11-12',
+            time: '18:00',
+            coordinates: [-60.0217, -3.1174]
+        },
+        {
+            name: 'Hackathon Tech',
+            description: 'Uma maratona de programação focada em soluções inovadoras.',
+            category: 'Tecnologia e Inovação',
+            date: '2024-12-05',
+            time: '09:00',
+            coordinates: [-60.0234, -3.1198]
+        }
+    ]);
+    
+    const [savedLocations, setSavedLocations] = useState([
+        {
+            name: 'Restaurante do Chef',
+            description: 'Culinária internacional com pratos exclusivos.',
+            category: 'Restaurantes e Bares',
+            coordinates: [-60.0456, -3.1024]
+        },
+        {
+            name: 'Hotel Central',
+            description: 'Conforto e luxo no coração da cidade.',
+            category: 'Hotéis e Acomodações',
+            coordinates: [-60.0331, -3.1107]
+        }
+    ]);
 
     const [isEventForm, setIsEventForm] = useState(true);
     const currentMarkerRef = useRef(null);
@@ -178,6 +209,59 @@ const MapboxExample = () => {
         }
     };
 
+    const [markers, setMarkers] = useState([]); // Array para armazenar os marcadores
+
+    const handleFilter = () => {
+        // Remove todos os marcadores do mapa
+        markers.forEach(marker => marker.remove());
+        setMarkers([]); // Limpa o array de marcadores
+    
+        // Filtra os eventos e locais com base nas categorias selecionadas
+        const filteredEvents = savedEvents.filter(event =>
+            selectedEventCategories.includes(event.category)
+        );
+        const filteredLocations = savedLocations.filter(location =>
+            selectedLocationCategories.includes(location.category)
+        );
+    
+        // Adiciona os eventos filtrados ao mapa
+        filteredEvents.forEach(event => {
+            const marker = new mapboxgl.Marker({ color: '#FF5733' })
+                .setLngLat(event.coordinates)
+                .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
+                    <div class="popup-pin-set">
+                        <p class="popup-title">${event.name}</p>
+                        <p class="popup-description">${event.description}</p>
+                        <p class="popup-datetime">${event.date ? `Data: ${event.date}` : ''} <br> ${event.time ? `Hora: ${event.time}` : ''}</p>
+                        <span style="background-color: #${event.category.replace(' ', '').toLowerCase()};">
+                            ${event.category}
+                        </span>
+                    </div>
+                `))
+                .addTo(mapRef.current);
+            setMarkers(prev => [...prev, marker]); // Adiciona o marcador ao array de marcadores
+        });
+    
+        // Exibe os locais filtrados no mapa
+        filteredLocations.forEach(location => {
+            const marker = new mapboxgl.Marker({ color: '#0079FE' })
+                .setLngLat(location.coordinates)
+                .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
+                    <div class="popup-pin-set">
+                        <p class="popup-title">${location.name}</p>
+                        <p class="popup-description">${location.description}</p>
+                        <span style="background-color: #${location.category.replace(' ', '').toLowerCase()};">
+                            ${location.category}
+                        </span>
+                    </div>
+                `))
+                .addTo(mapRef.current);
+            setMarkers(prev => [...prev, marker]); // Adiciona o marcador ao array de marcadores
+        });
+    };
+    
+
+
     {/* ISSO AQUI MUDA O MENU DE FILTRO */}
     return (
         <div style={{ display: 'flex', height: '80vh', position: 'relative' }}>
@@ -208,7 +292,9 @@ const MapboxExample = () => {
                         </label>
                     ))}
                 </div>
+                <button onClick={handleFilter}>Filtrar</button>
             </div>
+            
 
             {/*AQUI QUE ALTERA O TAMANHO DO MAPA PPRT*/}
             <div ref={mapContainerRef} className="map-container" style={{ width: '150vh', height: '80vh' }} />
