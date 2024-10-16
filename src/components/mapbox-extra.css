@@ -173,3 +173,23 @@ label {
 .filter-menu .category-group input {
     margin-right: 5px;
 }
+
+.filter-button{
+    background-color: #0079FE;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.filter-button:hover{
+    background-color: #0069d9;
+    transform: scale(1.05);
+}
+
+.filter-button:focus{
+    outline: none;
+}

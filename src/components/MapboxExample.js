@@ -275,7 +275,7 @@ const MapboxExample = () => {
                         </label>
                     ))}
                 </div>
-                <button onClick={handleFilter}>Filtrar</button>
+                <button className='filter-button' onClick={handleFilter}>Filtrar</button>
             </div>
             
 
