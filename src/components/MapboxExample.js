@@ -5,6 +5,9 @@ import { IoMdPin } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 
+import { locationData } from './data/locationData'; // Importando os dados de locais
+import { eventsData } from './data/eventsData'; // Importando os dados de eventos
+
 import './mapbox-extra.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
@@ -27,45 +30,14 @@ const MapboxExample = () => {
     const [locationCategories] = useState(['Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
     const [selectedEventCategories, setSelectedEventCategories] = useState([]);
     const [selectedLocationCategories, setSelectedLocationCategories] = useState([]);
-    const [savedEvents, setSavedEvents] = useState([
-        {
-            name: 'Festival de Música',
-            description: 'Um festival incrível com várias bandas locais.',
-            category: 'Cultura e Entretenimento',
-            date: '2024-11-12',
-            time: '18:00',
-            coordinates: [-60.0217, -3.1174]
-        },
-        {
-            name: 'Hackathon Tech',
-            description: 'Uma maratona de programação focada em soluções inovadoras.',
-            category: 'Tecnologia e Inovação',
-            date: '2024-12-05',
-            time: '09:00',
-            coordinates: [-60.0234, -3.1198]
-        }
-    ]);
-    
-    const [savedLocations, setSavedLocations] = useState([
-        {
-            name: 'Restaurante do Chef',
-            description: 'Culinária internacional com pratos exclusivos.',
-            category: 'Restaurantes e Bares',
-            coordinates: [-60.0456, -3.1024]
-        },
-        {
-            name: 'Hotel Central',
-            description: 'Conforto e luxo no coração da cidade.',
-            category: 'Hotéis e Acomodações',
-            coordinates: [-60.0331, -3.1107]
-        }
-    ]);
+    const [savedEvents, setSavedEvents] = useState(eventsData); // Usando dados importados
+    const [savedLocations, setSavedLocations] = useState(locationData); // Usando dados importados
 
     const [isEventForm, setIsEventForm] = useState(true);
     const currentMarkerRef = useRef(null);
 
     useEffect(() => {
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpbGltYWRldiIsImEiOiJjbTBkYmc4aDcwYm12MnFweGEyY283cmhtIn0.1S4flGeLkg8EI2H2-OjDLw';
+        mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN_HERE';
 
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
@@ -209,222 +181,91 @@ const MapboxExample = () => {
         }
     };
 
-    const [markers, setMarkers] = useState([]); // Array para armazenar os marcadores
-
-    const handleFilter = () => {
-        // Remove todos os marcadores do mapa
-        markers.forEach(marker => marker.remove());
-        setMarkers([]); // Limpa o array de marcadores
-    
-        // Filtra os eventos e locais com base nas categorias selecionadas
-        const filteredEvents = savedEvents.filter(event =>
-            selectedEventCategories.includes(event.category)
-        );
-        const filteredLocations = savedLocations.filter(location =>
-            selectedLocationCategories.includes(location.category)
-        );
-    
-        // Adiciona os eventos filtrados ao mapa
-        filteredEvents.forEach(event => {
-            const marker = new mapboxgl.Marker({ color: '#FF5733' })
-                .setLngLat(event.coordinates)
-                .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
-                    <div class="popup-pin-set">
-                        <p class="popup-title">${event.name}</p>
-                        <p class="popup-description">${event.description}</p>
-                        <p class="popup-datetime">${event.date ? `Data: ${event.date}` : ''} <br> ${event.time ? `Hora: ${event.time}` : ''}</p>
-                        <span style="background-color: #${event.category.replace(' ', '').toLowerCase()};">
-                            ${event.category}
-                        </span>
-                    </div>
-                `))
-                .addTo(mapRef.current);
-            setMarkers(prev => [...prev, marker]); // Adiciona o marcador ao array de marcadores
-        });
-    
-        // Exibe os locais filtrados no mapa
-        filteredLocations.forEach(location => {
-            const marker = new mapboxgl.Marker({ color: '#0079FE' })
-                .setLngLat(location.coordinates)
-                .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
-                    <div class="popup-pin-set">
-                        <p class="popup-title">${location.name}</p>
-                        <p class="popup-description">${location.description}</p>
-                        <span style="background-color: #${location.category.replace(' ', '').toLowerCase()};">
-                            ${location.category}
-                        </span>
-                    </div>
-                `))
-                .addTo(mapRef.current);
-            setMarkers(prev => [...prev, marker]); // Adiciona o marcador ao array de marcadores
-        });
-    };
-    
-
-
-    {/* ISSO AQUI MUDA O MENU DE FILTRO */}
     return (
-        <div style={{ display: 'flex', height: '80vh', position: 'relative' }}>
-            <div className="filter-menu">
-                <div className="category-group">
-                    <h3>Eventos</h3>
-                    {eventCategories.map(category => (
-                        <label key={category}>
-                            <input
-                                type="checkbox"
-                                checked={selectedEventCategories.includes(category)}
-                                onChange={() => handleCategoryChange('event', category)}
-                            />
-                            {category}
-                        </label>
-                    ))}
-                </div>
-                <div className="category-group">
-                    <h3>Locais</h3>
-                    {locationCategories.map(category => (
-                        <label key={category}>
-                            <input
-                                type="checkbox"
-                                checked={selectedLocationCategories.includes(category)}
-                                onChange={() => handleCategoryChange('location', category)}
-                            />
-                            {category}
-                        </label>
-                    ))}
-                </div>
-                <button onClick={handleFilter}>Filtrar</button>
-            </div>
-            
-
-            {/*AQUI QUE ALTERA O TAMANHO DO MAPA PPRT*/}
-            <div ref={mapContainerRef} className="map-container" style={{ width: '150vh', height: '80vh' }} />
-
-            {selectedAddress && (
-                <div style={{
-                    position: 'absolute',
-                    bottom: 20,
-                    left: '64%',
-                    transform: 'translateX(-50%)',
-                    backgroundColor: 'white',
-                    padding: '10px',
-                    borderRadius: '5px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
-                }}>
-                    <span>{selectedAddress}</span>
-                    <FaPlus className='select-adress'
-                        onClick={() => setIsFormVisible(true)}
-                        style={{
-                            position: 'relative',
-                            backgroundColor: '#0079FE',
-                            border: 'none',
-                            color: 'white',
-                            borderRadius: '50px',
-                            minWidth: '30px',
-                            minHeight: '30px',
-                            cursor: 'pointer',
-                            marginLeft: '10px'
-                        }} />
-                </div>
-            )}
-
+        <div>
+            <div ref={mapContainerRef} className="map-container" />
             {isFormVisible && (
-                <div className='caixa-submit'>
+                <div className="form-popup">
                     <form onSubmit={handleAddEvent}>
-
-                        <div>
-                            <label>{isEventForm ? 'Nome do Evento:' : 'Nome do Local:'}</label>
-                            <input className='inputbox'
-                                type="text"
-                                value={eventData.name}
-                                onChange={(e) => setEventData({ ...eventData, name: e.target.value })}
+                        <h2>{isEventForm ? 'Adicionar Evento' : 'Adicionar Local'}</h2>
+                        <input
+                            type="text"
+                            placeholder="Nome"
+                            value={eventData.name}
+                            onChange={e => setEventData({ ...eventData, name: e.target.value })}
+                            required
+                        />
+                        <textarea
+                            placeholder="Descrição"
+                            value={eventData.description}
+                            onChange={e => setEventData({ ...eventData, description: e.target.value })}
+                            required
+                        />
+                        {isEventForm ? (
+                            <>
+                                <select
+                                    onChange={e => setEventData({ ...eventData, category: e.target.value })}
+                                    required
+                                >
+                                    <option value="">Selecione a categoria</option>
+                                    {eventCategories.map((category, index) => (
+                                        <option key={index} value={category}>{category}</option>
+                                    ))}
+                                </select>
+                                <input
+                                    type="date"
+                                    onChange={e => setEventData({ ...eventData, date: e.target.value })}
+                                    required
+                                />
+                                <input
+                                    type="time"
+                                    onChange={e => setEventData({ ...eventData, time: e.target.value })}
+                                    required
+                                />
+                            </>
+                        ) : (
+                            <select
+                                onChange={e => setEventData({ ...eventData, category: e.target.value })}
                                 required
-                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
-                            />
-                        </div>
-                        <div>
-                            <label>{isEventForm ? 'Descrição:' : 'Descrição:'}</label>
-                            <textarea className='inputbox'
-                                value={eventData.description}
-                                onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
-                                required
-                                style={{ display: 'block', marginBottom: '10px', width: '100%', resize: 'none' }}
-                            />
-                        </div>
-                        {isEventForm && (
-                            <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                                <div style={{ flex: 1 }}>
-                                    <label>Data:</label>
-                                    <input className='inputbox'
-                                        type="date"
-                                        value={eventData.date}
-                                        onChange={(e) => setEventData({ ...eventData, date: e.target.value })}
-                                        required
-                                        style={{ display: 'block', width: '100%' }}
-                                    />
-                                </div>
-                                <div style={{ flex: 1 }}>
-                                    <label>Hora:</label>
-                                    <input className='inputbox'
-                                        type="time"
-                                        value={eventData.time}
-                                        onChange={(e) => setEventData({ ...eventData, time: e.target.value })}
-                                        required
-                                        style={{ display: 'block', width: '100%' }}
-                                    />
-                                </div>
-                            </div>
-                        )}
-                        <div>
-                            <label>Categoria:</label>
-                            <select className='inputbox'
-                                value={eventData.category}
-                                onChange={(e) => setEventData({ ...eventData, category: e.target.value })}
-                                required
-                                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
                             >
-                                {(isEventForm ? eventCategories : locationCategories).map((category) => (
-                                    <option key={category} value={category}>
-                                        {category}
-                                    </option>
+                                <option value="">Selecione a categoria</option>
+                                {locationCategories.map((category, index) => (
+                                    <option key={index} value={category}>{category}</option>
                                 ))}
                             </select>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <IoMdPin size={25} type="button"
-                                onClick={handleAddEvent} className='button-left'
-                                style={{
-                                    backgroundColor: '#0079FE',
-                                    border: 'none',
-                                    color: 'white',
-                                    padding: '10px',
-                                    height: '50px',
-                                    width: '50px',
-                                    borderRadius: '50px',
-                                    cursor: 'pointer'
-                                }} />
-                            <MdCancel size={25} type="button"
-                                onClick={handleCancel} className='button-right'
-                                style={{
-                                    backgroundColor: '#FF6347',
-                                    border: 'none',
-                                    color: 'white',
-                                    padding: '10px',
-                                    height: '50px',
-                                    width: '50px',
-                                    borderRadius: '50px',
-                                    cursor: 'pointer'
-                                }} />
-                        </div>
-                        <div className='form-changer' style={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
-                            <button type="button" onClick={toggleForm} style={{ cursor: 'pointer' }}>
-                                {isEventForm ? 'Local' : 'Evento'}
-                            </button>
-                        </div>
+                        )}
+                        <button type="submit">{isEventForm ? 'Adicionar Evento' : 'Adicionar Local'}</button>
+                        <button type="button" onClick={handleCancel}><MdCancel /> Cancelar</button>
                     </form>
                 </div>
             )}
+            <button onClick={() => setIsFormVisible(!isFormVisible)}>
+                <FaPlus /> {isFormVisible ? 'Fechar Formulário' : 'Adicionar Evento/Local'}
+            </button>
+            <div className="category-filters">
+                <h3>Filtrar Eventos</h3>
+                {eventCategories.map((category, index) => (
+                    <label key={index}>
+                        <input
+                            type="checkbox"
+                            checked={selectedEventCategories.includes(category)}
+                            onChange={() => handleCategoryChange('event', category)}
+                        />
+                        {category}
+                    </label>
+                ))}
+                <h3>Filtrar Locais</h3>
+                {locationCategories.map((category, index) => (
+                    <label key={index}>
+                        <input
+                            type="checkbox"
+                            checked={selectedLocationCategories.includes(category)}
+                            onChange={() => handleCategoryChange('location', category)}
+                        />
+                        {category}
+                    </label>
+                ))}
+            </div>
         </div>
     );
 };
