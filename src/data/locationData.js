@@ -1,6 +1,6 @@
 // locationsData.js
 
-export const savedLocations = [
+const locationsData = [
     {
         name: 'Museu da Amazônia',
         description: 'Um museu incrível dentro da floresta amazônica.',
@@ -13,5 +13,7 @@ export const savedLocations = [
         category: 'Natureza e Lazer',
         coordinates: [-60.064947, -3.08702]
     },
-    // Adicione mais locais aqui
+    
 ];
+
+export default locationsData;
