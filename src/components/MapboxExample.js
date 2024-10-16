@@ -8,6 +8,7 @@ import { FaPlus } from "react-icons/fa";
 import './mapbox-extra.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import locationsData from '../data/locationData';
 
 const MapboxExample = () => {
     const mapContainerRef = useRef();
@@ -46,20 +47,7 @@ const MapboxExample = () => {
         }
     ]);
     
-    const [savedLocations, setSavedLocations] = useState([
-        {
-            name: 'Restaurante do Chef',
-            description: 'Culinária internacional com pratos exclusivos.',
-            category: 'Restaurantes e Bares',
-            coordinates: [-60.0456, -3.1024]
-        },
-        {
-            name: 'Hotel Central',
-            description: 'Conforto e luxo no coração da cidade.',
-            category: 'Hotéis e Acomodações',
-            coordinates: [-60.0331, -3.1107]
-        }
-    ]);
+    const [savedLocations, setSavedLocations] = useState(locationsData);
 
     const [isEventForm, setIsEventForm] = useState(true);
     const currentMarkerRef = useRef(null);
@@ -169,11 +157,6 @@ const MapboxExample = () => {
                 ...prevEvents,
                 { ...eventData, coordinates: selectedCoordinates }
             ]);
-
-            // Remove o marcador após 5 segundos
-            setTimeout(() => {
-                marker.remove();
-            }, 3000);
 
             // Reseta o formulário e o marcador atual
             setEventData({
