@@ -29,16 +29,15 @@ const MapboxExample = () => {
     const [locationCategories] = useState(['Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
     const [selectedEventCategories, setSelectedEventCategories] = useState([]);
     const [selectedLocationCategories, setSelectedLocationCategories] = useState([]);
-    
     const [savedLocations, setSavedLocations] = useState(locationsData);
     const [savedEvents, setSavedEvents] = useState(eventsData);
-
     const [isEventForm, setIsEventForm] = useState(true);
     const currentMarkerRef = useRef(null);
+    const [markers, setMarkers] = useState([]); // Definindo markers antes de usá-lo
 
     useEffect(() => {
         mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpbGltYWRldiIsImEiOiJjbTBkYmc4aDcwYm12MnFweGEyY283cmhtIn0.1S4flGeLkg8EI2H2-OjDLw';
-
+    
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v12',
@@ -49,7 +48,7 @@ const MapboxExample = () => {
             dragRotate: false,
             touchZoomRotate: false
         });
-
+    
         const geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
             mapboxgl: mapboxgl,
@@ -59,57 +58,54 @@ const MapboxExample = () => {
                 latitude: -3.1174
             }
         });
-
-        geocoder.on('results', (response) => {
-            const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
-            const suggestions = geocoderElement?.querySelector('.suggestions-wrapper');
-            if (suggestions) {
-                const suggestionCount = response.features ? response.features.length : 0;
-                suggestions.style.top = `${24 + (suggestionCount - 1) * 15}px`;
-                suggestions.style.display = 'block';
-            }
-        });
-
+    
         mapRef.current.addControl(geocoder);
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
-
-        const bounds = [
-            [-60.118532, -3.160522], // SW
-            [-59.816644, -2.922472]  // NE
-        ];
-
-        mapRef.current.fitBounds(bounds, { padding: 20 });
-        mapRef.current.setMaxBounds(bounds);
-
+    
         mapRef.current.on('click', async (event) => {
             const { lng, lat } = event.lngLat;
+            
+            // Verifica se o clique está muito próximo de qualquer marcador filtrado
+            const isNearAnyMarker = markers.some(marker => {
+                const markerLngLat = marker.getLngLat();
+                const distance = Math.sqrt(
+                    Math.pow(markerLngLat.lng - lng, 2) + Math.pow(markerLngLat.lat - lat, 2)
+                );
+                const tolerance = 0.0001;  // Defina a tolerância de distância
+                return distance < tolerance;
+            });
+    
+            // Se estiver próximo de um marcador existente, não adicione um novo
+            if (isNearAnyMarker) {
+                console.log('Clique em um marcador existente, não adicionar outro.');
+                return;
+            }
+    
+            // Adiciona o novo pin normalmente
             setSelectedCoordinates([lng, lat]);
-
+    
             if (currentMarkerRef.current) {
                 currentMarkerRef.current.remove();
             }
-
+    
             const newMarker = new mapboxgl.Marker({ color: '#0079FE' })
                 .setLngLat([lng, lat])
                 .addTo(mapRef.current);
-
+    
             currentMarkerRef.current = newMarker;
-
+    
             const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`);
             const data = await response.json();
-            if (data.features.length > 0) {
-                setSelectedAddress(data.features[0].place_name);
-            } else {
-                setSelectedAddress('Endereço não encontrado');
-            }
+            setSelectedAddress(data.features.length > 0 ? data.features[0].place_name : 'Endereço não encontrado');
         });
-
+    
         return () => {
             if (mapRef.current) {
                 mapRef.current.remove();
             }
         };
     }, []);
+    
 
     const handleAddEvent = (e) => {
         e.preventDefault();
@@ -175,8 +171,6 @@ const MapboxExample = () => {
                 : [...prev, category]);
         }
     };
-
-    const [markers, setMarkers] = useState([]); // Array para armazenar os marcadores
 
     const handleFilter = () => {
         // Remove todos os marcadores do mapa
