@@ -22,7 +22,9 @@ const MapboxExample = () => {
         description: '',
         category: '',
         date: '',
-        time: ''
+        time: '',
+        isPaid: false,  // Adicionando isPaid
+        price: ''       // Adicionando price
     });
 
     const [eventCategories] = useState(['Cultura e Entretenimento', 'Esportes', 'Tecnologia e Inovação', 'Negócios e Educação', 'Gastronomia e Lazer']);
@@ -293,10 +295,10 @@ const MapboxExample = () => {
                 </div>
             )}
 
-            {isFormVisible && (
+{isFormVisible && (
                 <div className='caixa-submit'>
                     <form onSubmit={handleAddEvent}>
-
+                        {/* Campos comuns para evento e local */}
                         <div>
                             <label>{isEventForm ? 'Nome do Evento:' : 'Nome do Local:'}</label>
                             <input className='inputbox'
@@ -316,30 +318,63 @@ const MapboxExample = () => {
                                 style={{ display: 'block', marginBottom: '10px', width: '100%', resize: 'none' }}
                             />
                         </div>
+
                         {isEventForm && (
-                            <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                                <div style={{ flex: 1 }}>
-                                    <label>Data:</label>
-                                    <input className='inputbox'
-                                        type="date"
-                                        value={eventData.date}
-                                        onChange={(e) => setEventData({ ...eventData, date: e.target.value })}
-                                        required
-                                        style={{ display: 'block', width: '100%' }}
-                                    />
+                            <>
+                                {/* Campos adicionais para eventos */}
+                                <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                                    <div style={{ flex: 1 }}>
+                                        <label>Data:</label>
+                                        <input className='inputbox'
+                                            type="date"
+                                            value={eventData.date}
+                                            onChange={(e) => setEventData({ ...eventData, date: e.target.value })}
+                                            required
+                                            style={{ display: 'block', width: '100%' }}
+                                        />
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <label>Hora:</label>
+                                        <input className='inputbox'
+                                            type="time"
+                                            value={eventData.time}
+                                            onChange={(e) => setEventData({ ...eventData, time: e.target.value })}
+                                            required
+                                            style={{ display: 'block', width: '100%' }}
+                                        />
+                                    </div>
                                 </div>
-                                <div style={{ flex: 1 }}>
-                                    <label>Hora:</label>
-                                    <input className='inputbox'
-                                        type="time"
-                                        value={eventData.time}
-                                        onChange={(e) => setEventData({ ...eventData, time: e.target.value })}
-                                        required
-                                        style={{ display: 'block', width: '100%' }}
-                                    />
-                                </div>
-                            </div>
+
+                            {/* Checkbox e campo de preço para eventos */}
+                            <div style={{ marginBottom: '10px' }}>
+    <label style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+        <input
+            type="checkbox"
+            checked={eventData.isPaid}
+            onChange={(e) => setEventData({ ...eventData, isPaid: e.target.checked })}
+            style={{ marginRight: '8px' }} // Espaço entre a checkbox e o texto
+        />
+        Evento pago?
+        
+        {eventData.isPaid && (
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+                <label style={{ marginRight: '8px' }}>Valor:</label>
+                <input
+                    className='inputbox'
+                    type="number"
+                    value={eventData.price}
+                    onChange={(e) => setEventData({ ...eventData, price: e.target.value })}
+                    required={eventData.isPaid}
+                    style={{ width: '100px' }}
+                />
+            </div>
+        )}
+    </label>
+</div>
+
+                        </>
                         )}
+
                         <div>
                             <label>Categoria:</label>
                             <select className='inputbox'
@@ -355,6 +390,8 @@ const MapboxExample = () => {
                                 ))}
                             </select>
                         </div>
+
+                        {/* Botões de ação */}
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <IoMdPin size={25} type="button"
                                 onClick={handleAddEvent} className='button-left'
@@ -381,8 +418,10 @@ const MapboxExample = () => {
                                     cursor: 'pointer'
                                 }} />
                         </div>
+
+                        {/* Botão para alternar formulário */}
                         <div className='form-changer' style={{ display: 'flex', justifyContent: 'center', marginTop: '15px' }}>
-                            <button type="button" onClick={toggleForm} style={{ cursor: 'pointer' }}>
+                            <button type="button" onClick={toggleForm} className="filter-button">
                                 {isEventForm ? 'Local' : 'Evento'}
                             </button>
                         </div>
