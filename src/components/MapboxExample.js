@@ -9,6 +9,7 @@ import './mapbox-extra.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import locationsData from '../data/locationData';
+import eventsData from '../data/eventsData';
 
 const MapboxExample = () => {
     const mapContainerRef = useRef();
@@ -28,26 +29,9 @@ const MapboxExample = () => {
     const [locationCategories] = useState(['Restaurantes e Bares', 'Hotéis e Acomodações', 'Comércios Locais', 'Entretenimento e Centros Culturais']);
     const [selectedEventCategories, setSelectedEventCategories] = useState([]);
     const [selectedLocationCategories, setSelectedLocationCategories] = useState([]);
-    const [savedEvents, setSavedEvents] = useState([
-        {
-            name: 'Festival de Música',
-            description: 'Um festival incrível com várias bandas locais.',
-            category: 'Cultura e Entretenimento',
-            date: '2024-11-12',
-            time: '18:00',
-            coordinates: [-60.0217, -3.1174]
-        },
-        {
-            name: 'Hackathon Tech',
-            description: 'Uma maratona de programação focada em soluções inovadoras.',
-            category: 'Tecnologia e Inovação',
-            date: '2024-12-05',
-            time: '09:00',
-            coordinates: [-60.0234, -3.1198]
-        }
-    ]);
     
     const [savedLocations, setSavedLocations] = useState(locationsData);
+    const [savedEvents, setSavedEvents] = useState(eventsData);
 
     const [isEventForm, setIsEventForm] = useState(true);
     const currentMarkerRef = useRef(null);
@@ -250,34 +234,39 @@ const MapboxExample = () => {
         <div style={{ display: 'flex', height: '80vh', position: 'relative' }}>
             <div className="filter-menu">
                 <div className="category-group">
-                    <h3>Eventos</h3>
+                    <h3>
+                    <IoMdPin style={{ color: '#FF5733', marginRight: '8px', position: 'relative', top: '-4px' }} />
+                        Eventos
+                    </h3>
                     {eventCategories.map(category => (
-                        <label key={category}>
-                            <input
-                                type="checkbox"
-                                checked={selectedEventCategories.includes(category)}
-                                onChange={() => handleCategoryChange('event', category)}
-                            />
-                            {category}
-                        </label>
-                    ))}
+                <label key={category}>
+                <input
+                    type="checkbox"
+                    checked={selectedEventCategories.includes(category)}
+                    onChange={() => handleCategoryChange('event', category)}
+                />
+                {category}
+                </label>
+            ))}
                 </div>
-                <div className="category-group">
-                    <h3>Locais</h3>
-                    {locationCategories.map(category => (
-                        <label key={category}>
-                            <input
-                                type="checkbox"
-                                checked={selectedLocationCategories.includes(category)}
-                                onChange={() => handleCategoryChange('location', category)}
-                            />
-                            {category}
-                        </label>
-                    ))}
-                </div>
-                <button className='filter-button' onClick={handleFilter}>Filtrar</button>
+            <div className="category-group">
+                <h3>
+                    <IoMdPin style={{ color: '#0079FE', marginRight: '8px', position: 'relative', top: '-4px' }} />
+                    Locais
+                </h3>
+                {locationCategories.map(category => (
+                    <label key={category}>
+                        <input
+                            type="checkbox"
+                            checked={selectedLocationCategories.includes(category)}
+                            onChange={() => handleCategoryChange('location', category)}
+                        />
+                        {category}
+                    </label>
+                ))}
             </div>
-            
+            <button className='filter-button' onClick={handleFilter}>Filtrar</button>
+        </div>
 
             {/*AQUI QUE ALTERA O TAMANHO DO MAPA PPRT*/}
             <div ref={mapContainerRef} className="map-container" style={{ width: '150vh', height: '80vh' }} />
