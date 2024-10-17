@@ -62,42 +62,40 @@ const MapboxExample = () => {
         mapRef.current.addControl(geocoder);
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
     
-        mapRef.current.on('click', async (event) => {
+        mapRef.current.on('click', (event) => {
             const { lng, lat } = event.lngLat;
-            
-            // Verifica se o clique está muito próximo de qualquer marcador filtrado
-            const isNearAnyMarker = markers.some(marker => {
-                const markerLngLat = marker.getLngLat();
-                const distance = Math.sqrt(
-                    Math.pow(markerLngLat.lng - lng, 2) + Math.pow(markerLngLat.lat - lat, 2)
-                );
-                const tolerance = 0.0001;  // Defina a tolerância de distância
-                return distance < tolerance;
-            });
-    
-            // Se estiver próximo de um marcador existente, não adicione um novo
-            if (isNearAnyMarker) {
-                console.log('Clique em um marcador existente, não adicionar outro.');
+        
+            // Verifica se o clique foi diretamente em cima de um marcador
+            const elementsAtClick = document.elementsFromPoint(event.originalEvent.clientX, event.originalEvent.clientY);
+            const clickedOnMarker = elementsAtClick.some(el => el.classList.contains('mapboxgl-marker'));
+        
+            // Se o clique foi em um marcador existente, não adicionar um novo
+            if (clickedOnMarker) {
+                console.log('Clique em um marcador existente, mostrando popup.');
                 return;
             }
-    
+        
             // Adiciona o novo pin normalmente
             setSelectedCoordinates([lng, lat]);
-    
+        
             if (currentMarkerRef.current) {
                 currentMarkerRef.current.remove();
             }
-    
+        
             const newMarker = new mapboxgl.Marker({ color: '#0079FE' })
                 .setLngLat([lng, lat])
                 .addTo(mapRef.current);
-    
+        
             currentMarkerRef.current = newMarker;
-    
-            const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`);
-            const data = await response.json();
-            setSelectedAddress(data.features.length > 0 ? data.features[0].place_name : 'Endereço não encontrado');
+        
+            fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`)
+                .then(response => response.json())
+                .then(data => {
+                    setSelectedAddress(data.features.length > 0 ? data.features[0].place_name : 'Endereço não encontrado');
+                });
         });
+        
+        
     
         return () => {
             if (mapRef.current) {
