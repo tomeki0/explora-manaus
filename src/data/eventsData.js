@@ -1,4 +1,6 @@
 // src/data/eventsData.js
+import img1 from '../img/cidade-manaus.png';
+
 const eventsData = [
     {
         name: 'Festival de Música Amazônica',
@@ -6,6 +8,7 @@ const eventsData = [
         category: 'Cultura e Entretenimento',
         date: '2024-11-15',
         location: 'Teatro Amazonas',
+        image: img1,
         coordinates: [-60.021731, -3.100012]
     },
     {

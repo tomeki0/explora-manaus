@@ -86,7 +86,7 @@ label {
     align-items: center;
     justify-content: center;
 }
-
+/*ESSE CAMPO MEXXE NOS POPUPS TODOS OS POPUPS*/
 .popup-pin-set {
     display: flex;
     flex-direction: column;
@@ -98,6 +98,7 @@ label {
     font-weight: 600;
     padding: 10px;
     text-align: center;
+
 
     & .popup-title {
         padding: 5px;
@@ -121,6 +122,87 @@ label {
         padding: 2px 5px;
         border-radius: 5px;
     }
+}
+
+.event-popup{
+    width: 220px;
+    padding: 15px;
+    background-color: #fff;
+    border: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: left;
+    border-left: 5px solid #FF5733;
+}
+
+.event-popup .popup-title{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.event-popup.popup-description{
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #666; 
+}
+
+.event-popup .popup-datetime{
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.event-popup .popup-category{
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #FF5733;
+} 
+
+.event-popup .popup-price{
+    font-weight: bold;
+    color: #28a745;
+}
+
+.location-popup{
+    width: 220px;
+    padding:15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: left;
+    border-left: 5px solid #0079FE;
+}
+
+.location-popup .popup-title{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.location-popup .popup-description{
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.location-popup .popup-category{
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #0079FE;
 }
 
 /* Adicione ao seu arquivo CSS */
@@ -193,3 +275,4 @@ label {
 .filter-button:focus{
     outline: none;
 }
+

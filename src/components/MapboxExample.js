@@ -190,11 +190,13 @@ const MapboxExample = () => {
             const marker = new mapboxgl.Marker({ color: '#FF5733' })
                 .setLngLat(event.coordinates)
                 .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
-                    <div class="popup-pin-set">
+                    <div class="event-popup">
                         <p class="popup-title">${event.name}</p>
                         <p class="popup-description">${event.description}</p>
+                        <img src="${event.image}" alt="${event.name}" style="width: 100%; height: auto; margin: 10px 0;" onerror="this.onerror=null; this.src='src/img/cidade-manaus.png';" />
                         <p class="popup-datetime">${event.date ? `Data: ${event.date}` : ''} <br> ${event.time ? `Hora: ${event.time}` : ''}</p>
-                        <span style="background-color: #${event.category.replace(' ', '').toLowerCase()};">
+                        <p class="popup-price">${event.price === undefined || event.price === null || event.price === 0 || event.price === 'free' ? 'Gratuito' : `Preço: R$${event.price}`} </p>
+                        <span class= "popup-category">
                             ${event.category}
                         </span>
                     </div>
@@ -208,10 +210,10 @@ const MapboxExample = () => {
             const marker = new mapboxgl.Marker({ color: '#0079FE' })
                 .setLngLat(location.coordinates)
                 .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
-                    <div class="popup-pin-set">
+                    <div class="location-popup">
                         <p class="popup-title">${location.name}</p>
                         <p class="popup-description">${location.description}</p>
-                        <span style="background-color: #${location.category.replace(' ', '').toLowerCase()};">
+                        <span class="popup-category">
                             ${location.category}
                         </span>
                     </div>
