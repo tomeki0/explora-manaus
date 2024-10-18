@@ -44,7 +44,7 @@
 .profile-main {
     width: 70px;
     position: relative;
-    top: 15px;
+    top: 30px;
     left: 30px;
     background-color: rgb(214, 214, 214);
     border-radius: 20%;
@@ -52,10 +52,24 @@
 
 .username {
     position: relative;
-    color: #b3b3b3;
-    left: 180%;
+    color: #3ca3bd;
+    left: 120px;
     bottom: 35px;
+}
 
+.xp-bar {
+    position: relative;
+    color: #64ff71;
+    left: 120px;
+    bottom: 40px;
+}
+
+.level {
+    position: relative;
+    color: #3ca3bd;
+    left: 150px;
+    bottom: 63px;
+    font-size: 15px;
 }
 
 .close-button {

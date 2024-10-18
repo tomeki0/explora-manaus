@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { TiThMenu } from "react-icons/ti";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import './offcanvas-main.css';
 
@@ -35,10 +36,12 @@ function MenuMain() {
             <Offcanvas show={show} onHide={handleClose} placement='end' className="offcanvas-show">
                 <Offcanvas.Header closeButton className='close-button'>
                     <Offcanvas.Title>
-                        <img src={require('../img/profile-icon.png')} alt="Foto de perfil" className="profile-main" />
+                        <img src={require('../img/bruno-profile.png')} alt="Foto de perfil" className="profile-main" />
                         <div className='username'>
-                            Nome
+                            Bruno da Silva
                         </div>
+                        <AiOutlineLoading3Quarters className='xp-bar' />
+                        <div className='level'>Nv 10</div>
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
