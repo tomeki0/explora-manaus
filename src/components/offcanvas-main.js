@@ -3,31 +3,19 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { TiThMenu } from "react-icons/ti";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { IoMdPin } from "react-icons/io";
+import { FaStar } from "react-icons/fa";
 
 import './offcanvas-main.css';
 
 function MenuMain() {
     const [show, setShow] = useState(false);
-    const [buttons, setButtons] = useState(['Perfil', 'Log in', 'Log out']);
 
     const handleClose = () => {
         setShow(false);
-        resetButtons();
     };
 
     const handleShow = () => setShow(true);
-
-    const handleProfileClick = () => {
-        setButtons(['Configurações', 'Voltar']);
-    };
-
-    const handleBackClick = () => {
-        resetButtons();
-    };
-
-    const resetButtons = () => {
-        setButtons(['Perfil', 'Log in']);
-    };
 
     return (
         <>
@@ -45,12 +33,21 @@ function MenuMain() {
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
+                    <p className='information'>
+                        <IoMdPin className='profile-pin-icon' size={35} />
+                        <div className='information-background'>Pins colocados: 13</div>
+                    </p>
+                    <p className='information'>
+                        <FaStar className='profile-star-icon' size={30} />
+                        <div className='information-background'>Pins avaliados: 22</div>
+                    </p>
+                    <p className='information'>
+                        Reputação: <b className='user-status'>Confiável</b>
+                    </p>
+
                     <ul>
-                        <Button className={`button-menu ${buttons[0] === 'Configurações' ? 'button-menu-back' : ''}`} onClick={handleProfileClick}>
-                            {buttons[0]}
-                        </Button>
-                        <Button className={`button-menu ${buttons[1] === 'Voltar' ? 'button-menu-back' : ''}`} onClick={buttons[1] === 'Voltar' ? handleBackClick : undefined}>
-                            {buttons[1]}
+                        <Button className="button-menu">
+                            Configurações
                         </Button>
                     </ul>
                 </Offcanvas.Body>
