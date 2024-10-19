@@ -9,7 +9,7 @@
     }
 }
 
-/*botão*/
+/*botão que ativa o offcanvas (o hambúrguer) */
 .button {
     position: absolute;
     right: 0;
@@ -34,46 +34,99 @@
 
 /*menu aberto*/
 .offcanvas-show {
-    background-color: white;
+    background-color: rgb(40, 48, 70);
     height: 60%;
     border-radius: 10px 0 0 10px;
     margin-bottom: 50%;
+
+    /*foto do perfil e botão de fechar no menu*/
+    & .profile-main {
+        width: 70px;
+        position: relative;
+        top: 30px;
+        left: 30px;
+        background-color: rgb(214, 214, 214);
+        border-radius: 20%;
+    }
+
+    /*nome do usuário*/
+    & .username {
+        position: relative;
+        color: #cdf5ff;
+        left: 120px;
+        bottom: 35px;
+        user-select: none;
+    }
+
+    /*barrinha de XP*/
+    & .xp-bar {
+        position: relative;
+        color: #64ff71;
+        left: 120px;
+        bottom: 40px;
+    }
+
+    /*texto do nível*/
+    & .level {
+        position: relative;
+        color: #cdf5ff;
+        left: 150px;
+        bottom: 63px;
+        font-size: 15px;
+        user-select: none;
+    }
+
+    /*botão de fechar*/
+    & .close-button {
+        margin-right: 20px;
+        margin-bottom: -20px;
+    }
 }
 
-/*logo do explora manaus e botão de fechar no menu*/
-.profile-main {
-    width: 70px;
+/*informações do usuário*/
+.information {
+    font-family: sans-serif;
     position: relative;
-    top: 30px;
-    left: 30px;
-    background-color: rgb(214, 214, 214);
-    border-radius: 20%;
-}
+    top: 10px;
+    text-align: center;
+    font-size: larger;
+    font-weight: 400;
+    padding-bottom: 20px;
+    color: #cdf5ff;
+    user-select: none;
 
-.username {
-    position: relative;
-    color: #3ca3bd;
-    left: 120px;
-    bottom: 35px;
-}
+    & .profile-pin-icon {
+        position: absolute;
+        left: 65px;
+        bottom: 30px;
+        color: #27a8ff;
+        transform: rotate(330deg);
+    }
 
-.xp-bar {
-    position: relative;
-    color: #64ff71;
-    left: 120px;
-    bottom: 40px;
-}
+    & .profile-star-icon {
+        position: absolute;
+        left: 65px;
+        bottom: 30px;
+        color: #FF5733;
+        transform: rotate(350deg);
+    }
 
-.level {
-    position: relative;
-    color: #3ca3bd;
-    left: 150px;
-    bottom: 63px;
-    font-size: 15px;
-}
+    & .information-background {
+        margin: 0 auto;
+        width: 200px;
+        padding: 5px 10px 5px;
+        background-color: rgb(65, 108, 143);
+        border-radius: 20px;
+        color: #e4f3ff;
+    }
 
-.close-button {
-    margin-right: 20px;
+    & .user-status {
+        background-color: rgb(35, 163, 35);
+        border-radius: 20px;
+        padding: 5px 10px 5px;
+        font-weight: 500;
+        color: rgb(255, 255, 255);
+    }
 }
 
 /*lista*/
@@ -81,30 +134,24 @@ ul {
     list-style: none;
     font-size: larger;
     position: absolute;
-    top: 50%;
-    transform: translate(0, -28%);
-}
+    top: 80%;
+    right: 30%;
 
-.button-menu {
-    display: flex;
-    margin-bottom: 15px;
-    /* Distância entre os botões */
-    width: 150px;
-    color: rgb(77, 77, 77);
-    font-weight: 600;
-    background-color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 8px;
-    transition: transform 0.2s;
+    & .button-menu {
+        display: flex;
+        margin: 15px 5px 5px;
+        width: 150px;
+        color: #ffffff;
+        font-weight: 600;
+        background: none;
+        border: 2px solid #FF5733;
+        border-radius: 20px;
+        transition: transform 0.2s;
+        justify-content: center;
 
-    &:hover {
-        background-color: #e7671d;
-        border-color: #e7671d;
+        &:hover {
+            background-color: #FF5733;
+            border-color: #FF5733;
+        }
     }
-}
-
-/* Classe para mover ambos os botões para baixo */
-.button-menu-back {
-    margin-top: 10px;
-    /* Move 10px para baixo */
 }
