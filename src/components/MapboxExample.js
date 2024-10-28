@@ -84,7 +84,7 @@ const MapboxExample = () => {
                 currentMarkerRef.current.remove();
             }
         
-            const newMarker = new mapboxgl.Marker({ color: '#0079FE' })
+            const newMarker = new mapboxgl.Marker({ color: '#177245' })
                 .setLngLat([lng, lat])
                 .addTo(mapRef.current);
         
