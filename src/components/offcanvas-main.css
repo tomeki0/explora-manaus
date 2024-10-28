@@ -35,9 +35,10 @@
 /*menu aberto*/
 .offcanvas-show {
     background-color: rgb(40, 48, 70);
-    height: 60%;
+    height: 70%;
     border-radius: 10px 0 0 10px;
     margin-bottom: 50%;
+    overflow: hidden;
 
     /*foto do perfil e botão de fechar no menu*/
     & .profile-main {
@@ -87,7 +88,7 @@
 .information {
     font-family: sans-serif;
     position: relative;
-    top: 10px;
+    top: 30px;
     text-align: center;
     font-size: larger;
     font-weight: 400;
