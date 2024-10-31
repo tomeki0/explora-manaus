@@ -276,38 +276,40 @@ const MapboxExample = () => {
             <button className='filter-button' onClick={handleFilter}>Filtrar</button>
         </div>
 
-            {/*AQUI QUE ALTERA O TAMANHO DO MAPA PPRT*/}
-            <div ref={mapContainerRef} className="map-container" style={{ width: '150vh', height: '80vh' }} />
+                        {/* Contêiner do Mapa à Direita */}
+                        <div style={{ width: '75%', position: 'relative' }}>
+                            <div ref={mapContainerRef} className="map-container" style={{ width: '100%', borderRadius: '10px', height: '100%' }} />
 
-            {selectedAddress && (
-                <div style={{
-                    position: 'absolute',
-                    bottom: 20,
-                    left: '64%',
-                    transform: 'translateX(-50%)',
-                    backgroundColor: 'white',
-                    padding: '10px',
-                    borderRadius: '5px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
-                }}>
-                    <span>{selectedAddress}</span>
-                    <FaPlus className='select-adress'
-                        onClick={() => setIsFormVisible(true)}
-                        style={{
-                            position: 'relative',
-                            backgroundColor: '#0079FE',
-                            border: 'none',
-                            color: 'white',
-                            borderRadius: '50px',
-                            minWidth: '30px',
-                            minHeight: '30px',
-                            cursor: 'pointer',
-                            marginLeft: '10px'
-                        }} />
-                </div>
-            )}
+                            {selectedAddress && (
+                                <div style={{
+                                    position: 'absolute',
+                                    bottom: 20,
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    backgroundColor: 'white',
+                                    padding: '10px',
+                                    borderRadius: '5px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
+                                }}>
+                                    <span>{selectedAddress}</span>
+                                    <FaPlus className='select-adress'
+                                        onClick={() => setIsFormVisible(true)}
+                                        style={{
+                                            position: 'relative',
+                                            backgroundColor: '#0079FE',
+                                            border: 'none',
+                                            color: 'white',
+                                            borderRadius: '50px',
+                                            minWidth: '30px',
+                                            minHeight: '30px',
+                                            cursor: 'pointer',
+                                            marginLeft: '10px'
+                                        }} />
+                                </div>
+                            )}
+                        </div>
 
 {isFormVisible && (
                 <div className='caixa-submit'>
