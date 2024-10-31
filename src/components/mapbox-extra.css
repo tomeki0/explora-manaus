@@ -171,7 +171,7 @@ label {
 }
 
 .location-popup{
-    width: 220px;
+    max-width: 250px;
     padding:15px;
     background-color: #fff;
     border-radius: 10px;
@@ -203,6 +203,18 @@ label {
     font-weight: 600;
     color: #fff;
     background-color: #0079FE;
+}
+
+.location-popup .popup-price{
+    font-weight: bold;
+    color: #28a745;
+}
+
+.location-popup img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 /* Adicione ao seu arquivo CSS */
@@ -276,3 +288,21 @@ label {
     outline: none;
 }
 
+/*ESTRELAS?*/
+
+.star-rating {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #0079FE;
+}
+
+.star {
+    color: red;
+    margin-right: 2px;
+}
+.star.filled {
+    margin-left: 5px;
+    font-size: 1rem;
+    color: #555;
+}
