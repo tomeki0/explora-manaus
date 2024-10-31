@@ -1,9 +1,16 @@
 // src/data/locationsData.js
+import img1 from '../img/cidade-manaus.png';
+
 const locationsData = [
     {
         name: 'Restaurante do Chef',
         description: 'Culinária internacional com pratos exclusivos.',
         category: 'Restaurantes e Bares',
+        image: img1,
+        price: '35.50  - 60.00' ,
+        rating: 4.3,
+        reviews: 160,
+        date: '2024-21-12',
         coordinates: [-60.0456, -3.1024]
     },
     {

@@ -184,7 +184,15 @@ const MapboxExample = () => {
         const filteredLocations = savedLocations.filter(location =>
             selectedLocationCategories.includes(location.category)
         );
-    
+        
+        //GERA AS ESTRELAS!!!!!!
+        function generateStars(rating, reviews) {
+            const fullStar = '&#9733;';  // Estrela cheia
+            const emptyStar = '&#9734;'; // Estrela vazia
+            const stars = fullStar.repeat(Math.floor(rating)) + emptyStar.repeat(5 - Math.floor(rating));
+            return `${stars} <span style="font-size: 0.8rem; color: #555">(${reviews} avaliações)</span>`;
+        }
+
         // Adiciona os eventos filtrados ao mapa
         filteredEvents.forEach(event => {
             const marker = new mapboxgl.Marker({ color: '#FF5733' })
@@ -193,7 +201,7 @@ const MapboxExample = () => {
                     <div class="event-popup">
                         <p class="popup-title">${event.name}</p>
                         <p class="popup-description">${event.description}</p>
-                        <img src="${event.image}" alt="${event.name}" style="width: 100%; height: auto; margin: 10px 0;" onerror="this.onerror=null; this.src='src/img/cidade-manaus.png';" />
+                        <div class="star-rating">${generateStars(event.rating, event.reviews)}</div>
                         <p class="popup-datetime">${event.date ? `Data: ${event.date}` : ''} <br> ${event.time ? `Hora: ${event.time}` : ''}</p>
                         <p class="popup-price">${event.price === undefined || event.price === null || event.price === 0 || event.price === 'free' ? 'Gratuito' : `Preço: R$${event.price}`} </p>
                         <span class= "popup-category">
@@ -210,17 +218,21 @@ const MapboxExample = () => {
             const marker = new mapboxgl.Marker({ color: '#0079FE' })
                 .setLngLat(location.coordinates)
                 .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
-                    <div class="location-popup">
-                        <p class="popup-title">${location.name}</p>
-                        <p class="popup-description">${location.description}</p>
-                        <span class="popup-category">
-                            ${location.category}
-                        </span>
-                    </div>
-                `))
-                .addTo(mapRef.current);
-            setMarkers(prev => [...prev, marker]); // Adiciona o marcador ao array de marcadores
-        });
+                <div class="location-popup" style="max-width: 200px; padding: 10px; font-size: 0.9em;">
+                    <p class="popup-title" style="font-weight: bold; margin: 0 0 5px;">${location.name}</p>
+                    <p class="popup-description" style="margin: 0 0 5px;">${location.description}</p>
+                    <div class="star-rating">${generateStars(location.rating, location.reviews)}</div>
+                    <img src="${location.image}" alt="${location.name}" style="width: 100%; height: auto; max-height: 100px; margin: 5px 0;" onerror="this.onerror=null; this.src='caminho/para/imagem-padrao.jpg';" />
+                    <p class="popup-price" style="margin: 5px 0;">${location.price === undefined || location.price === null || location.price === 0 || location.price === 'free' ? 'Gratuito' : `Preço: R$${location.price}`} </p>
+            <span class="popup-category" style="display: inline-block; padding: 2px 5px; background-color: #0079FE; color: #fff; border-radius: 3px; font-size: 0.8em;">
+                ${location.category}
+            </span>
+        </div>
+    `))
+    .addTo(mapRef.current);
+
+    setMarkers(prev => [...prev, marker]); // Adiciona o marcador ao array de marcadores
+    });
     };
     
 
