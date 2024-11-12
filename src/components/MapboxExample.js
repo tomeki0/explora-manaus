@@ -44,11 +44,15 @@ const MapboxExample = () => {
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v12',
             center: [-60.0217, -3.1174],
-            zoom: 12,
-            minZoom: 11.3,
+            zoom: 10,
+            minZoom: 11,
             pitchWithRotate: false,
             dragRotate: false,
-            touchZoomRotate: false
+            touchZoomRotate: false,
+            maxBounds: [
+                [-60.118532, -3.160522], // SW
+                [-59.816644, -2.922472]  // NE
+            ]
         });
     
         const geocoder = new MapboxGeocoder({
