@@ -43,16 +43,15 @@
     padding: 2%;
 }
 
-
 .button-left {
     margin-right: 2%;
     position: relative;
     left: 20%;
     transition: all 0.3s ease;
+}
 
-    &:hover {
-        transform: scale(1.1)
-    }
+.button-left:hover {
+    transform: scale(1.1);
 }
 
 .button-right {
@@ -60,19 +59,19 @@
     position: relative;
     right: 20%;
     transition: all 0.3s ease;
+}
 
-    &:hover {
-        transform: scale(1.1)
-    }
+.button-right:hover {
+    transform: scale(1.1);
 }
 
 .select-adress {
     padding: 5px;
     transition: all 0.3s ease;
+}
 
-    &:hover {
-        transform: scale(1.1)
-    }
+.select-adress:hover {
+    transform: scale(1.1);
 }
 
 label {
@@ -86,7 +85,8 @@ label {
     align-items: center;
     justify-content: center;
 }
-/*ESSE CAMPO MEXXE NOS POPUPS TODOS OS POPUPS*/
+
+/*ESTILOS PARA POPUPS*/
 .popup-pin-set {
     display: flex;
     flex-direction: column;
@@ -98,33 +98,28 @@ label {
     font-weight: 600;
     padding: 10px;
     text-align: center;
-
-
-    & .popup-title {
-        padding: 5px;
-        background-color: #FF6347;
-        border-radius: 5px;
-        color: white;
-    }
-
-    & .popup-description {
-        background-color: white;
-    }
-
-    & .popup-datetime {
-        background-color: white;
-    }
-
-    & span {
-        justify-content: center;
-        background-color: #0079FE;
-        color: white;
-        padding: 2px 5px;
-        border-radius: 5px;
-    }
 }
 
-.event-popup{
+.popup-pin-set .popup-title {
+    padding: 5px;
+    background-color: #FF6347;
+    border-radius: 5px;
+    color: white;
+}
+
+.popup-pin-set .popup-description, .popup-pin-set .popup-datetime {
+    background-color: white;
+}
+
+.popup-pin-set span {
+    justify-content: center;
+    background-color: #0079FE;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.event-popup {
     width: 220px;
     padding: 15px;
     background-color: #fff;
@@ -136,26 +131,26 @@ label {
     border-left: 5px solid #FF5733;
 }
 
-.event-popup .popup-title{
+.event-popup .popup-title {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
     color: #333;
 }
 
-.event-popup.popup-description{
+.event-popup .popup-description {
     margin-bottom: 10px;
     font-size: 14px;
     color: #666; 
 }
 
-.event-popup .popup-datetime{
+.event-popup .popup-datetime {
     font-size: 14px;
     margin-bottom: 10px;
     color: #666;
 }
 
-.event-popup .popup-category{
+.event-popup .popup-category {
     display: inline-block;
     padding: 5px 10px;
     border-radius: 4px;
@@ -163,16 +158,16 @@ label {
     font-weight: 600;
     color: #fff;
     background-color: #FF5733;
-} 
+}
 
-.event-popup .popup-price{
+.event-popup .popup-price {
     font-weight: bold;
     color: #28a745;
 }
 
-.location-popup{
+.location-popup {
     max-width: 250px;
-    padding:15px;
+    padding: 15px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -182,20 +177,20 @@ label {
     border-left: 5px solid #0079FE;
 }
 
-.location-popup .popup-title{
+.location-popup .popup-title {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
     color: #333;
 }
 
-.location-popup .popup-description{
+.location-popup .popup-description {
     margin-bottom: 10px;
     font-size: 14px;
     color: #666;
 }
 
-.location-popup .popup-category{
+.location-popup .popup-category {
     display: inline-block;
     padding: 5px 10px;
     border-radius: 4px;
@@ -205,7 +200,7 @@ label {
     background-color: #0079FE;
 }
 
-.location-popup .popup-price{
+.location-popup .popup-price {
     font-weight: bold;
     color: #28a745;
 }
@@ -217,17 +212,17 @@ label {
     margin-bottom: 5px;
 }
 
-/* Adicione ao seu arquivo CSS */
+/* Estilo do Menu de Filtros */
 .filter-menu {
-    background-color: #f9f9f9; /* Fundo claro */
-    border: 1px solid #ddd; /* Borda suave */
-    border-radius: 8px; /* Cantos arredondados */
-    padding: 20px; /* Espaçamento interno */
-    margin: 20px; /* Espaçamento externo */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.category-group{
+.category-group {
     margin-bottom: 20px;
 }
 
@@ -236,39 +231,22 @@ label {
     color: #181f27;
 }
 
-.category-group label{
+.category-group label {
     display: flex;
     align-items: center;
     margin: 5px 0;
     cursor: pointer;
 }
 
-.category-group input[type="checkbox"]{
+.category-group input[type="checkbox"] {
     margin-right: 10px;
 }
 
-.category-group input[type="checkbox"]:checked{
+.category-group input[type="checkbox"]:checked {
     accent-color: #0079FE;
 }
 
-.filter-menu h3 {
-    margin-top: 0;
-}
-
-.filter-menu .category-group {
-    margin-bottom: 20px;
-}
-
-.filter-menu .category-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.filter-menu .category-group input {
-    margin-right: 5px;
-}
-
-.filter-button{
+.filter-button {
     background-color: #0079FE;
     color: white;
     border: none;
@@ -279,16 +257,14 @@ label {
     font-weight: bold;
 }
 
-.filter-button:hover{
+.filter-button:hover {
     background-color: #0069d9;
     transform: scale(1.05);
 }
 
-.filter-button:focus{
+.filter-button:focus {
     outline: none;
 }
-
-/*ESTRELAS?*/
 
 .star-rating {
     display: flex;
@@ -301,6 +277,7 @@ label {
     color: red;
     margin-right: 2px;
 }
+
 .star.filled {
     margin-left: 5px;
     font-size: 1rem;
