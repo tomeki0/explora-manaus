@@ -1,10 +1,109 @@
+/* Reset do pop-up padrão do Mapbox */
+.mapboxgl-popup {
+    z-index: 1000;
+}
+
+.mapboxgl-popup-content {
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: none !important;
+}
+
+.mapboxgl-popup-close-button {
+    display: none !important;
+}
+
+/* Estilos refinados para os pop-ups personalizados */
+.event-popup, .location-popup {
+    position: relative;
+    margin: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 15px;
+    background-color: #fff;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.event-popup::after, .location-popup::after {
+    content: '×';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.event-popup {
+    border-left: 5px solid #FF5733;
+}
+
+.location-popup {
+    border-left: 5px solid #0079FE;
+    max-width: 250px;
+}
+
+/* Ajustes nos elementos internos dos pop-ups */
+.popup-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.popup-description, .popup-datetime {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.popup-category {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.event-popup .popup-category {
+    background-color: #FF5733;
+}
+
+.location-popup .popup-category {
+    background-color: #0079FE;
+}
+
+.popup-price {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.location-popup img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* Cursor personalizado para o mapa */
 .mapboxgl-canvas-container {
     cursor: url('../img/cursor-marker.png'), auto !important;
 }
 
+/* Estilo da barra de pesquisa e sugestões */
 .mapboxgl-ctrl-geocoder {
     width: 100%;
-    margin-top: 0%;
     position: relative;
 }
 
@@ -17,11 +116,11 @@
     top: 100%;
     left: 0;
     z-index: 5;
-    margin-top: 0px;
     width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo do formulário de envio */
 .caixa-submit {
     position: absolute;
     top: 50%;
@@ -35,6 +134,7 @@
     z-index: 1000;
 }
 
+/* Estilos para botões */
 .inputbox {
     outline: none;
     border: none;
@@ -43,173 +143,32 @@
     padding: 2%;
 }
 
-.button-left {
-    margin-right: 2%;
-    position: relative;
-    left: 20%;
+.button-left, .button-right, .select-adress {
     transition: all 0.3s ease;
 }
 
-.button-left:hover {
+.button-left:hover, .button-right:hover, .select-adress:hover {
     transform: scale(1.1);
 }
 
-.button-right {
-    margin-left: 2%;
-    position: relative;
-    right: 20%;
-    transition: all 0.3s ease;
-}
-
-.button-right:hover {
-    transform: scale(1.1);
-}
-
-.select-adress {
-    padding: 5px;
-    transition: all 0.3s ease;
-}
-
-.select-adress:hover {
-    transform: scale(1.1);
-}
-
-label {
-    font-weight: 500;
-    margin-bottom: 2%;
-}
-
-.button-placeholder1 {
-    background-color: red;
+.filter-button {
+    background-color: #0079FE;
+    color: white;
     border: none;
-    align-items: center;
-    justify-content: center;
-}
-
-/*ESTILOS PARA POPUPS*/
-.popup-pin-set {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 100px;
-    min-height: 100px;
-    font-family: sans-serif;
-    font-size: medium;
-    font-weight: 600;
-    padding: 10px;
-    text-align: center;
-}
-
-.popup-pin-set .popup-title {
-    padding: 5px;
-    background-color: #FF6347;
+    padding: 10px 15px;
     border-radius: 5px;
-    color: white;
-}
-
-.popup-pin-set .popup-description, .popup-pin-set .popup-datetime {
-    background-color: white;
-}
-
-.popup-pin-set span {
-    justify-content: center;
-    background-color: #0079FE;
-    color: white;
-    padding: 2px 5px;
-    border-radius: 5px;
-}
-
-.event-popup {
-    width: 220px;
-    padding: 15px;
-    background-color: #fff;
-    border: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-family: 'Arial', sans-serif;
-    color: #333;
-    text-align: left;
-    border-left: 5px solid #FF5733;
-}
-
-.event-popup .popup-title {
-    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
     font-weight: bold;
-    margin-bottom: 8px;
-    color: #333;
 }
 
-.event-popup .popup-description {
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #666; 
+.filter-button:hover {
+    background-color: #0069d9;
+    transform: scale(1.05);
 }
 
-.event-popup .popup-datetime {
-    font-size: 14px;
-    margin-bottom: 10px;
-    color: #666;
-}
-
-.event-popup .popup-category {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #fff;
-    background-color: #FF5733;
-}
-
-.event-popup .popup-price {
-    font-weight: bold;
-    color: #28a745;
-}
-
-.location-popup {
-    max-width: 250px;
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-family: 'Arial', sans-serif;
-    color: #333;
-    text-align: left;
-    border-left: 5px solid #0079FE;
-}
-
-.location-popup .popup-title {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #333;
-}
-
-.location-popup .popup-description {
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #666;
-}
-
-.location-popup .popup-category {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #fff;
-    background-color: #0079FE;
-}
-
-.location-popup .popup-price {
-    font-weight: bold;
-    color: #28a745;
-}
-
-.location-popup img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 5px;
+.filter-button:focus {
+    outline: none;
 }
 
 /* Estilo do Menu de Filtros */
@@ -238,34 +197,11 @@ label {
     cursor: pointer;
 }
 
-.category-group input[type="checkbox"] {
-    margin-right: 10px;
-}
-
 .category-group input[type="checkbox"]:checked {
     accent-color: #0079FE;
 }
 
-.filter-button {
-    background-color: #0079FE;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: bold;
-}
-
-.filter-button:hover {
-    background-color: #0069d9;
-    transform: scale(1.05);
-}
-
-.filter-button:focus {
-    outline: none;
-}
-
+/* Estilo das estrelas de classificação */
 .star-rating {
     display: flex;
     align-items: center;
@@ -282,4 +218,11 @@ label {
     margin-left: 5px;
     font-size: 1rem;
     color: #555;
+}
+
+/* Melhorias na responsividade */
+@media screen and (max-width: 768px) {
+    .event-popup, .location-popup {
+        max-width: 200px;
+    }
 }
