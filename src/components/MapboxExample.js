@@ -209,10 +209,15 @@ const handleFilter = () => {
             <div class="event-popup">
                 <p class="popup-title">${event.name}</p>
                 <p class="popup-description">${event.description}</p>
-                <div class="star-rating">${generateStars(event.rating, event.reviews)}</div>
-                <p class="popup-datetime">${event.date ? `Data: ${event.date}` : ''} <br> ${event.time ? `Hora: ${event.time}` : ''}</p>
-                <p class="popup-price">${event.price === undefined || event.price === null || event.price === 0 || event.price === 'free' ? 'Gratuito' : `Preço: R$${event.price}`}</p>
-                <span class="popup-category">${event.category}</span>
+                <p class="popup-datetime">
+                    ${event.date ? `Data: ${event.date}` : ''} <br>
+                    ${event.time ? `Hora: ${event.time}` : ''}    
+                </p>
+                <p class="popup-price">
+                    ${event.price === undefined || event.price === null || event.price === 0 || event.price === 'free' ? 'Gratuito' : `Preço: R$${event.price}`}
+                </p>
+                <span class="popup-category">${event.category}</span> <br>
+                <a href="${event.pageLink}" class="event-link" target="_blank">Ir para a página do evento</a>
             </div>
         `);
 
@@ -238,7 +243,8 @@ const handleFilter = () => {
                 <div class="star-rating">${generateStars(location.rating, location.reviews)}</div>
                 <img src="${location.image}" alt="${location.name}" style="width: 100%; height: auto; max-height: 100px; margin: 5px 0;" onerror="this.onerror=null; this.src='caminho/para/imagem-padrao.jpg';" />
                 <p class="popup-price">${location.price === undefined || location.price === null || location.price === 0 || location.price === 'free' ? 'Gratuito' : `Preço: R$${location.price}`}</p>
-                <span class="popup-category">${location.category}</span>
+                <span class="popup-category">${location.category}</span> <br>
+                <a href="${location.pageLink}" class="event-link" target="_blank">Ir para a página do local</a>
             </div>
         `);
 
