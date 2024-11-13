@@ -11,7 +11,17 @@
 }
 
 .mapboxgl-popup-close-button {
-    display: none !important;
+    display: flex;
+    z-index: 10;  /* Certifique-se de que o botão está acima de outros elementos */
+    background-color: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    color: transparent;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 /* Estilos refinados para os pop-ups personalizados */
