@@ -43,6 +43,13 @@ const locationsData = [
         category: 'Restaurantes e Bares',
         coordinates: [-60.02515204361498, -3.1248667068520075]
     },
+    {
+        name: 'MUSA - Museu da Amazônia',
+        description: 'Museu a céu aberto localizado na Reserva Ducke, com torre de observação de 42m de altura que permite vista panorâmica da floresta. Oferece trilhas educativas, jardim de orquídeas e exposições sobre a biodiversidade amazônica.',
+        category: 'Entretenimento e Centros Culturais',
+        coordinates: [-59.93994170485279, -3.0071272709917243]
+    }
+
 ];
 
 export default locationsData;
