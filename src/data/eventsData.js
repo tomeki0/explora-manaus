@@ -4,8 +4,9 @@ const eventsData = [
         name: 'Manaus Music',
         description: 'Um evento musical com Charlie Brown Jr, Raimundos e Não Existe Saudade em Inglês',
         category: 'Cultura e Entretenimento',
-        date: '2024-11-15',
+        date: '2024/11/15',
         location: 'Studio 5',
+        time: '18:00',
         coordinates: [-59.983331070509465, -3.124321688768857]
         
     },
