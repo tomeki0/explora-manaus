@@ -1,30 +1,29 @@
 // src/data/eventsData.js
 const eventsData = [
     {
-        name: 'Festival de Música Amazônica',
-        description: 'Um evento musical com apresentações de artistas locais e regionais.',
+        name: 'Manaus Music',
+        description: 'Um evento musical com Charlie Brown Jr, Raimundos e Não Existe Saudade em Inglês',
         category: 'Cultura e Entretenimento',
         date: '2024-11-15',
-        location: 'Teatro Amazonas',
-        rating: 3.5,
-        reviews: 40,
-        coordinates: [-60.021731, -3.100012]
+        location: 'Studio 5',
+        coordinates: [-59.983331070509465, -3.124321688768857]
+        
     },
     {
-        name: 'Corrida Internacional de Manaus',
+        name: 'Corrida Amazônica',
         description: 'Evento esportivo anual com atletas nacionais e internacionais.',
         category: 'Esportes',
         date: '2024-12-05',
-        location: 'Ponta Negra',
-        coordinates: [-60.037885, -3.105852]
+        location: 'UFAM - Em frente ao Estacionamento da UFAM-FACED',
+        coordinates: [-59.97652343390843, -3.1001546116298977]
     },
     {
-        name: 'Feira de Startups e Tecnologia',
-        description: 'Oportunidade para empreendedores apresentarem inovações tecnológicas.',
+        name: 'Inovatech',
+        description: 'Oportunidade para alunos de gradução apresentarem inovações tecnológicas.',
         category: 'Tecnologia e Inovação',
-        date: '2024-10-22',
-        location: 'Centro de Convenções Vasco Vasques',
-        coordinates: [-60.035690, -3.101915]
+        date: '2024-11-25',
+        location: 'Manaus Plaza Shopping',
+        coordinates: [-60.02393800092801, -3.097380193553489] 
     },
     {
         name: 'Workshop de Empreendedorismo',

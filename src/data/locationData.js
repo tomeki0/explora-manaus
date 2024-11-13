@@ -6,7 +6,6 @@ const locationsData = [
         name: 'Restaurante do Chef',
         description: 'Culinária internacional com pratos exclusivos.',
         category: 'Restaurantes e Bares',
-        image: img1,
         price: '35.50  - 60.00' ,
         rating: 4.3,
         reviews: 160,
@@ -23,19 +22,26 @@ const locationsData = [
         name: 'Mercado Municipal Adolpho Lisboa',
         description: 'Um mercado histórico com produtos locais, frutas exóticas e comidas típicas.',
         category: 'Comércios Locais',
-        coordinates: [-60.021746, -3.117261]
+        coordinates: [-60.02372998465607, -3.139336112461147]
     },
     {
         name: 'Teatro Amazonas',
         description: 'Um dos mais belos teatros do Brasil, famoso por sua arquitetura e apresentações culturais.',
         category: 'Entretenimento e Centros Culturais',
-        coordinates: [-60.021731, -3.100012]
+        image: img1,
+        coordinates: [-60.0234098119285, -3.13026305152821]
     },
     {
         name: 'Centro Cultural dos Povos da Amazônia',
         description: 'Um espaço dedicado à cultura e à história dos povos amazônicos.',
         category: 'Entretenimento e Centros Culturais',
-        coordinates: [-60.021884, -3.112963]
+        coordinates: [-59.98737518465607, -3.1324245062407603]
+    },
+    {
+        name: 'Basquiat',
+        description: 'Bar alternativo',
+        category: 'Restaurantes e Bares',
+        coordinates: [-60.02515204361498, -3.1248667068520075]
     },
 ];
 
