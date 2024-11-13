@@ -20,10 +20,6 @@ function HomePage() {
     }
   };
 
-  const navigateToAboutPage = () => {
-    navigate('/about');
-  };
-
   const renderTooltip = (text) => (props) => (
     <Tooltip id={`tooltip-${text}`} {...props}>
       {text}
@@ -60,9 +56,6 @@ function HomePage() {
             <div className='button-group'>
               <Button onClick={handleScrollClick} className="custom-button-transparent">
                 Saber Mais
-              </Button>
-              <Button onClick={navigateToAboutPage} className='custom-button-transparent'>
-                Sobre o Projeto
               </Button>
             </div>
           </div>

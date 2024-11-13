@@ -1,5 +1,7 @@
 // src/data/locationsData.js
 import img1 from '../img/cidade-manaus.png';
+import musa from '../img/musa.jpg'
+import basq from '../img/basq.jpg'
 
 const locationsData = [
     {
@@ -41,12 +43,14 @@ const locationsData = [
         name: 'Basquiat',
         description: 'Bar alternativo',
         category: 'Restaurantes e Bares',
+        image: basq,
         coordinates: [-60.02515204361498, -3.1248667068520075]
     },
     {
         name: 'MUSA - Museu da Amazônia',
         description: 'Museu a céu aberto localizado na Reserva Ducke, com torre de observação de 42m de altura que permite vista panorâmica da floresta. Oferece trilhas educativas, jardim de orquídeas e exposições sobre a biodiversidade amazônica.',
         category: 'Entretenimento e Centros Culturais',
+        image: musa,
         coordinates: [-59.93994170485279, -3.0071272709917243]
     }
 
