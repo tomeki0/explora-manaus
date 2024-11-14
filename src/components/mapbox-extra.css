@@ -205,6 +205,11 @@
     align-items: center;
     margin: 5px 0;
     cursor: pointer;
+    font-weight: 500;
+}
+
+.category-group input[type="checkbox"] {
+    margin-right: 12px; /* Aumentado de seu valor padrão */
 }
 
 .category-group input[type="checkbox"]:checked {
