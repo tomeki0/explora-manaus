@@ -113,49 +113,98 @@ const MapboxExample = () => {
 
     const handleAddEvent = (e) => {
         e.preventDefault();
-
+    
         if (eventData.name && eventData.description && selectedCoordinates) {
-            const marker = new mapboxgl.Marker({ color: '#FF6347' })
+            const marker = new mapboxgl.Marker({ 
+                color: isEventForm ? '#FF5733' : '#0079FE' 
+            })
                 .setLngLat(selectedCoordinates)
                 .addTo(mapRef.current);
-
-            const popupContent = `
-                <div class="popup-pin-set">
-                    <p class="popup-title">${eventData.name}</p>
-                    <p class="popup-description">${eventData.description}</p>
-                    <p class="popup-datetime">${eventData.date ? `Data: ${eventData.date}` : ''} <br> ${eventData.time ? `Hora: ${eventData.time}` : ''}</p>
-                    <span style="background-color: #${eventData.category.replace(' ', '').toLowerCase()};">
-                        ${eventData.category}
-                    </span>
-                </div>
-            `;
-
-            const popup = new mapboxgl.Popup({ offset: 25 })
-                .setHTML(popupContent)
-                .addTo(mapRef.current);
-
+    
+            let popupContent;
+            
+            if (isEventForm) {
+                // Popup para eventos
+                popupContent = `
+                    <div class="event-popup">
+                        <p class="popup-title">${eventData.name}</p>
+                        <p class="popup-description">${eventData.description}</p>
+                        <p class="popup-datetime">
+                            ${eventData.date ? `Data: ${eventData.date}` : ''} <br>
+                            ${eventData.time ? `Hora: ${eventData.time}` : ''}    
+                        </p>
+                        <p class="popup-price">
+                            ${eventData.isPaid && eventData.price ? `Preço: R$${eventData.price}` : 'Gratuito'}
+                        </p>
+                        <span class="popup-category">${eventData.category}</span>
+                        ${eventData.pageLink ? `<br><a href="${eventData.pageLink}" class="event-link" target="_blank">Ir para a página do evento</a>` : ''}
+                    </div>
+                `;
+            } else {
+                // Popup para locais
+                function generateStars(rating = 0, reviews = 0) {
+                    const fullStar = '&#9733;';
+                    const emptyStar = '&#9734;';
+                    const stars = fullStar.repeat(Math.floor(rating)) + emptyStar.repeat(5 - Math.floor(rating));
+                    return `${stars} <span style="font-size: 0.8rem; color: #555">(${reviews} avaliações)</span>`;
+                }
+    
+                popupContent = `
+                    <div class="location-popup">
+                        <p class="popup-title">${eventData.name}</p>
+                        <p class="popup-description">${eventData.description}</p>
+                        <div class="star-rating">${generateStars(eventData.rating, eventData.reviews)}</div>
+                        ${eventData.image ? `<img src="${eventData.image}" alt="${eventData.name}" style="width: 100%; height: auto; max-height: 100px; margin: 5px 0;" onerror="this.onerror=null; this.src='caminho/para/imagem-padrao.jpg';" />` : ''}
+                        <p class="popup-price">
+                            ${eventData.isPaid && eventData.price ? `Preço: R$${eventData.price}` : 'Gratuito'}
+                        </p>
+                        <span class="popup-category">${eventData.category}</span>
+                        ${eventData.pageLink ? `<br><a href="${eventData.pageLink}" class="event-link" target="_blank">Ir para a página do local</a>` : ''}
+                    </div>
+                `;
+            }
+    
+            const popup = new mapboxgl.Popup({
+                offset: 25,
+                closeButton: true,
+                closeOnClick: false,
+                maxWidth: '300px'
+            }).setHTML(popupContent);
+    
             marker.setPopup(popup);
-
-            // Salva o evento no estado
-            setSavedEvents(prevEvents => [
-                ...prevEvents,
-                { ...eventData, coordinates: selectedCoordinates }
-            ]);
-
+    
+            // Salva o evento/local no estado apropriado
+            if (isEventForm) {
+                setSavedEvents(prevEvents => [
+                    ...prevEvents,
+                    { ...eventData, coordinates: selectedCoordinates }
+                ]);
+            } else {
+                setSavedLocations(prevLocations => [
+                    ...prevLocations,
+                    { ...eventData, coordinates: selectedCoordinates }
+                ]);
+            }
+    
             // Reseta o formulário e o marcador atual
             setEventData({
                 name: '',
                 description: '',
                 category: '',
                 date: '',
-                time: ''
+                time: '',
+                isPaid: false,
+                price: ''
             });
             setIsFormVisible(false);
             setSelectedAddress(null);
             setSelectedCoordinates(null);
+            
+            if (currentMarkerRef.current) {
+                currentMarkerRef.current.remove();
+            }
         }
     };
-
     const handleCancel = () => {
         setIsFormVisible(false);
     };
