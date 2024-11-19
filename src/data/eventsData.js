@@ -14,7 +14,7 @@ const eventsData = [
         name: 'Corrida Amazônica',
         description: 'Evento esportivo anual com atletas nacionais e internacionais.',
         category: 'Esportes',
-        date: '2024-12-05',
+        date: '2024/12/05',
         location: 'UFAM - Em frente ao Estacionamento da UFAM-FACED',
         coordinates: [-59.97652343390843, -3.1001546116298977]
     },
@@ -22,7 +22,7 @@ const eventsData = [
         name: 'Inovatech',
         description: 'Oportunidade para alunos de gradução apresentarem inovações tecnológicas.',
         category: 'Tecnologia e Inovação',
-        date: '2024-11-25',
+        date: '2024/11/25',
         location: 'Manaus Plaza Shopping',
         coordinates: [-60.02393800092801, -3.097380193553489] 
     },
@@ -30,7 +30,7 @@ const eventsData = [
         name: 'Workshop de Empreendedorismo',
         description: 'Palestras e workshops focados em negócios e educação.',
         category: 'Negócios e Educação',
-        date: '2024-11-01',
+        date: '2024/11/01',
         location: 'Sebrae Amazonas',
         coordinates: [-60.019831, -3.112789]
     },
@@ -38,7 +38,7 @@ const eventsData = [
         name: 'Festival Gastronômico de Manaus',
         description: 'Culinária local com chefs renomados e pratos típicos da região.',
         category: 'Gastronomia e Lazer',
-        date: '2024-11-10',
+        date: '2024/11/10',
         location: 'Praça da Saudade',
         coordinates: [-60.025555, -3.116948]
     }
