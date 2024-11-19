@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { IoMdClose, IoMdMenu, IoMdPin } from "react-icons/io";
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { IoMdPin } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
+import { FaPlus } from "react-icons/fa";
 
 import './mapbox-extra.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -13,12 +14,7 @@ import eventsData from '../data/eventsData';
 const MapboxExample = () => {
     const mapContainerRef = useRef();
     const mapRef = useRef();
-    const [selectedAddress, setSelectedAddress] = useState({
-        street: "S/L",
-        number: "S/N",
-        neighborhood: "S/L",
-        cep: "S/N",
-    }); // Endereço padrão ao carregar a página
+    const [selectedAddress, setSelectedAddress] = useState(null);
     const [selectedCoordinates, setSelectedCoordinates] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [eventData, setEventData] = useState({
@@ -46,15 +42,13 @@ const MapboxExample = () => {
     
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/streets-v12', // Estilo que suporta prédios em 3D
+            style: 'mapbox://styles/mapbox/streets-v12',
             center: [-60.0217, -3.1174],
-            zoom: 10, // Zoom inicial para visualizar prédios em 3D
-            pitchWithRotate: false, // Inclinação inicial do mapa para 3D
-            pitch: 50, // Inclinação inicial do mapa para 3D
-            bearing: -17.6, // Rotação inicial do mapa
+            zoom: 10,
             minZoom: 11,
-            dragRotate: true,
-            touchZoomRotate: true,
+            pitchWithRotate: false,
+            dragRotate: false,
+            touchZoomRotate: false,
             maxBounds: [
                 [-60.118532, -3.160522], // SW
                 [-59.816644, -2.922472]  // NE
@@ -68,81 +62,47 @@ const MapboxExample = () => {
             proximity: {
                 longitude: -60.0217,
                 latitude: -3.1174
-            },
+            }
         });
     
         mapRef.current.addControl(geocoder);
-
-        mapRef.current.on('load', () => {
-            const map = mapRef.current;
-
-            // Alterar a cor dos prédios para #69767d
-            map.addLayer({
-                id: '3d-buildings',
-                source: 'composite',
-                'source-layer': 'building',
-                filter: ['==', 'extrude', 'true'],
-                type: 'fill-extrusion',
-                paint: {
-                    'fill-extrusion-color': '#bfab95', // Cor dos prédios
-                    'fill-extrusion-height': ['get', 'height'],
-                    'fill-extrusion-base': ['get', 'min_height'],
-                    'fill-extrusion-opacity': 0.5
-                }
-            });
-
-            // Alterar a cor das ruas para #7d7d7d
-            map.setPaintProperty('road', 'line-color', '#7d7d7d');
-        });
-
+        mapRef.current.addControl(new mapboxgl.NavigationControl({ showZoom: true, showCompass: false }));
     
-        // Evento de clique no mapa
         mapRef.current.on('click', (event) => {
             const { lng, lat } = event.lngLat;
-    
+        
             // Verifica se o clique foi diretamente em cima de um marcador
             const elementsAtClick = document.elementsFromPoint(event.originalEvent.clientX, event.originalEvent.clientY);
             const clickedOnMarker = elementsAtClick.some(el => el.classList.contains('mapboxgl-marker'));
-    
+        
+            // Se o clique foi em um marcador existente, não adicionar um novo
             if (clickedOnMarker) {
                 console.log('Clique em um marcador existente, mostrando popup.');
                 return;
             }
-    
+        
             // Adiciona o novo pin normalmente
             setSelectedCoordinates([lng, lat]);
-    
+        
             if (currentMarkerRef.current) {
                 currentMarkerRef.current.remove();
             }
-    
+        
             const newMarker = new mapboxgl.Marker({ color: '#177245' })
                 .setLngLat([lng, lat])
                 .addTo(mapRef.current);
-    
+        
             currentMarkerRef.current = newMarker;
-    
-            // Obter informações de endereço usando a API do Mapbox Geocoding
+        
             fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.features.length > 0) {
-                        const address = data.features[0];
-                        const context = address.context || [];
-    
-                        const street = address.text || 'Não disponível';
-                        const number = address.address || 'S/N';
-                        const neighborhood = context.find(c => c.id.includes('neighborhood'))?.text || 'Não disponível';
-                        const cep = context.find(c => c.id.includes('postcode'))?.text || 'Não disponível';
-    
-                        setSelectedAddress({ street, number, neighborhood, cep });
-                    } else {
-                        setSelectedAddress(null);
-                    }
+                    setSelectedAddress(data.features.length > 0 ? data.features[0].place_name : 'Endereço não encontrado');
                 });
         });
+        
+        
     
-        // Cleanup ao desmontar o componente
         return () => {
             if (mapRef.current) {
                 mapRef.current.remove();
@@ -345,162 +305,80 @@ const handleFilter = () => {
         setMarkers(prev => [...prev, marker]);
     });
 };
-
-        const [isFilterVisible, setIsFilterVisible] = useState(false); // Estado para visibilidade do menu de filtro
-        const [isAddressVisible, setIsAddressVisible] = useState(false); // Estado para visibilidade da barra de endereço
-
-        const handleToggleFilter = () => {
-            setIsFilterVisible(prevState => !prevState);
-        };
-
-        const handleToggleAddress = () => {
-            setIsAddressVisible(prevState => !prevState);
-        };
     
     {/* ISSO AQUI MUDA O MENU DE FILTRO */}
     return (
-        <div style={{ display: 'flex', position: 'relative' }}>
-            {/* Contêiner do mapa com a barra de filtro e a barra de endereço */}
-            <div style={{ position: 'relative', width: '100%' }}>
-                {/* Mapa */}
-                <div ref={mapContainerRef} className="map-container" style={{ width: '100%', height: '80vh' }} />
-
-                {/* Botão para abrir/fechar o menu de filtro */}
-                <button
-                    onClick={handleToggleFilter}
-                    style={{
-                        position: 'absolute',
-                        bottom: '60%',
-                        right: '1%',
-                        zIndex: 20,
-                        backgroundColor: isFilterVisible ? '#FF5733' : '#007bff',
-                        color: 'white',
-                        width: '50px',
-                        height: '50px',
-                        border: 'none',
-                        borderRadius: '5px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer',
-                    }}
-                >
-                    {isFilterVisible ? (
-                        <IoMdClose size={24} /> // Ícone de fechar
-                    ) : (
-                        <IoMdMenu size={24} /> // Ícone de abrir
-                    )}
-                </button>
-
-                {/* Menu de Filtro dentro do mapa */}
-                <div
-                    className="filter-menu"
-                    style={{
-                        opacity: isFilterVisible ? 1 : 0,
-                        pointerEvents: isFilterVisible ? 'auto' : 'none',
-                        transition: 'opacity 0.3s ease',
-                    }}
-                >
-                    <div className="category-group">
-                        <h3>
-                            <IoMdPin style={{ color: '#FF5733', marginRight: '8px', position: 'relative', top: '-4px' }} />
-                            Eventos
-                        </h3>
-                        {eventCategories.map(category => (
-                            <label key={category}>
-                                <input
-                                    type="checkbox"
-                                    checked={selectedEventCategories.includes(category)}
-                                    onChange={() => handleCategoryChange('event', category)}
-                                />
-                                {category}
-                            </label>
-                        ))}
-                    </div>
-
-                    <div className="category-group">
-                        <h3>
-                            <IoMdPin style={{ color: '#0079FE', marginRight: '8px', position: 'relative', top: '-4px' }} />
-                            Locais
-                        </h3>
-                        {locationCategories.map(category => (
-                            <label key={category}>
-                                <input
-                                    type="checkbox"
-                                    checked={selectedLocationCategories.includes(category)}
-                                    onChange={() => handleCategoryChange('location', category)}
-                                />
-                                {category}
-                            </label>
-                        ))}
-                    </div>
-
-                    <button className="filter-button" onClick={handleFilter}>
-                        Filtrar
-                    </button>
+        <div style={{ display: 'flex', height: '82vh', position: 'relative' }}>
+            <div className="filter-menu">
+                <div className="category-group">
+                    <h3>
+                    <IoMdPin style={{ color: '#FF5733', marginRight: '8px', position: 'relative', top: '-4px' }} />
+                        Eventos
+                    </h3>
+                    {eventCategories.map(category => (
+                <label key={category}>
+                <input
+                    type="checkbox"
+                    checked={selectedEventCategories.includes(category)}
+                    onChange={() => handleCategoryChange('event', category)}
+                />
+                {category}
+                </label>
+            ))}
                 </div>
-
-                {/* Botão para abrir/fechar a barra de endereço */}
-                <button
-                    onClick={handleToggleAddress}
-                    style={{
-                        position: 'absolute',
-                        bottom: '45%',
-                        right: '1%',
-                        zIndex: 20,
-                        backgroundColor: isAddressVisible ? '#FF873D' : '#007bff',
-                        color: 'white',
-                        width: '50px',
-                        height: '50px',
-                        border: 'none',
-                        borderRadius: '5px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer',
-                    }}
-                >
-                    {isAddressVisible ? (
-                        <IoMdClose size={24} /> // Ícone de fechar
-                    ) : (
-                        <IoMdPin size={24} /> // Ícone de abrir
-                    )}
-                </button>
-
-                {/* Barra de endereço dentro do mapa */}
-                <div
-                    className="address-bar"
-                    style={{
-                        opacity: isAddressVisible ? 1 : 0,
-                        pointerEvents: isAddressVisible ? 'auto' : 'none',
-                        transition: 'opacity 0.3s ease',
-                    }}
-                >
-                    {selectedAddress && (
-                        <div className="address-content">
-                            <div className="address-details">
-                                <div>
-                                    <strong>Rua:</strong> {selectedAddress.street}
-                                </div>
-                                <div>
-                                    <strong>Número:</strong> {selectedAddress.number}
-                                </div>
-                                <div>
-                                    <strong>Bairro:</strong> {selectedAddress.neighborhood}
-                                </div>
-                                <div>
-                                    <strong>CEP:</strong> {selectedAddress.cep}
-                                </div>
-                            </div>
-                            <button onClick={() => setIsFormVisible(true)} className="add-pin-button">
-                                Adicionar Pin
-                            </button>
-                        </div>
-                    )}
-                </div>
+            <div className="category-group">
+                <h3>
+                    <IoMdPin style={{ color: '#0079FE', marginRight: '8px', position: 'relative', top: '-4px' }} />
+                    Locais
+                </h3>
+                {locationCategories.map(category => (
+                    <label key={category}>
+                        <input
+                            type="checkbox"
+                            checked={selectedLocationCategories.includes(category)}
+                            onChange={() => handleCategoryChange('location', category)}
+                        />
+                        {category}
+                    </label>
+                ))}
             </div>
+            <button className='filter-button' onClick={handleFilter}>Filtrar</button>
+        </div>
 
-                {isFormVisible && (
+            {/*AQUI QUE ALTERA O TAMANHO DO MAPA PPRT*/}
+            <div ref={mapContainerRef} className="map-container" style={{ width: '150vh', height: '80vh' }} />
+
+            {selectedAddress && (
+                <div style={{
+                    position: 'absolute',
+                    bottom: 20,
+                    left: '60%',
+                    transform: 'translateX(-50%)',
+                    backgroundColor: 'white',
+                    padding: '10px',
+                    borderRadius: '5px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
+                }}>
+                    <span>{selectedAddress}</span>
+                    <FaPlus className='select-adress'
+                        onClick={() => setIsFormVisible(true)}
+                        style={{
+                            position: 'relative',
+                            backgroundColor: '#0079FE',
+                            border: 'none',
+                            color: 'white',
+                            borderRadius: '50px',
+                            minWidth: '30px',
+                            minHeight: '30px',
+                            cursor: 'pointer',
+                            marginLeft: '10px'
+                        }} />
+                </div>
+            )}
+
+{isFormVisible && (
                 <div className='caixa-submit'>
                     <form onSubmit={handleAddEvent}>
                         {/* Campos comuns para evento e local */}
@@ -600,10 +478,28 @@ const handleFilter = () => {
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <IoMdPin size={25} type="button"
                                 onClick={handleAddEvent} className='button-left'
-                            />
+                                style={{
+                                    backgroundColor: '#0079FE',
+                                    border: 'none',
+                                    color: 'white',
+                                    padding: '10px',
+                                    height: '50px',
+                                    width: '50px',
+                                    borderRadius: '50px',
+                                    cursor: 'pointer'
+                                }} />
                             <MdCancel size={25} type="button"
                                 onClick={handleCancel} className='button-right'
-                            />
+                                style={{
+                                    backgroundColor: '#FF6347',
+                                    border: 'none',
+                                    color: 'white',
+                                    padding: '10px',
+                                    height: '50px',
+                                    width: '50px',
+                                    borderRadius: '50px',
+                                    cursor: 'pointer'
+                                }} />
                         </div>
 
                         {/* Botão para alternar formulário */}
