@@ -1,11 +1,13 @@
 // src/data/eventsData.js
 const eventsData = [
     {
-        name: 'Manaus Music',
-        description: 'Um evento musical com Charlie Brown Jr, Raimundos e Não Existe Saudade em Inglês',
+        name: 'Show Da Banda Sepultura',
+        description: 'Sepultura apresentera seu show Celebrating The Through Death trazendo vários clássicos da banda, não perca essa experiencia unica!! ',
         category: 'Cultura e Entretenimento',
-        date: '2024/11/15',
+        date: '05/12/2024',
         location: 'Studio 5',
+        price:'130,00 - 340,00',
+        pageLink:'https://www.bilheteriadigital.com/sepultura-manaus-05-de-dezembro',
         time: '18:00',
         coordinates: [-59.983331070509465, -3.124321688768857]
         
@@ -14,7 +16,7 @@ const eventsData = [
         name: 'Corrida Amazônica',
         description: 'Evento esportivo anual com atletas nacionais e internacionais.',
         category: 'Esportes',
-        date: '2024/12/05',
+        date: '31/12/2024',
         location: 'UFAM - Em frente ao Estacionamento da UFAM-FACED',
         coordinates: [-59.97652343390843, -3.1001546116298977]
     },
@@ -35,12 +37,14 @@ const eventsData = [
         coordinates: [-60.019831, -3.112789]
     },
     {
-        name: 'Festival Gastronômico de Manaus',
-        description: 'Culinária local com chefs renomados e pratos típicos da região.',
-        category: 'Gastronomia e Lazer',
-        date: '2024/11/10',
-        location: 'Praça da Saudade',
-        coordinates: [-60.025555, -3.116948]
+        name: 'Natalien',
+        description: 'Festival de música eletrônica com uma estrutura surpreendente que ira receber grandes artistas da musica eletrônica tanto mundialemnte quanto nossos destaques regionais ',
+        category: 'Cultura e Entretenimento',
+        date: '25/12/2024',
+        price:'30,00 - 160,00',
+        pageLink:'https://www.sympla.com.br/evento/natalien-10-anos/2659470?referrer=www.google.com',
+        location: 'litoranea77',
+        coordinates: [-3.0243757791163715, -60.0984107423293]
     }
 ];
 
