@@ -23,12 +23,18 @@ const locationsData = [
         name: 'Mercado Municipal Adolpho Lisboa',
         description: 'Um mercado histórico com produtos locais, frutas exóticas e comidas típicas.',
         category: 'Comércios Locais',
+        price: '20.00  - 40.00',
+        rating: 4.5,
+        reviews: 500,
         coordinates: [-60.02372998465607, -3.139336112461147]
     },
     {
         name: 'Teatro Amazonas',
         description: 'Um dos mais belos teatros do Brasil, famoso por sua arquitetura e apresentações culturais.',
         category: 'Entretenimento e Centros Culturais',
+        price: '15.00  - 100.00',
+        rating: 5.0,
+        reviews: 5000,
         image: img1,
         coordinates: [-60.0234098119285, -3.13026305152821]
     },
