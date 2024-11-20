@@ -44,7 +44,7 @@ const eventsData = [
         price:'30,00 - 160,00',
         pageLink:'https://www.sympla.com.br/evento/natalien-10-anos/2659470?referrer=www.google.com',
         location: 'litoranea77',
-        coordinates: [-3.0243757791163715, -60.0984107423293]
+        coordinates: [-60.0984107423293, -3.0243757791163715]
     }
 ];
 
