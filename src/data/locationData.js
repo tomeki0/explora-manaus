@@ -4,6 +4,15 @@ import basq from '../img/basq.jpg'
 import teatro_amazonas from '../img/teatro-amazonas.jpg'
 import povos from '../img/povos.jpg'
 import adolfo from '../img/adolfo.jpg'
+import bosque from '../img/bosque.jpeg'
+import pq_suma from '../img/pq-suma.jpg'
+import pontanegra from '../img/pontanegra.jpg'
+import daou from '../img/daou.png'
+import pracasdd from '../img/pracasdd.jpg'
+import remedios from '../img/remedios.webp'
+import relogio from '../img/relogio.jpg'
+import armando from '../img/armando.webp'
+import bilhares from '../img/bilhares.webp'
 
 const locationsData = [
     {
@@ -63,7 +72,7 @@ const locationsData = [
         price: 'Gratuito',
         rating: 4.7,
         reviews: 1200,
-        image: '',
+        image: pontanegra,
         coordinates: [-60.103858453573274, -3.0640898982118205]
     },
     {
@@ -73,7 +82,7 @@ const locationsData = [
         price: '5.00 - 10.00',
         rating: 4.5,
         reviews: 800,
-        image: '',
+        image: bosque,
         coordinates: [-59.98782273445791, -3.0974270310573297]
     },
     {
@@ -83,7 +92,7 @@ const locationsData = [
         price: 'Gratuito',
         rating: 4.3,
         reviews: 250,
-        image: '',
+        image: pracasdd,
         coordinates: [-60.02595539212965, -3.127301328260174]
     },
     {
@@ -93,7 +102,7 @@ const locationsData = [
         price: 'Gratuito',
         rating: 4.4,
         reviews: 180,
-        image: '',
+        image: relogio,
         coordinates: [-60.02503647678554, -3.1359755563684852]
     },
     {
@@ -103,7 +112,7 @@ const locationsData = [
         price: 'Gratuito',
         rating: 4.2,
         reviews: 320,
-        image: '',
+        image: remedios,
         coordinates: [-60.02377809239394, -3.138553063619553]
     },
     {
@@ -113,7 +122,7 @@ const locationsData = [
         price: '10.00 - 50.00',
         rating: 4.6,
         reviews: 410,
-        image: '',
+        image: armando,
         coordinates: [-60.022216775554114, -3.1298399798665035]
     },
     {
@@ -123,7 +132,7 @@ const locationsData = [
         price: 'Gratuito',
         rating: 4.3,
         reviews: 620,
-        image: '',
+        image: bilhares,
         coordinates: [-60.02436121715002, 3.1010582374110367] // Zona Centro-Sul
     },
     {
@@ -133,7 +142,7 @@ const locationsData = [
         price: '5.00 - 15.00',
         rating: 4.4,
         reviews: 320,
-        image: '',
+        image: pq_suma,
         coordinates: [-59.98063388842677, -3.034915503904753] // Zona Norte
     },
     {
@@ -143,18 +152,8 @@ const locationsData = [
         price: 'Gratuito',
         rating: 4.5,
         reviews: 280,
-        image: '',
+        image: daou,
         coordinates: [-60.0373787209657, -3.113549140875657] // Zona Oeste
-    },
-    {
-        name: 'Feira do Mutirão',
-        description: 'Feira popular com grande variedade de produtos locais, de frutas a artesanato.',
-        category: 'Comércios Locais',
-        price: 'Gratuito',
-        rating: 4.2,
-        reviews: 190,
-        image: '',
-        coordinates: [-59.945407301515374, -3.0451368497904263] // Zona Leste
     },
 ];
 
