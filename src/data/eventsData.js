@@ -25,7 +25,8 @@ const eventsData = [
         name: 'Inovatech',
         description: 'Oportunidade para alunos de gradução apresentarem inovações tecnológicas.',
         category: 'Tecnologia e Inovação',
-        date: '2024/11/25',
+        date: '25/11/2024',
+        time: '8:30 - 11:30 / 18:30 - 21:30',
         location: 'Manaus Plaza Shopping',
         coordinates: [-60.02393800092801, -3.097380193553489] 
     },
